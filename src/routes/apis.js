@@ -1,4 +1,5 @@
 const services = require('../services/index');
+const {loggedIn, adminOnly} = require("../middlewares/auth.middleware");
 module.exports = (app) => {
 
 
@@ -88,7 +89,7 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	app.post('/api/users/login', services.User.login);
+	app.post('/api/users/login',adminOnly, services.User.login);
 
 	/**
  * @swagger
