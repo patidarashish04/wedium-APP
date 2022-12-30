@@ -1,56 +1,52 @@
-const Order = require('../../dao/queries/model/order');
-const { getmyname,} = require('./function');
+const { createOrders, getOrderByid, getAllOrder, updateOrderById, deleteOrderById } = require('../Order/function');
 
-// GET category
-const createOrder = async (req, res, next) => {
+// GET Order
+const createNewOrder = async (req, res, next) => {
 	try {
-        const { userName, serviceName, cityName } = req.body;
-        // Validate user input
-        if (!(userName && serviceName && cityName)) {
+        const body = req.body;
+        // Validate Order input
+        if (!(body.userName && body.serviceName && body.cityName)) {
             return res.status(404).json({
-				error: 'Category not found',
+				error: 'Order not found',
 			});
         }
-        const category = await Order.create({
-            category_name,
-            category_image,
-            category_banner_image
-        });
-        res.status(200).json(category);
+        const Order = await createOrders(body);
+        res.status(200).json(Order);
     } catch (err) {
         console.log(err);
     }
 }
-// retrieve and return all users/ retrive and return a single user
-	const getOrderList = async (req, res, next) => {
-   if (req.query.id) {
-	   const id = req.query.id;
-	   Order.findById(id)
-		   .then(data => {
-			   if (!data) {
-				   res.status(404).json({ message: "Not found user with id " + id })
-			   } else {
-				   res.json(data)
-			   }
-		   })
-		   .catch(err => {
-			   res.status(500).json({ message: "Erro retrieving user with id " + id })
-		   })
-   } else {
-	Order.find()
-		   .then(user => {
-			   res.status(201).json({
-				   success: true,
-				   data: user,
-			   })
-		   })
-		   .catch(err => {
-			   res.status(500).json({ message: err.message || "Error Occurred while retriving user information" })
-			   next(err);
-		   })
-   }
+// retrieve and return all Order/ retrive and return a single Order
+const getOrderList = async (req, res, next) => {
+    if (req.query.id) {
+        const id = req.query.id;
+        getOrderByid(id)
+            .then(async (category) => {
+                try {
+                    if (!category && category.id) {
+                        res.status(404).json({ message: "Not found Order with id " + id })
+                    } else {
+                        res.json(category)
+                    }
+                } catch(err) {
+                res.status(500).json({ message: "Error retrieving Order with id " + id })
+                }
+            })
+            .catch((err) => res.status(500).json(err));
+    } else {
+        getAllOrder()
+            .then(categories => {
+                res.status(201).json({
+                    success: true,
+                    data: categories,
+                })
+            })
+            .catch(err => {
+                res.status(500).json({ message: err.message || "Error Occurred while retriving Order information" })
+                next(err);
+            })
+    }
 }
-
 //*********************Pagination code for all data*******************************
 //     limitPage = parseInt(req.query.limit, 10) || 10;
 //     const pageChange = parseInt(req.query.page, 10) || 1;
@@ -71,67 +67,70 @@ const createOrder = async (req, res, next) => {
 //   },
 
 
-// retrive and return a single user
-
+// retrive and return a single Order
 const getSingleOrder = async (req, res, next) => {
     const id = req.params.id;
-    Order.findById(id)
+    getOrderByid(id)
+        .then(async (category) => {
+            try {
+                if (!category && category.id) {
+                    res.status(404).json({ message: "Not found Order with id " + id })
+                } else {
+                    res.json(category)
+                }
+            } catch(err) {
+            res.status(500).json({ message: "Error retrieving Order with id " + id })
+            }
+        })
+        .catch((err) => res.status(500).json(err));
+    }
+
+    // update Order
+const updateOrder = async (req, res, next) => {
+    const data = req.body;
+    if (!data) {
+        return res
+            .status(400)
+            .json({ message: "Data to update can not be empty" })
+    }
+    const id = req.params.id;
+    await updateOrderById(id, data)
         .then(data => {
             if (!data) {
-                res.status(404).json({ message: "Not found user with id " + id })
+                res.status(404).json({ message: `Cannot Update Order with ${id}. Maybe Order not found!` })
             } else {
                 res.json(data)
             }
         })
         .catch(err => {
-            res.status(500).json({ message: "Erro retrieving user with id " + id })
+            res.status(500).json({ message: "Error Update Order information" })
         })
 }
 
-const updateOrder = async (req, res, next) => {
-	if (!req.body) {
-		return res
-            .status(400)
-            .json({ message: "Data to update can not be empty" })
-    }
-    const id = req.params.id;
-    Order.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-	.then(data => {
-		if (!data) {
-			res.status(404).json({ message: `Cannot Update Category with ${id}. Maybe user not found!` })
-		} else {
-			res.json(data)
-		}
-	})
-        .catch(err => {
-            res.status(500).json({ message: "Error Update Category information" })
-        })
-}
-
+   // delete Order
 const deleteOrder = async (req, res, next) => {
     const id = req.params.id;
-    Order.findByIdAndDelete(id)
-    .then(data => {
-        if (!data) {
+    await deleteOrderById(id)
+        .then(data => {
+            if (!data) {
                 res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })
             } else {
                 res.json({
-                    message: "Category was deleted successfully!"
+                    message: "Order was deleted successfully!"
                 })
             }
         })
         .catch(err => {
             res.status(500).json({
-                message: "Could not delete Category with id=" + id
+                message: "Could not delete Order with id=" + id
             });
         });
 }
 
-
 module.exports = {
-	createOrder,
-	getOrderList,
-	getSingleOrder,
-	updateOrder,
-	deleteOrder
+    createNewOrder,
+    getOrderList,
+    getSingleOrder,
+    updateOrder,
+    deleteOrder,
 };

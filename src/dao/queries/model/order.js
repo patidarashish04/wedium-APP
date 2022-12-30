@@ -13,20 +13,24 @@ const categorySchema = new mongoose.Schema({
     },
     cityName: {
         type: String,
-        enum: ['Bhubaneswar', 'Open', 'Processing'],
-        default: 'Open'
+        enum: ['Bhubaneswar', 'Bhopal', 'Bangalore'],
+        default: 'Bhubaneswar'
     },
     orderStatus: {
         type: String,
         enum: ['Pending', 'Open', 'Processing'],
         default: 'Open'
     },
+    orderDate: {
+        type: Date, 
+        default: Date.now
+    },
     createdOn: {
-        type: Date,
+        type: Date, 
+        default: Date.now
     },
 }, { timestamps: true });
 
-// module.exports = mongoose.model("Category", categorySchema);
 //we need to create collection
 const Order = mongoose.model('Order', categorySchema );
 

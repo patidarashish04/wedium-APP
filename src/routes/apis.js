@@ -93,7 +93,7 @@ module.exports = (app) => {
 	/**
  * @swagger
  * /api/updateUser/{id}:
- *  put:
+ *  patch:
  *    summary: Update the User by the id
  *    tags: [User]
  *    parameters:
@@ -122,7 +122,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.put('/api/updateUser/:id', services.User.updateUser);
+	app.patch('/api/updateUser/:id', services.User.updateUser);
 
 	/**
  * @swagger
@@ -209,9 +209,6 @@ module.exports = (app) => {
 
 	app.post('/api/v1/createCategory', services.categories.createCategory);
 
-
-
-
 	/**
 	 * @swagger
 	 * /api/v1/getCategory:
@@ -259,7 +256,7 @@ module.exports = (app) => {
 	/**
  * @swagger
  * /api/v1/updateCategory/{id}:
- *  put:
+ *  patch:
  *    summary: Update the Category by the id
  *    tags: [Category]
  *    parameters:
@@ -288,7 +285,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.put('/api/v1/updateCategory/:id', services.categories.updateCategory);
+	app.patch('/api/v1/updateCategory/:id', services.categories.updateCategory);
 
 	/**
  * @swagger
@@ -375,7 +372,7 @@ module.exports = (app) => {
 *       500:
 *         description: Some server error
 */
-	app.post('/api/v1/createSubCategory', services.subcategories.createSubCategory);
+	app.post('/api/v1/createSubCategory', services.subcategories.createNewSubCategory);
 
 	/**
 	 * @swagger
@@ -423,7 +420,7 @@ module.exports = (app) => {
 	/**
  * @swagger
  * /api/v1/updateSubCategory/{id}:
- *  put:
+ *  patch:
  *    summary: Update the SubCategory by the id
  *    tags: [SubCategory]
  *    parameters:
@@ -451,7 +448,7 @@ module.exports = (app) => {
  *      500:
  *        description: Some error happened
  */
-	app.put('/api/v1/updateSubCategory/:id', services.subcategories.updateSubCategory);
+	app.patch('/api/v1/updateSubCategory/:id', services.subcategories.updateSubCategory);
 
 	/**
  * @swagger
@@ -537,7 +534,7 @@ module.exports = (app) => {
 *       500:
 *         description: Some server error
 */
-	app.post('/api/v1/createServices', services.Services.createServices);
+	app.post('/api/v1/createServices', services.Services.createNewServices);
 
 	/**
 	 * @swagger
@@ -588,7 +585,7 @@ module.exports = (app) => {
 	/**
  * @swagger
  * /api/v1/updateServices/{id}:
- *  put:
+ *  patch:
  *    summary: Update the Services by the id
  *    tags: [Services]
  *    parameters:
@@ -617,7 +614,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.put('/api/v1/updateServices/:id', services.Services.updateServices);
+	app.patch('/api/v1/updateServices/:id', services.Services.updateServices);
 
 	/**
  * @swagger
@@ -643,10 +640,170 @@ module.exports = (app) => {
 	app.delete('/api/v1/deleteServices/:id', services.Services.deleteServices);
 
 	//*********** Order *************************/
-	app.post('/api/v1/createOrder',   services.Order.createOrder);
-	app.post('/api/v1/getOrderList',   services.Order.getOrderList);
-	app.post('/api/v1/getSingleOrder',   services.Order.getSingleOrder);
-	app.post('/api/v1/updateOrder',   services.Order.updateOrder);
-	app.post('/api/v1/deleteOrder',   services.Order.deleteOrder);
+
+
+	/**
+	 * @swagger
+	 * tags:
+	 *   name: Order
+	 *   description: The Order managing API
+	*/
+
+
+	/**
+	 * @swagger
+	 * components:
+	 *   schemas:
+	 *     Order:
+	 *       type: object
+	 *       required:
+	 *         - category_name
+	 *         - category_image
+	 *         - category_banner_image
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the Order
+ *         sub_category_name:
+ *           type: string
+ *           description: The sub_category_name 
+ *         sub_category_image:
+ *           type: string
+ *           description: The sub_category_image
+ *         category_id:
+ *           type: string
+ *           description: The category_id
+ *       example:
+ *         category_id: 34sdf55
+ *         sub_category_name: Bridal Makeup
+ *         sub_category_image: /Bridalmakeup.img.jpg
+	*/
+
+
+	/**
+* @swagger
+* /api/v1/createNewOrder:
+*   post:
+*     summary: Create a new Order
+*     tags: [Order]
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/Order'
+*     responses:
+*       200:
+*         description: The Order was successfully created
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/Order'
+*       500:
+*         description: Some server error
+*/
+
+	app.post('/api/v1/createNewOrder',   services.Order.createNewOrder);
+
+	/**
+	 * @swagger
+	 * /api/v1/getOrderList:
+	 *   get:
+	 *     summary: Returns the list of all the Order
+	 *     tags: [Order]
+	 *     responses:
+	 *       200:
+	 *         description: The list of the Order
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	   *               items:
+	   *                  $ref: '#/components/schemas/Order'
+	   */
+
+	app.get('/api/v1/getOrderList',   services.Order.getOrderList);
+
+	/**
+	 * @swagger
+	 * /api/v1/getSingleOrder/{id}:
+	 *   get:
+	 *     summary: Get the Order by id
+	 *     tags: [Order]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The Order id
+	 *     responses:
+	 *       200:
+	 *         description: The Order description by id
+	 *         contens:
+	 *           application/json:
+	 *             schema:
+	 *             $ref: '#/components/schemas/Order'
+	 *       404:
+	 *         description: The Order was not found
+	 */
+
+	app.get('/api/v1/getSingleOrder/:id',   services.Order.getSingleOrder);
+
+	/**
+ * @swagger
+ * /api/v1/updateOrder/{id}:
+ *  patch:
+ *    summary: Update the Order by the id
+ *    tags: [Order]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The Order id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Order'
+ *    responses:
+ *      200:
+ *        description: The Order was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Order'
+ *      404:
+ *        description: The Order was not found
+ *      500:
+ *        description: Some error happened
+ */
+
+	app.patch('/api/v1/updateOrder/:id',   services.Order.updateOrder);
+
+	/**
+ * @swagger
+ *  /api/v1/deleteOrder/{id}:
+ *   delete:
+ *     summary: Remove the Order by id
+ *     tags: [Order]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Order id
+ * 
+ *     responses:
+ *       200:
+ *         description: The Order was deleted
+ *       404:
+ *         description: The Order was not found
+ */
+	app.delete('/api/v1/deleteOrder/:id',   services.Order.deleteOrder);
 
 };

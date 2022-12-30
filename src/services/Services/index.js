@@ -1,120 +1,134 @@
-const Services = require('../../dao/queries/model/services');
-// const { getmyname,} = require('./functions');
+// const Services = require('../../dao/queries/model/services');
+const { createService, getServicesByid, getAllServices, updateServicesById, deleteServicesById } = require('../Services/function')
 
-// GET category
-
-const createServices = async (req, res, next) => {
-	try {
-        const { SubCategory_id, service_name, service_images, service_banner_image, service_description, notes, price } = req.body;
-        // Validate user input
-        if (!(SubCategory_id && service_name && service_images, service_banner_image, price)) {
+// GET Services
+const createNewServices = async (req, res, next) => {
+    try {
+        const body = req.body;
+        // Validate services input
+        if (!(body.SubCategory_id && body.service_name && body.service_images, body.service_banner_image, body.price)) {
             res.status(400).json("All input is required");
         }
-        const services = await Services.create({
-            SubCategory_id,
-            service_name,
-            service_images,
-            service_banner_image,
-            service_description,
-            notes,
-            price
-        });
+        const services = await createService(body);
         res.status(200).json(services);
     } catch (err) {
         console.log(err);
     }
 }
-// retrieve and return all users/ retrive and return a single user
-	const getServices = async (req, res, next) => {
-   if (req.query.id) {
-	   const id = req.params.id;
-	   Services.findById(id)
-		   .then(data => {
-			   if (!data) {
-				   res.status(404).json({ message: "Not found user with id " + id })
-			   } else {
-				   res.json(data)
-			   }
-		   })
-		   .catch(err => {
-			   res.status(500).json({ message: "Erro retrieving user with id " + id })
-		   })
-   } else {
-	Services.find()
-		   .then(user => {
-			   res.status(201).json({
-				   success: true,
-				   data: user,
-			   })
-		   })
-		   .catch(err => {
-			   res.status(500).json({ message: err.message || "Error Occurred while retriving user information" })
-			   next(err);
-		   })
-   }
+// retrieve and return all Services/ retrive and return a single Services
+const getServices = async (req, res, next) => {
+    if (req.query.id) {
+        const id = req.query.id;
+        getServicesByid(id)
+            .then(async (Services) => {
+                try {
+                    if (!Services && Services.id) {
+                        res.status(404).json({ message: "Not found Services with id " + id })
+                    } else {
+                        res.json(Services)
+                    }
+                } catch (err) {
+                    res.status(500).json({ message: "Error retrieving Services with id " + id })
+                }
+            })
+            .catch((err) => res.status(500).json(err));
+    } else {
+        getAllServices()
+            .then(Services => {
+                res.status(201).json({
+                    success: true,
+                    data: Services,
+                })
+            })
+            .catch(err => {
+                res.status(500).json({ message: err.message || "Error Occurred while retriving Services information" })
+                next(err);
+            })
+    }
 }
+//*********************Pagination code for all data*******************************
+//     limitPage = parseInt(req.query.limit, 10) || 10;
+//     const pageChange = parseInt(req.query.page, 10) || 1;
+//     Product.paginate({}, { limit: limitPage, page: pageChange }).populate('category')
+//       .then((result) => {
+//         return res.status(200).json({
+//           message: "GET request to all getAllProducts",
+//           dataCount: result.length,
+//           result: result,
+//         });
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         res.status(500).json({
+//           error: err,
+//         });
+//       });
+//   },
 
-// retrive and return a single user
 
+// retrive and return a single Category
 const FindOneServices = async (req, res, next) => {
     const id = req.params.id;
-    Services.findById(id)
+    getServicesByid(id)
+        .then(async (Services) => {
+            try {
+                if (!Services && Services.id) {
+                    res.status(404).json({ message: "Not found Services with id " + id })
+                } else {
+                    res.json(Services)
+                }
+            } catch (err) {
+                res.status(500).json({ message: "Error retrieving Services with id " + id })
+            }
+        })
+        .catch((err) => res.status(500).json(err));
+}
+
+// update Services
+const updateServices = async (req, res, next) => {
+    const data = req.body;
+    if (!data) {
+        return res
+            .status(400)
+            .json({ message: "Data to update can not be empty" })
+    }
+    const id = req.params.id;
+    await updateServicesById(id, data)
         .then(data => {
             if (!data) {
-                res.status(404).json({ message: "Not found user with id " + id })
+                res.status(404).json({ message: `Cannot Update Services with ${id}. Maybe Services not found!` })
             } else {
                 res.json(data)
             }
         })
         .catch(err => {
-            res.status(500).json({ message: "Erro retrieving user with id " + id })
+            res.status(500).json({ message: "Error Update Services information" })
         })
 }
-
-const updateServices = async (req, res, next) => {
-	if (!req.body) {
-		return res
-            .status(400)
-            .json({ message: "Data to update can not be empty" })
-    }
-    const id = req.params.id;
-    Services.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-	.then(data => {
-		if (!data) {
-			res.status(404).json({ message: `Cannot Update Category with ${id}. Maybe user not found!` })
-		} else {
-			res.json(data)
-		}
-	})
-        .catch(err => {
-            res.status(500).json({ message: "Error Update Category information" })
-        })
-}
-
+// delete services
 const deleteServices = async (req, res, next) => {
     const id = req.params.id;
-    Services.findByIdAndDelete(id)
-    .then(data => {
-        if (!data) {
+    await deleteServicesById(id)
+        .then(data => {
+            if (!data) {
                 res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })
             } else {
                 res.json({
-                    message: "Category was deleted successfully!"
+                    message: "Services was deleted successfully!"
                 })
             }
         })
         .catch(err => {
             res.status(500).json({
-                message: "Could not delete Category with id=" + id
+                message: "Could not delete Services with id=" + id
             });
         });
 }
 
-
 module.exports = {
-	createServices,
-	getServices,
-	FindOneServices,
-	updateServices,
-	deleteServices
+    createNewServices,
+    getServices,
+    FindOneServices,
+    updateServices,
+    deleteServices,
 };
