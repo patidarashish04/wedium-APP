@@ -1,15 +1,15 @@
 // const Services = require('../../dao/queries/model/services');
-const { createService, getServicesByid, getAllServices, updateServicesById, deleteServicesById } = require('../Services/function')
+const { createServices, getServicesByid, getAllServices, updateServicesById, deleteServicesById } = require('../Services/function')
 
 // GET Services
 const createNewServices = async (req, res, next) => {
     try {
         const body = req.body;
         // Validate services input
-        if (!(body.SubCategory_id && body.service_name && body.service_images, body.service_banner_image, body.price)) {
+        if (!(body.subCatgoryId && body.name && body.serviceImage && body.descriptions && body.price)) {
             res.status(400).json("All input is required");
         }
-        const services = await createService(body);
+        const services = await createServices(body);
         res.status(200).json(services);
     } catch (err) {
         console.log(err);
@@ -36,8 +36,9 @@ const getServices = async (req, res, next) => {
         getAllServices()
             .then(Services => {
                 res.status(201).json({
-                    success: true,
                     data: Services,
+                    success: true,
+                    message: null
                 })
             })
             .catch(err => {

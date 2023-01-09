@@ -8,4 +8,7 @@ const parseStringifiedNull = (body) => {
 	return input;
 };
 
-export { parseStringifiedNull };
+module.exports = {
+	
+    parseStringifiedNull,
+};

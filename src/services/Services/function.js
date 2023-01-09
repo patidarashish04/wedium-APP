@@ -1,9 +1,10 @@
 const dbServices = require('../../dao/queries/index');
 
 // create category +
-const createService = async (Services) => {
+const createServices = async (body) => {
 	try {
-		const dbResponse = await dbServices.Services.createService(Services);
+		const dbResponse = await dbServices.Services.createService(body);
+		console.log('===========>>>', dbResponse);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -47,8 +48,9 @@ const deleteServicesById = async (id) => {
 	}
 };
 module.exports = {
-	createService,
-    getServicesByid,
-    getAllServices,
-    updateServicesById,
-	deleteServicesById}; 
+	createServices,
+	getServicesByid,
+	getAllServices,
+	updateServicesById,
+	deleteServicesById
+}; 

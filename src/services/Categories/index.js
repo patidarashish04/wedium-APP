@@ -1,4 +1,4 @@
-const { createCategorys, getCategoryByid, getAllCategory, findByIdAndUpdate, findByIdAndDelete } = require('../Categories/functions')
+const { createCategorys, getCategoryByid, getAllCategory, updateCategoryByid, deleteCategoryByid } = require('../Categories/functions')
 
 // GET category
 const createCategory = async (req, res, next) => {
@@ -27,8 +27,9 @@ const getCategory = async (req, res, next) => {
                     } else {
                         res.json(category)
                     }
-                } catch(err) {
-                res.status(500).json({ message: "Error retrieving category with id " + id })
+div
+} catch (err) {
+                    res.status(500).json({ message: "Error retrieving category with id " + id })
                 }
             })
             .catch((err) => res.status(500).json(err));
@@ -36,8 +37,9 @@ const getCategory = async (req, res, next) => {
         getAllCategory()
             .then(categories => {
                 res.status(201).json({
-                    success: true,
                     data: categories,
+                    status: true,
+                    message:null
                 })
             })
             .catch(err => {
@@ -77,14 +79,14 @@ const FindOneCategory = async (req, res, next) => {
                 } else {
                     res.json(category)
                 }
-            } catch(err) {
-            res.status(500).json({ message: "Error retrieving category with id " + id })
+            } catch (err) {
+                res.status(500).json({ message: "Error retrieving category with id " + id })
             }
         })
         .catch((err) => res.status(500).json(err));
-    }
+}
 
-    // update Category
+// update Category
 const updateCategory = async (req, res, next) => {
     const data = req.body;
     if (!data) {
@@ -93,7 +95,7 @@ const updateCategory = async (req, res, next) => {
             .json({ message: "Data to update can not be empty" })
     }
     const id = req.params.id;
-    await findByIdAndUpdate(id, data)
+    await updateCategoryByid(id, data)
         .then(data => {
             if (!data) {
                 res.status(404).json({ message: `Cannot Update Category with ${id}. Maybe Category not found!` })
@@ -108,7 +110,7 @@ const updateCategory = async (req, res, next) => {
 
 const deleteCategory = async (req, res, next) => {
     const id = req.params.id;
-    await findByIdAndDelete(id)
+    await deleteCategoryByid(id)
         .then(data => {
             if (!data) {
                 res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })

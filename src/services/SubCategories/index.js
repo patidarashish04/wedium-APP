@@ -35,8 +35,9 @@ const getSubCategory = async (req, res, next) => {
         getAllSubCategory()
             .then(SubCategory => {
                 res.status(201).json({
-                    success: true,
                     data: SubCategory,
+                    success: true,
+                    message: null
                 })
             })
             .catch(err => {

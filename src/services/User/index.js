@@ -2,8 +2,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config('.env.local');
-const { getUserByEmail, createUser, updateUserById, deleteUserById, } = require('../User/function')
-
+const { getUserByEmail, createUser, updateUserById, deleteUserById,} = require('../User/function');
+const {firebase} = require('../../utils/firebase');
 // user register
 const register = async (req, res, next) => {
     try {
@@ -23,6 +23,7 @@ const register = async (req, res, next) => {
             name: body.name,
             email: body.email.toLowerCase(), // sanitize: convert email to lowercase
             password: encryptedPassword,
+            // role : phone === process.env.ADMIN_PHONE ? "ADMIN" :"USER"
         };
         // Create user in our database
         const user = await createUser(options);
@@ -66,6 +67,39 @@ const login = async (req, res, next) => {
     }
 };
 
+// user profile
+const profile = async (req, res) => {
+    try {
+        console.log('under aa gya h')
+        const userRef = firebase.firestore().collection('users');
+        userRef
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          console.log("All data in 'books' collection", data); 
+          // [ { id: 'glMeZvPpTN1Ah31sKcnj', title: 'The Great Gatsby' } ]
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// user location
+const location = async (req, res) => {
+    try {
+        const location = await getLocation(phone);
+        res.status(201).json({
+            data: location,
+            status: true,
+            message: null
+        })
+    } catch (err) {
+        console.log(err);
+    }
+};
 
 //  update user
 const updateUser = async (req, res, next) => {
@@ -113,5 +147,7 @@ module.exports = {
     register,
     login,
     updateUser,
-    deleteUser
+    deleteUser,
+    profile,
+    location
 };

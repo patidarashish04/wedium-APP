@@ -2,13 +2,13 @@ const { createOrders, getOrderByid, getAllOrder, updateOrderById, deleteOrderByI
 
 // GET Order
 const createNewOrder = async (req, res, next) => {
-	try {
+    try {
         const body = req.body;
         // Validate Order input
         if (!(body.userName && body.serviceName && body.cityName)) {
             return res.status(404).json({
-				error: 'Order not found',
-			});
+                error: 'Order not found',
+            });
         }
         const Order = await createOrders(body);
         res.status(200).json(Order);
@@ -28,17 +28,18 @@ const getOrderList = async (req, res, next) => {
                     } else {
                         res.json(category)
                     }
-                } catch(err) {
-                res.status(500).json({ message: "Error retrieving Order with id " + id })
+                } catch (err) {
+                    res.status(500).json({ message: "Error retrieving Order with id " + id })
                 }
             })
             .catch((err) => res.status(500).json(err));
     } else {
         getAllOrder()
-            .then(categories => {
+            .then(Order => {
                 res.status(201).json({
+                    data: Order,
                     success: true,
-                    data: categories,
+                    message: null
                 })
             })
             .catch(err => {
@@ -78,14 +79,14 @@ const getSingleOrder = async (req, res, next) => {
                 } else {
                     res.json(category)
                 }
-            } catch(err) {
-            res.status(500).json({ message: "Error retrieving Order with id " + id })
+            } catch (err) {
+                res.status(500).json({ message: "Error retrieving Order with id " + id })
             }
         })
         .catch((err) => res.status(500).json(err));
-    }
+}
 
-    // update Order
+// update Order
 const updateOrder = async (req, res, next) => {
     const data = req.body;
     if (!data) {
@@ -107,7 +108,7 @@ const updateOrder = async (req, res, next) => {
         })
 }
 
-   // delete Order
+// delete Order
 const deleteOrder = async (req, res, next) => {
     const id = req.params.id;
     await deleteOrderById(id)

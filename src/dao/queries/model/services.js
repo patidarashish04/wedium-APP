@@ -1,40 +1,39 @@
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-    SubCategory_id: {
+    subCatgoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SubCategory',
-        required:true,
-        required: [true, 'sub categoryId required'],
+        required: true,
+        required: [true, 'sub subCatgoryId required'],
     },
-    service_name: {
+    name: {
         type: String,
         trim: true,
         required: [true, 'Please add a service_name'],
         maxlength: 32,
     },
-    service_images: {
+    serviceImage: {
         type: String,
-        required: [true, 'Please add a service_images'],
+        required: [true, 'Please add a serviceImage'],
     },
-    service_banner_image: {
+    absoluteServicePath: {
         type: String,
-        required: [true, 'Please add a service_banner_image '],
     },
-    service_description: {
+    descriptions: {
         type: String,
         required: true
     },
-    notes : {
+    note: {
         type: String,
     },
-    price : {
+    price: {
         type: Number,
-        default:0
+        default: 0
     },
-    discount : {
+    discount: {
         type: Number,
-        default:0
+        default: 0
     },
     status: {
         type: String,
@@ -43,6 +42,6 @@ const categorySchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const Services = mongoose.model('Services', categorySchema );
+const Services = mongoose.model('Services', categorySchema);
 
 module.exports = Services;

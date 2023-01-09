@@ -55,7 +55,8 @@ app.use((req, res, next) => {
 });
 
 app.use(morgan('tiny'));
-app.use(express.json()) // parse json bodies
+app.use(express.json({  extended: true }));
+app.use(express.urlencoded({  extended: true }));
 
 app.get('/', (req, res) => {
     res.render('index')
@@ -64,5 +65,10 @@ app.get('/', (req, res) => {
 require('./src/routes/apis')(app);
 
 app.get('*', (req, res) => res.status(404).send({ error: 'API not found.' }));
+
+// const multer = require('multer')
+// const upload = multer({
+//     dest: 'upload'
+// })
 
 app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`) });

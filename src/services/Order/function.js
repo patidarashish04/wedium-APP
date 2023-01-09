@@ -48,8 +48,8 @@ const deleteOrderById = async (id) => {
 };
 module.exports = {
 	createOrders,
-    getOrderByid,
-    getAllOrder,
-    updateOrderById,
-    deleteOrderById,
+	getOrderByid,
+	getAllOrder,
+	updateOrderById,
+	deleteOrderById,
 }; 

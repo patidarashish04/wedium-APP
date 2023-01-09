@@ -48,8 +48,8 @@ const deleteSubCategoryById = async (id) => {
 };
 module.exports = {
 	createSubCategory,
-    getSubCategoryByid,
-    getAllSubCategory,
-    updateSubCategoryById,
-    deleteSubCategoryById,
+	getSubCategoryByid,
+	getAllSubCategory,
+	updateSubCategoryById,
+	deleteSubCategoryById,
 }; 

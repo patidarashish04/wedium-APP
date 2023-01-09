@@ -28,9 +28,9 @@ const getAllCategory = async () => {
 	}
 };
 // create category +
-const findByIdAndUpdate = async (id, data) => {
+const updateCategoryByid = async (id, data) => {
 	try {
-		const dbResponse = await dbServices.Category.findCategoryUpdate(id, data);
+		const dbResponse = await dbServices.Category.updateCategoryByid(id, data);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -38,9 +38,9 @@ const findByIdAndUpdate = async (id, data) => {
 };
 
 // delete category +
-const findByIdAndDelete = async (id) => {
+const deleteCategoryByid = async (id) => {
 	try {
-		const dbResponse = await dbServices.Category.deleteCategory(id);
+		const dbResponse = await dbServices.Category.deleteCategoryByid(id);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -50,6 +50,6 @@ module.exports = {
 	createCategorys,
 	getCategoryByid,
 	getAllCategory,
-	findByIdAndUpdate,
-	findByIdAndDelete,
+	updateCategoryByid,
+	deleteCategoryByid,
 }; 

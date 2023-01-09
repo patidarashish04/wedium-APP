@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "wediumapp-397ed",
+  "private_key_id": "29de1057b2364fdeb681e761a07c02e09d52a792",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDiOcmhYKU62qsF\n5Dv3zhZy8wZIQYeB2VBmn9Xx+ivn0cx4Te4LSzjVFJP3QKqp/VfqFDsMmO7Kkd98\nL/Va0elDdVbO5cVWp6rADZanxHrAIszEyYszNdIwVwxffq3Xt+A+i4SJtwxnp/I8\njHrytWoB4AWdk1iq45/9BO1d0QIoSmtI2GFFByIepMjLojdojnQ/g3o/hfcdLkCH\nir0pqOUK6gd0/ByGDxyQJFDSiJDBvFhbL+8VFRD8RL2Pmrz5Nd6brybk8bpAtf6B\nlqDdMb3y7tGSHCVKz0OJmkQ6bmXJmXW4jQzF79oiI591kGiWZU37A9N6y9cyW8Lk\n3Zr1WG2XAgMBAAECggEAMVmK1yXmlXqrMTtTK6Es+4FxXuTQoy5dYC3A9art1gHJ\n2XqikZskuDLnfloAgNmvynQEV6CrAsyklIo/u0KsYJdhyvuLu3YTBRdRxKJTZsOQ\nqOMQdyjoA7yRielwEe1eQTadQI+KaLhV2wiIL5cMm4EbqH7CqnDCb2caQst77X65\nbCXw85CFaDgybHVnhaiOdKU2SQPmf4Oeku6Fc/lOG+grX3HtbYw4RL7YsGSGB0B1\n2DCW7XyDEGTOXWWeAgYJ//1Ab+MhAKR49GzAWrjh6CviCOj0An9ZTsEYCUaKDXP6\nzOQozwOJDmum9sq+LTvXo9BrxTimLEFqKuiAH8KU/QKBgQD5yZNqB7WO9J6G56Uz\nmGGtDhbTrc/rlW4+ug0QKfj+EhoguyJ1gvL/pFfmw7W4aKzITlLWFuDysLKbTO6K\naMrt8vBnVSQFhyE0w8WaKBLB1EvQpGrR9AHKVBScVxcPdY6lBR6Upkvrlfmk1RSB\nd+SLxnCNlR/U+LDqEezsbU3z/QKBgQDn2jEmhYAK7WZyzKHl6szp6P1c9eUBKfjA\nSC82Li+FLks1kO/+NUyNpJv15O/BrGE9y0zeJqMzRjpjL4o2dM4bEfWGiTsNyXJh\nBrXJEukzTnWyUFSrfloEFwLe4ZXA2qUKCi4gruLTu7zeMUESVjyOGonFqpKw2dkl\nQs7R7Yf6IwKBgD+NG6ZkY7sFXbfxA8UGxgMjjIc6t6W2lR/8cgpkw2bQ8DjXo8LG\nGFEWXQ7nSDqs1xj3ZHf3xi+46Rg+EIrCcq7rmmKP9OQ7JyWnkYTRIUSTYN6qlkro\ni/QQRFYqikFypWIy1T74uGQt+iAH3nm6KTmuuUAsarbitxA2k1Lr1GN5AoGARqQ0\nVYhXevzaOiAfM+5WgO58Q9an77LaF7vmpptr3yg7whZnCQ00RfPhkQowAtKCzlEj\nGoyrLPQ41f+mHPF52sWeCV/GnmzCbM2elaUtaHR/Z9UR9y6IPrbEKSSSfDAiGO0B\nIPQoKFsLMKfRK8UarjFnyNIv37KAdtnkKhI1XAECgYAk0JehFIOf1zGsIDmlvbX/\ndtExpAv/S0WY7PHiFaaPLSqK4teIMfr/R+iaxk7/xF1289NZfOveqBOpA1apA9Rn\nt0yduhTwJi+zQsapbrBQZsCCpiVn0PZFT+AeearCuVTNxvtuZrD8aiVW9ypKaX/8\nWq2COCLa1ExlCOw4y1U6bQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-m5d73@wediumapp-397ed.iam.gserviceaccount.com",
+  "client_id": "114045401537547925992",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-m5d73%40wediumapp-397ed.iam.gserviceaccount.com"
+}

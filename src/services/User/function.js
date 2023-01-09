@@ -48,8 +48,8 @@ const deleteUserById = async (id) => {
 };
 module.exports = {
 	createUser,
-    getUserByEmail,
-    getAllUser,
-    updateUserById,
-    deleteUserById,
+	getUserByEmail,
+	getAllUser,
+	updateUserById,
+	deleteUserById,
 }; 

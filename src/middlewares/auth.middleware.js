@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const { getUserByEmail, } = require('../services/User/function')
-
+const { User } = require("../dao/queries");
+const { getUserByEmail, } = require('../services/User/function');
 
 const loggedIn = async (req, res, next) => {
     let token = req.headers.authorization.split(" ")[1];
@@ -37,7 +37,7 @@ const adminOnly = async (req, res, next) => {
 // check if user is authenticated
 const isAuthenticated = async (req, res, next) => {
     let token = req.header('Authorization');
-    // make sure token exists
+    // make sure that token is dended
     if (!token) {
         return next(new ErrorResponse('You must log in to access this ressource', 401))
     }
@@ -45,6 +45,8 @@ const isAuthenticated = async (req, res, next) => {
         //verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = await User.findById(decoded.id);
+
+        const user = await User.findUserUpdate(token.email)
 
         next();
     } catch (error) {

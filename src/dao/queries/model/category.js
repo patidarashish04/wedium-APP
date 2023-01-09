@@ -20,14 +20,18 @@ const categorySchema = new mongoose.Schema({
         enum: ['ACTIVE', 'INACTIVE'],
         default: 'INACTIVE'
     },
+    statusName: {
+        type: String,
+        default: null,
+    },
     displayOrder: {
         type: Number,
         default: 0,
     },
-}, { timestamps: true });
+},
+);
 
-// module.exports = mongoose.model("Category", categorySchema);
 //we need to create collection
-const Category = mongoose.model('Category', categorySchema );
+const Category = mongoose.model('Category', categorySchema);
 
 module.exports = Category;

@@ -1,7 +1,10 @@
+const { app } = require('firebase-admin');
 const services = require('../services/index');
-const {loggedIn, adminOnly} = require("../middlewares/auth.middleware");
-module.exports = (app) => {
 
+const multer = require('multer');
+const upload = multer();
+// const { loggedIn, adminOnly } = require("../middlewares/auth.middleware");
+module.exports = (app) => {
 
 	//***********User *************************/
 
@@ -89,7 +92,30 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	app.post('/api/users/login',adminOnly, services.User.login);
+	app.post('/api/users/login', services.User.login);
+
+	/**
+ * @swagger
+ *  /api/v1/profile/{email}:
+ *   get:
+ *     summary: Remove the User by email
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: email
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The User email
+ * 
+ *     responses:
+ *       200:
+ *         description: The User details 
+ *       404:
+ *         description: The User details not found
+ */
+
+	app.post('/api/v1/profile', services.User.profile);
 
 	/**
  * @swagger
@@ -483,6 +509,7 @@ module.exports = (app) => {
 	 *   description: The Services managing API
 	*/
 
+
 	/**
 	 * @swagger
 	 * components:
@@ -490,26 +517,30 @@ module.exports = (app) => {
 	 *     Services:
 	 *       type: object
 	 *       required:
-	 *         - category_name
-	 *         - category_image
-	 *         - category_banner_image
+	 *         - subCatgoryId
+	 *         - name
+	 *         - serviceImage
+	 *         - descriptions
+	 *         - price
  *       properties:
  *         id:
  *           type: string
  *           description: The auto-generated id of the Services
- *         sub_category_name:
+ *         name:
  *           type: string
  *           description: The sub_category_name 
- *         sub_category_image:
+ *         serviceImage:
  *           type: string
  *           description: The sub_category_image
- *         category_id:
+ *         descriptions:
  *           type: string
- *           description: The category_id
+ *           description: The descriptions
  *       example:
- *         category_id: 34sdf55
- *         sub_category_name: Bridal Makeup
- *         sub_category_image: /Bridalmakeup.img.jpg
+ *         subCatgoryId: 34sdf55
+ *         name: Bridal Makeup
+ *         serviceImage: /Bridalmakeup.img.jpg
+ *         descriptions: the army
+ *         price: 10000
 	*/
 
 
@@ -704,7 +735,7 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	app.post('/api/v1/createNewOrder',   services.Order.createNewOrder);
+	app.post('/api/v1/createNewOrder', services.Order.createNewOrder);
 
 	/**
 	 * @swagger
@@ -723,7 +754,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Order'
 	   */
 
-	app.get('/api/v1/getOrderList',   services.Order.getOrderList);
+	app.get('/api/v1/getOrderList', services.Order.getOrderList);
 
 	/**
 	 * @swagger
@@ -749,7 +780,7 @@ module.exports = (app) => {
 	 *         description: The Order was not found
 	 */
 
-	app.get('/api/v1/getSingleOrder/:id',   services.Order.getSingleOrder);
+	app.get('/api/v1/getSingleOrder/:id', services.Order.getSingleOrder);
 
 	/**
  * @swagger
@@ -783,7 +814,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateOrder/:id',   services.Order.updateOrder);
+	app.patch('/api/v1/updateOrder/:id', services.Order.updateOrder);
 
 	/**
  * @swagger
@@ -805,6 +836,173 @@ module.exports = (app) => {
  *       404:
  *         description: The Order was not found
  */
-	app.delete('/api/v1/deleteOrder/:id',   services.Order.deleteOrder);
+	app.delete('/api/v1/deleteOrder/:id', services.Order.deleteOrder);
+
+	//*********** Vendor *************************/
+
+
+	/**
+	 * @swagger
+	 * tags:
+	 *   name: Vendor
+	 *   description: The Vendor managing API
+	*/
+
+
+	/**
+	 * @swagger
+	 * components:
+	 *   schemas:
+	 *     Vendor:
+	 *       type: object
+	 *       required:
+	 *         - category_name
+	 *         - category_image
+	 *         - category_banner_image
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the Vendor
+ *         sub_category_name:
+ *           type: string
+ *           description: The sub_category_name 
+ *         sub_category_image:
+ *           type: string
+ *           description: The sub_category_image
+ *         category_id:
+ *           type: string
+ *           description: The category_id
+ *       example:
+ *         category_id: 34sdf55
+ *         sub_category_name: Bridal Makeup
+ *         sub_category_image: /Bridalmakeup.img.jpg
+	*/
+
+
+	/**
+* @swagger
+* /api/v1/createNewOrder:
+*   post:
+*     summary: Create a new Vendor
+*     tags: [Vendor]
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/Vendor'
+*     responses:
+*       200:
+*         description: The Vendor was successfully created
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/Vendor'
+*       500:
+*         description: Some server error
+*/
+
+app.post('/api/v1/createVendors', upload.any(), services.Vendor.createVendors);
+
+/**
+ * @swagger
+ * /api/v1/getVendor:
+ *   get:
+ *     summary: Returns the list of all the Order
+ *     tags: [Vendor]
+ *     responses:
+ *       200:
+ *         description: The list of the Order
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+   *               items:
+   *                  $ref: '#/components/schemas/Order'
+   */
+
+app.get('/api/v1/getVendor', services.Vendor.getVendor);
+
+/**
+ * @swagger
+ * /api/v1/FindOneVendor/{id}:
+ *   get:
+ *     summary: Get the Order by id
+ *     tags: [Vendor]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Order id
+ *     responses:
+ *       200:
+ *         description: The Order description by id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *             $ref: '#/components/schemas/Order'
+ *       404:
+ *         description: The Order was not found
+ */
+
+app.get('/api/v1/FindOneVendor/:id', services.Vendor.FindOneVendor);
+
+/**
+* @swagger
+* /api/v1/updateVendor/{id}:
+*  patch:
+*    summary: Update the Order by the id
+*    tags: [Vendor]
+*    parameters:
+*      - in: path
+*        name: id
+*        schema:
+*          type: string
+*        required: true
+*        description: The Order id
+*    requestBody:
+*      required: true
+*      content:
+*        application/json:
+*          schema:
+*            $ref: '#/components/schemas/Order'
+*    responses:
+*      200:
+*        description: The Order was updated
+*        content:
+*          application/json:
+*            schema:
+*              $ref: '#/components/schemas/Order'
+*      404:
+*        description: The Order was not found
+*      500:
+*        description: Some error happened
+*/
+
+app.patch('/api/v1/updateVendor/:id', services.Vendor.updateVendor);
+
+/**
+* @swagger
+*  /api/v1/deleteVendor/{id}:
+*   delete:
+*     summary: Remove the Order by id
+*     tags: [Vendor]
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: string
+*         required: true
+*         description: The Order id
+* 
+*     responses:
+*       200:
+*         description: The Order was deleted
+*       404:
+*         description: The Order was not found
+*/
+app.delete('/api/v1/deleteVendor/:id', services.Vendor.deleteVendor);
 
 };
