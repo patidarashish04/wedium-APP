@@ -1,12 +1,16 @@
 // const Services = require('../../dao/queries/model/services');
-const { createServices, getServicesByid, getAllServices, updateServicesById, deleteServicesById } = require('../Services/function')
+const {getSubCategoryByid} = require('../SubCategories/functions')
+const { createServices, getServicesByid, BestSeller, getAllServices, updateServicesById, deleteServicesById } = require('../Services/function')
 
 // GET Services
 const createNewServices = async (req, res, next) => {
     try {
+        const id = req.body.subCatgoryId;
+        const SubCategory = await getSubCategoryByid(id);
+        if (!SubCategory) return res.status(400).send('SubCategory Not Found ');
         const body = req.body;
         // Validate services input
-        if (!(body.subCatgoryId && body.name && body.serviceImage && body.descriptions && body.price)) {
+        if (!(body.subCatgoryId && body.name && body.image)) {
             res.status(400).json("All input is required");
         }
         const services = await createServices(body);
@@ -15,13 +19,14 @@ const createNewServices = async (req, res, next) => {
         console.log(err);
     }
 }
+
 // retrieve and return all Services/ retrive and return a single Services
 const getServices = async (req, res, next) => {
-    if (req.query.id) {
-        const id = req.query.id;
+    if (req.query.subCatgoryId) {
+        const id = req.query.subCatgoryId;
         getServicesByid(id)
             .then(async (Services) => {
-                try {
+                try {   
                     if (!Services && Services.id) {
                         res.status(404).json({ message: "Not found Services with id " + id })
                     } else {
@@ -67,6 +72,20 @@ const getServices = async (req, res, next) => {
 //   },
 
 
+const getBestSeller = async (req, res, next) => {
+    BestSeller()
+            .then(Services => {
+                res.status(201).json({
+                    data: Services,
+                    success: true,
+                    message: null
+                })
+            })
+            .catch(err => {
+                res.status(500).json({ message: err.message || "Error Occurred while retriving Services information" })
+                next(err);
+            })
+    }
 // retrive and return a single Category
 const FindOneServices = async (req, res, next) => {
     const id = req.params.id;
@@ -132,4 +151,5 @@ module.exports = {
     FindOneServices,
     updateServices,
     deleteServices,
+    getBestSeller,
 };
