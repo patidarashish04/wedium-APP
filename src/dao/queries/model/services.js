@@ -11,18 +11,17 @@ const categorySchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: [true, 'Please add a service_name'],
-        maxlength: 32,
+        unique:true,
     },
-    serviceImage: {
+    image: {
         type: String,
-        required: [true, 'Please add a serviceImage'],
+        required: [true, 'Please add a image'],
     },
     absoluteServicePath: {
         type: String,
     },
     descriptions: {
         type: String,
-        required: true
     },
     note: {
         type: String,
@@ -39,6 +38,14 @@ const categorySchema = new mongoose.Schema({
         type: String,
         enum: ['ACTIVE', 'INACTIVE'],
         default: 'INACTIVE'
+    },
+    isBestSeller: {
+        type: Boolean,
+        default: false,
+    },
+    noOfOrders: {
+        type: Number,
+        default: 0
     },
 }, { timestamps: true });
 

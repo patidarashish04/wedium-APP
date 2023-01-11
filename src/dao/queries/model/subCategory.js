@@ -1,21 +1,22 @@
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-    category_id: {
+    categoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'category',
-        required: true,
-        required: [true, 'categoryId required'],
+        required: [true, 'SubCategory must be belong to parent category'],
     },
-    sub_category_name: {
+    name: {
         type: String,
-        trim: true,
-        required: [true, 'Please add a sub_category_name'],
-        maxlength: 32,
+        required: [true, 'Please add a subcategory name'],
+        unique:true,
     },
-    sub_category_image: {
+    imagePath: {
         type: String,
-        required: [true, 'Please add a sub_category_image'],
+        required: [true, 'Please add a image Path'],
+    },
+    bannerPath: {
+        type: String,
     },
     status: {
         type: String,

@@ -1,4 +1,8 @@
 const bcrypt = require('bcrypt');
+// const { Countries, State, City }  = require('country-state-city');
+// let Country = require('country-state-city').Country;
+// let State = require('country-state-city').State;
+// const { Countries, States, Cities } = require('countries-states-cities-service');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config('.env.local');
@@ -90,7 +94,12 @@ const profile = async (req, res) => {
 // user location
 const location = async (req, res) => {
     try {
-        const location = await getLocation(phone);
+        // console.log('***********locaton***********88',Country.getAllCountries())
+        // console.log('***********locaton***********88',State.getAllStates())
+        // let States = getStates('in');
+        // console.log('*************************',States);
+        // const countries = Countries.getCountries({ locale: 'it' })
+        // const location = await getLocation(phone);
         res.status(201).json({
             data: location,
             status: true,

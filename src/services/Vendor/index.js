@@ -8,7 +8,7 @@ const IMAGE_BASE_CDN = process.env.IMAGE_BASE_CDN;
 // GET category
 const createVendors = async (req, res, next) => {
     try {
-        let body = parseFormData(req.body);
+        let body = parseFormData(req.body);required: true
         body = body['form-data'];
         console.log('<<<<<<<<<<<<<---body=========>>>>>>>>>>>>>>', body);
         const file = req.files ? req.files[0] : null;

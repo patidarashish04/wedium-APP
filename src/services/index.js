@@ -4,6 +4,8 @@ const Services = require('./Services');
 const User = require('./User');
 const Order = require('./Order');
 const Vendor = require('./Vendor');
+const Profile = require('./Profile');
+const Banner = require('./Banner');
 
 module.exports = {
 	categories,
@@ -11,5 +13,7 @@ module.exports = {
 	Services,
 	User,
 	Order,
-	Vendor
+	Vendor,
+	Profile,
+	Banner
 };

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { ROLES, EMAIL_PROVIDER } = require('../../../services/constants');
 const schema = new mongoose.Schema({
   name: {
     type: String,
@@ -7,6 +7,14 @@ const schema = new mongoose.Schema({
     required: [true, 'Please add a Name'],
     maxlength: 32
   },
+
+  // email: {
+  //   type: String,
+  //   required: () => {
+  //     return this.provider !== 'email' ? false : true;
+  //   }
+  // },
+
   email: {
     type: String,
     trim: true,
@@ -17,6 +25,13 @@ const schema = new mongoose.Schema({
     //     'Please add a valid E-mail'
     // ]
   },
+
+  // provider: {
+  //   type: String,
+  //   required: true,
+  //   default: EMAIL_PROVIDER.Email
+  // },
+
   password: {
     type: String,
     trim: true,
@@ -27,10 +42,15 @@ const schema = new mongoose.Schema({
     //     'Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and a special characters'
     // ]
   },
+  // role: {
+  //   type: String,
+  //   enum: ['Member', 'Client', 'Owner', 'Admin'],
+  //   default: 'Member'
+  // },
   role: {
     type: String,
-    enum: ['Member', 'Client', 'Owner', 'Admin'],
-    default: 'Member'
+    default: ROLES.Member,
+    enum: [ROLES.Admin, ROLES.Member, ROLES.Merchant]
   },
   token: {
     type: String

@@ -4,6 +4,10 @@ const Services = require('./services');
 const Order = require('./order');
 const User = require('./user');
 const Vendor = require('./vendor');
+const Profile = require('./profile');
+const Location = require('./user');
+const Banner = require('./banner')
+
 module.exports = {
 	Category,
 	SubCategory,
@@ -11,4 +15,7 @@ module.exports = {
 	Services,
 	User,
 	Vendor,
+	Profile,
+	Location,
+	Banner,
 };

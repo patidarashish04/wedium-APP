@@ -6,7 +6,7 @@ const upload = multer();
 // const { loggedIn, adminOnly } = require("../middlewares/auth.middleware");
 module.exports = (app) => {
 
-	//***********User *************************/
+	//*********** User *************************/
 
 	/**
  * @swagger
@@ -173,7 +173,7 @@ module.exports = (app) => {
  */
 	app.delete('/api/deleteUser/:id', services.User.deleteUser);
 
-	//***********category *************************/
+	//*********** category *************************/
 
 	/**
 	 * @swagger
@@ -189,26 +189,21 @@ module.exports = (app) => {
 	 *     Category:
 	 *       type: object
 	 *       required:
-	 *         - category_name
-	 *         - category_image
-	 *         - category_banner_image
+	 *         - name
+	 *         - imagePath
 	 *       properties:
 	 *         id:
 	 *           type: string
 	 *           description: The auto-generated id of the category
-	 *         category_name:
+	 *         name:
 	 *           type: string
-	 *           description: The category_name 
-	 *         category_image:
+	 *           description: The name 
+	 *         imagePath:
 	 *           type: string
-	 *           description: The category_image
-	 *         category_banner_image:
-	 *           type: string
-	 *           description: The category_banner_image
+	 *           description: The imagePath
 	 *       example:
-	 *         category_name: Mehendi
-	 *         category_image: /mehendi.img.jpg
-	 *         category_banner_image: /mehendi.img.jpg
+	 *         name: Mehendi
+	 *         imagePath: /mehendi.img.jpg
 	 */
 
 	/**
@@ -337,7 +332,7 @@ module.exports = (app) => {
 	app.delete('/api/v1/deleteCategory/:id', services.categories.deleteCategory);
 
 
-	//***********Sub category *************************/
+	//*********** Sub category *************************/
 
 
 	/**
@@ -354,26 +349,31 @@ module.exports = (app) => {
 	 *     SubCategory:
 	 *       type: object
 	 *       required:
-	 *         - category_name
-	 *         - category_image
-	 *         - category_banner_image
+	 *         - categoryId
+	 *         - name
+	 *         - imagePath
+	 *         - imagePath
  *       properties:
  *         id:
  *           type: string
  *           description: The auto-generated id of the SubCategory
- *         sub_category_name:
+ *         name:
  *           type: string
- *           description: The sub_category_name 
- *         sub_category_image:
+ *           description: The name 
+ *         imagePath:
  *           type: string
- *           description: The sub_category_image
- *         category_id:
+ *           description: The imagePath
+ *         bannerPath:
+ *           type: string
+ *           description: The imagePath
+ *         categoryId:
  *           type: string
  *           description: The category_id
  *       example:
- *         category_id: 34sdf55
- *         sub_category_name: Bridal Makeup
- *         sub_category_image: /Bridalmakeup.img.jpg
+ *         categoryId: 34sdf55
+ *         name: Bridal Makeup
+ *         imagePath: /Bridalmakeup.img.jpg
+ *         bannerPath: /Bridalmakeup.img.jpg
 	*/
 
 
@@ -400,6 +400,8 @@ module.exports = (app) => {
 *         description: Some server error
 */
 	app.post('/api/v1/createSubCategory', services.subcategories.createNewSubCategory);
+
+	app.post('/api/v1/Category/subCategory', services.subcategories.CreateSubCategory);
 
 	/**
 	 * @swagger
@@ -499,7 +501,7 @@ module.exports = (app) => {
  */
 	app.delete('/api/v1/deleteSubCategory/:id', services.subcategories.deleteSubCategory);
 
-	//****************Services *************************/
+	//**************** Services *************************/
 
 
 	/**
@@ -613,6 +615,24 @@ module.exports = (app) => {
 
 	app.get('/api/v1/FindOneServices/:id', services.Services.FindOneServices);
 
+	/**
+	 * @swagger
+	 * /api/v1/getBestSeller:
+	 *   get:
+	 *     summary: Returns the list of all the getBestSeller
+	 *     tags: [Services]
+	 *     responses:
+	 *       200:
+	 *         description: The list of the getBestSeller
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	   *               items:
+	   *                  $ref: '#/components/schemas/Services'
+	   */
+
+	app.get('/api/v1/getBestSeller', services.Services.getBestSeller);
 
 	/**
  * @swagger
@@ -838,7 +858,7 @@ module.exports = (app) => {
  */
 	app.delete('/api/v1/deleteOrder/:id', services.Order.deleteOrder);
 
-	//*********** Vendor *************************/
+	//****************** Vendor *************************/
 
 
 	/**
@@ -902,107 +922,425 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-app.post('/api/v1/createVendors', upload.any(), services.Vendor.createVendors);
+	app.post('/api/v1/createVendors', upload.any(), services.Vendor.createVendors);
 
-/**
+	/**
+	 * @swagger
+	 * /api/v1/getVendor:
+	 *   get:
+	 *     summary: Returns the list of all the Order
+	 *     tags: [Vendor]
+	 *     responses:
+	 *       200:
+	 *         description: The list of the Order
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	   *               items:
+	   *                  $ref: '#/components/schemas/Order'
+	   */
+
+	app.get('/api/v1/getVendor', services.Vendor.getVendor);
+
+	/**
+	 * @swagger
+	 * /api/v1/FindOneVendor/{id}:
+	 *   get:
+	 *     summary: Get the Order by id
+	 *     tags: [Vendor]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The Order id
+	 *     responses:
+	 *       200:
+	 *         description: The Order description by id
+	 *         contens:
+	 *           application/json:
+	 *             schema:
+	 *             $ref: '#/components/schemas/Order'
+	 *       404:
+	 *         description: The Order was not found
+	 */
+
+	app.get('/api/v1/FindOneVendor/:id', services.Vendor.FindOneVendor);
+
+	/**
+	* @swagger
+	* /api/v1/updateVendor/{id}:
+	*  patch:
+	*    summary: Update the Order by the id
+	*    tags: [Vendor]
+	*    parameters:
+	*      - in: path
+	*        name: id
+	*        schema:
+	*          type: string
+	*        required: true
+	*        description: The Order id
+	*    requestBody:
+	*      required: true
+	*      content:
+	*        application/json:
+	*          schema:
+	*            $ref: '#/components/schemas/Order'
+	*    responses:
+	*      200:
+	*        description: The Order was updated
+	*        content:
+	*          application/json:
+	*            schema:
+	*              $ref: '#/components/schemas/Order'
+	*      404:
+	*        description: The Order was not found
+	*      500:
+	*        description: Some error happened
+	*/
+
+	app.patch('/api/v1/updateVendor/:id', services.Vendor.updateVendor);
+
+	/**
+	* @swagger
+	*  /api/v1/deleteVendor/{id}:
+	*   delete:
+	*     summary: Remove the Order by id
+	*     tags: [Vendor]
+	*     parameters:
+	*       - in: path
+	*         name: id
+	*         schema:
+	*           type: string
+	*         required: true
+	*         description: The Order id
+	* 
+	*     responses:
+	*       200:
+	*         description: The Order was deleted
+	*       404:
+	*         description: The Order was not found
+	*/
+	app.delete('/api/v1/deleteVendor/:id', services.Vendor.deleteVendor);
+
+
+	//********************** profile *************************/
+
+	/**
+	 * @swagger
+	 * tags:
+	 *   name: Profile
+	 *   description: The Profile managing API
+	 */
+
+	/**
+	 * @swagger
+	 * components:
+	 *   schemas:
+	 *     Profile:
+	 *       type: object
+	 *       required:
+	 *         - fullName
+	 *         - phoneNumber
+	 *         - coverImage
+	 *       properties:
+	 *         id:
+	 *           type: string
+	 *           description: The auto-generated id of the profile
+	 *         fullName:
+	 *           type: string
+	 *           description: The fullName 
+	 *         phoneNumber:
+	 *           type: Number
+	 *           description: The phoneNumber
+	 *         coverImage:
+	 *           type: string
+	 *           description: The coverImage
+	 *       example:
+	 *         fullName: Ashish
+	 *         phoneNumber: 7987567888
+	 *         coverImage: /ashish.img.jpg
+	 */
+
+	/**
  * @swagger
- * /api/v1/getVendor:
- *   get:
- *     summary: Returns the list of all the Order
- *     tags: [Vendor]
+ * /api/v1/createProfile:
+ *   post:
+ *     summary: Create a new Profile
+ *     tags: [Profile]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Profile'
  *     responses:
  *       200:
- *         description: The list of the Order
+ *         description: The profile was successfully created
  *         content:
  *           application/json:
  *             schema:
- *               type: array
-   *               items:
-   *                  $ref: '#/components/schemas/Order'
-   */
+ *               $ref: '#/components/schemas/Profile'
+ *       500:
+ *         description: Some server error
+	*/
+	app.post('/api/v1/createProfiles', services.Profile.createProfiles);
 
-app.get('/api/v1/getVendor', services.Vendor.getVendor);
+	/**
+	 * @swagger
+	 * /api/v1/getProfile:
+	 *   get:
+	 *     summary: Returns the list of all the Profile
+	 *     tags: [Profile]
+	 *     responses:
+	 *       200:
+	 *         description: The list of the Profile
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	   *               items:
+	   *                  $ref: '#/components/schemas/Profile'
+	   */
 
-/**
+	app.get('/api/v1/getProfile', services.Profile.getProfile);
+
+	/**
+	 * @swagger
+	 * /api/v1/FindOneProfile/{id}:
+	 *   get:
+	 *     summary: Get the Profile by id
+	 *     tags: [Profile]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The Profile id
+	 *     responses:
+	 *       200:
+	 *         description: The Profile description by id
+	 *         contens:
+	 *           application/json:
+	 *             schema:
+	 *             $ref: '#/components/schemas/Profile'
+	 *       404:
+	 *         description: The profile was not found
+	 */
+	app.get('/api/v1/FindOneProfile/:id', services.Profile.FindOneProfile);
+
+	/**
  * @swagger
- * /api/v1/FindOneVendor/{id}:
- *   get:
- *     summary: Get the Order by id
- *     tags: [Vendor]
+ * /api/v1/updateProfile/{id}:
+ *  patch:
+ *    summary: Update the Profile by the id
+ *    tags: [Profile]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The Profile id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Profile'
+ *    responses:
+ *      200:
+ *        description: The Profile was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Profile'
+ *      404:
+ *        description: The Profile was not found
+ *      500:
+ *        description: Some error happened
+ */
+
+	app.patch('/api/v1/updateProfile/:id', services.Profile.updateProfile);
+
+	/**
+ * @swagger
+ *  /api/v1/deleteProfile/{id}:
+ *   delete:
+ *     summary: Remove the Profile by id
+ *     tags: [Profile]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The Order id
+ *         description: The Profile id
+ * 
  *     responses:
  *       200:
- *         description: The Order description by id
- *         contens:
+ *         description: The Profile was deleted
+ *       404:
+ *         description: The Profile was not found
+ */
+	app.delete('/api/v1/deleteProfile/:id', services.Profile.deleteProfile);
+
+
+		//********************** Banner *************************/
+
+	/**
+	 * @swagger
+	 * tags:
+	 *   name: Banner
+	 *   description: The Banner managing API
+	 */
+
+	/**
+	 * @swagger
+	 * components:
+	 *   schemas:
+	 *     Banner:
+	 *       type: object
+	 *       required:
+	 *         - imagePath
+	 *       properties:
+	 *         id:
+	 *           type: string
+	 *           description: The auto-generated id of the Banner
+	 *         imagePath:
+	 *           type: string
+	 *           description: The fullName 
+	 *       example:
+	 *         imagePath: /ashish.img.jpg
+	 */
+
+	/**
+ * @swagger
+ * /api/v1/createBanner:
+ *   post:
+ *     summary: Create a new Banner
+ *     tags: [Banner]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Banner'
+ *     responses:
+ *       200:
+ *         description: The Banner was successfully created
+ *         content:
  *           application/json:
  *             schema:
- *             $ref: '#/components/schemas/Order'
- *       404:
- *         description: The Order was not found
+ *               $ref: '#/components/schemas/Banner'
+ *       500:
+ *         description: Some server error
+	*/
+	app.post('/api/v1/createBanner', services.Banner.createBanner);
+
+	/**
+	 * @swagger
+	 * /api/v1/getBanner:
+	 *   get:
+	 *     summary: Returns the list of all the Banner
+	 *     tags: [Banner]
+	 *     responses:
+	 *       200:
+	 *         description: The list of the Banner
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	   *               items:
+	   *                  $ref: '#/components/schemas/Banner'
+	   */
+
+	app.get('/api/v1/getBanner', services.Banner.getBanner);
+
+	/**
+	 * @swagger
+	 * /api/v1/FindOneBanner/{id}:
+	 *   get:
+	 *     summary: Get the Banner by id
+	 *     tags: [Banner]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The Banner id
+	 *     responses:
+	 *       200:
+	 *         description: The Banner description by id
+	 *         contens:
+	 *           application/json:
+	 *             schema:
+	 *             $ref: '#/components/schemas/Banner'
+	 *       404:
+	 *         description: The Banner was not found
+	 */
+	app.get('/api/v1/FindOneBanner/:id', services.Banner.FindOneBanner);
+
+	/**
+ * @swagger
+ * /api/v1/updateBanner/{id}:
+ *  patch:
+ *    summary: Update the Banner by the id
+ *    tags: [Banner]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The Banner id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Banner'
+ *    responses:
+ *      200:
+ *        description: The Banner was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Banner'
+ *      404:
+ *        description: The Banner was not found
+ *      500:
+ *        description: Some error happened
  */
 
-app.get('/api/v1/FindOneVendor/:id', services.Vendor.FindOneVendor);
+	app.patch('/api/v1/updateBanner/:id', services.Banner.updateBanner);
 
-/**
-* @swagger
-* /api/v1/updateVendor/{id}:
-*  patch:
-*    summary: Update the Order by the id
-*    tags: [Vendor]
-*    parameters:
-*      - in: path
-*        name: id
-*        schema:
-*          type: string
-*        required: true
-*        description: The Order id
-*    requestBody:
-*      required: true
-*      content:
-*        application/json:
-*          schema:
-*            $ref: '#/components/schemas/Order'
-*    responses:
-*      200:
-*        description: The Order was updated
-*        content:
-*          application/json:
-*            schema:
-*              $ref: '#/components/schemas/Order'
-*      404:
-*        description: The Order was not found
-*      500:
-*        description: Some error happened
-*/
+	/**
+ * @swagger
+ *  /api/v1/deleteBanner/{id}:
+ *   delete:
+ *     summary: Remove the Banner by id
+ *     tags: [Banner]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Banner id
+ * 
+ *     responses:
+ *       200:
+ *         description: The Banner was deleted
+ *       404:
+ *         description: The Banner was not found
+ */
+	app.delete('/api/v1/deleteBanner/:id', services.Banner.deleteBanner);
 
-app.patch('/api/v1/updateVendor/:id', services.Vendor.updateVendor);
-
-/**
-* @swagger
-*  /api/v1/deleteVendor/{id}:
-*   delete:
-*     summary: Remove the Order by id
-*     tags: [Vendor]
-*     parameters:
-*       - in: path
-*         name: id
-*         schema:
-*           type: string
-*         required: true
-*         description: The Order id
-* 
-*     responses:
-*       200:
-*         description: The Order was deleted
-*       404:
-*         description: The Order was not found
-*/
-app.delete('/api/v1/deleteVendor/:id', services.Vendor.deleteVendor);
+	app.get('/api/v1/location', services.User.location);
 
 };

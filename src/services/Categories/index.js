@@ -5,7 +5,7 @@ const createCategory = async (req, res, next) => {
     try {
         const body = req.body;
         // Validate Category input
-        if (!(body.category_name && body.category_image && body.category_banner_image)) {
+        if (!(body.name && body.imagePath)) {
             res.status(400).json("All input is required");
         }
         const category = await createCategorys(body);
@@ -20,26 +20,25 @@ const getCategory = async (req, res, next) => {
     if (req.query.id) {
         const id = req.query.id;
         getCategoryByid(id)
-            .then(async (category) => {
-                try {
-                    if (!category && category.id) {
-                        res.status(404).json({ message: "Not found category with id " + id })
-                    } else {
-                        res.json(category)
-                    }
-div
-} catch (err) {
+        .then(async (category) => {
+            try {
+                if (!category && category.id) {
+                    res.status(404).json({ message: "Not found category with id " + id })
+                } else {
+                    res.json(category)
+                }
+            } catch (err) {
                     res.status(500).json({ message: "Error retrieving category with id " + id })
                 }
             })
             .catch((err) => res.status(500).json(err));
-    } else {
-        getAllCategory()
+        } else {
+            getAllCategory()
             .then(categories => {
                 res.status(201).json({
                     data: categories,
                     status: true,
-                    message:null
+                    message: null
                 })
             })
             .catch(err => {
