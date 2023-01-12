@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "build": "babel src -d build"
   },
   "author": "Ashish",
   "license": "ISC",
@@ -38,5 +39,10 @@
     "path": "^0.12.7",
     "swagger-jsdoc": "^6.0.0",
     "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2"
   }
 }

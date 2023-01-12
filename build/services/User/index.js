@@ -6,8 +6,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config('.env.local');
-const { getUserByEmail, createUser, updateUserById, deleteUserById,} = require('../User/function');
-const {firebase} = require('../../utils/firebase');
+const { getUserByEmail, createUser, updateUserById, deleteUserById } = require('../User/function');
+const { firebase } = require('../../utils/firebase');
 // user register
 const register = async (req, res, next) => {
     try {
@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
         const options = {
             name: body.name,
             email: body.email.toLowerCase(), // sanitize: convert email to lowercase
-            password: encryptedPassword,
+            password: encryptedPassword
             // role : phone === process.env.ADMIN_PHONE ? "ADMIN" :"USER"
         };
         // Create user in our database
@@ -51,17 +51,13 @@ const login = async (req, res, next) => {
         const user = await getUserByEmail(body.email);
         if (user && (await bcrypt.compare(body.password, user[0].password))) {
             // Create token
-            const token = jwt.sign(
-                { User_id: user[0]._id, User_email: user[0].email, role: user[0].role },
-                process.env.TOKEN_SECRET,
-                {
-                    expiresIn: "24h",
-                }
-            );
+            const token = jwt.sign({ User_id: user[0]._id, User_email: user[0].email, role: user[0].role }, process.env.TOKEN_SECRET, {
+                expiresIn: "24h"
+            });
             res.header("auth-token", token).json({ "token": token });
             user.token = token;
             const updatedUser = await updateUserById(user._id, {
-                $set: { active: true },
+                $set: { active: true }
             });
             return [true, updatedUser, token];
         }
@@ -104,7 +100,7 @@ const location = async (req, res) => {
             data: location,
             status: true,
             message: null
-        })
+        });
     } catch (err) {
         console.log(err);
     }
@@ -114,43 +110,37 @@ const location = async (req, res) => {
 const updateUser = async (req, res, next) => {
     const data = req.body;
     if (!data) {
-        return res
-            .status(400)
-            .json({ message: "Data to update can not be empty" })
+        return res.status(400).json({ message: "Data to update can not be empty" });
     }
     const id = req.params.id;
-    await updateUserById(id, data)
-        .then(data => {
-            if (!data) {
-                res.status(404).json({ message: `Cannot Update SubCategory with ${id}. Maybe SubCategory not found!` })
-            } else {
-                res.json(data)
-            }
-        })
-        .catch(err => {
-            res.status(500).json({ message: "Error Update SubCategory information" })
-        })
-}
+    await updateUserById(id, data).then(data => {
+        if (!data) {
+            res.status(404).json({ message: `Cannot Update SubCategory with ${id}. Maybe SubCategory not found!` });
+        } else {
+            res.json(data);
+        }
+    }).catch(err => {
+        res.status(500).json({ message: "Error Update SubCategory information" });
+    });
+};
 
 //  delete user
 const deleteUser = async (req, res, next) => {
     const id = req.params.id;
-    await deleteUserById(id)
-        .then(data => {
-            if (!data) {
-                res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })
-            } else {
-                res.json({
-                    message: "user was deleted successfully!"
-                })
-            }
-        })
-        .catch(err => {
-            res.status(500).json({
-                message: "Could not delete user with id=" + id
+    await deleteUserById(id).then(data => {
+        if (!data) {
+            res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });
+        } else {
+            res.json({
+                message: "user was deleted successfully!"
             });
+        }
+    }).catch(err => {
+        res.status(500).json({
+            message: "Could not delete user with id=" + id
         });
-}
+    });
+};
 
 module.exports = {
     register,
