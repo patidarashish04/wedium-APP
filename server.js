@@ -38,9 +38,8 @@ const swaggerSpec = swaggerJSDoc(options)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
-app.get('/', (req, res) => res.send('Hellooooo'))
-// // view Engin setUp
-// app.set('view engine', 'ejs');
+// view Engin setUp
+app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({
     limit: '10gb',
     extended: true,

@@ -35,9 +35,10 @@ const getCategory = async (req, res, next) => {
         } else {
             getAllCategory()
             .then(categories => {
-                res.status(200).json({
+                res.status(201).json({
                     data: categories,
-                    message: "Categories found"
+                    status: true,
+                    message: null
                 })
             })
             .catch(err => {
