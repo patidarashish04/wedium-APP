@@ -72,24 +72,24 @@ const login = async (req, res, next) => {
 };
 
 // user profile
-// const profile = async (req, res) => {
-//     try {
-//         console.log('under aa gya h')
-//         const userRef = firebase.firestore().collection('users');
-//         userRef
-//         .get()
-//         .then((snapshot) => {
-//           const data = snapshot.docs.map((doc) => ({
-//             id: doc.id,
-//             ...doc.data(),
-//           }));
-//           console.log("All data in 'books' collection", data); 
-//           // [ { id: 'glMeZvPpTN1Ah31sKcnj', title: 'The Great Gatsby' } ]
-//         });
-//     } catch (err) {
-//         console.log(err);
-//     }
-// }
+const profile = async (req, res) => {
+    try {
+        console.log('under aa gya h')
+        const userRef = firebase.firestore().collection('users');
+        userRef
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          console.log("All data in 'books' collection", data); 
+          // [ { id: 'glMeZvPpTN1Ah31sKcnj', title: 'The Great Gatsby' } ]
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 // user location
 const location = async (req, res) => {
