@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({ region: 'ap-southeast-1', signatureVersion: 'v4' });
 
-// upload award image to S3 +
+// upload image to S3 +
 const uploadToS3 = (file, topic) => {
 	const s3bucket = new AWS.S3({ params: { Bucket: `content.ys.com/cs/images/${topic}` } });
 	const fileName = generateS3FileKey(file.originalname);
@@ -28,7 +28,6 @@ const generateS3FileKey = (name) => {
 	const originalName = nameArray[0];
 	const fileExt = nameArray[nameArray.length - 1];
 	const fileName = `${originalName}-${timestamp}.${fileExt}`.replace(/[^A-Z0-9.-]/ig, '').replace(/%20/g, '_');
-	console.log('-------------->>>>>>>>>>>filename--------->', fileName)
 	return fileName;
 };
 

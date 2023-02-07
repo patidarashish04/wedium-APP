@@ -99,7 +99,6 @@ const updateBanner = async (req, res, next) => {
 
 const deleteBanner = async (req, res, next) => {
     const id = req.params.id;
-    console.log('**********************', id);
     await deleteBannerByid(id).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });

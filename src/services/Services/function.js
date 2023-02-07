@@ -13,7 +13,15 @@ const createServices = async (body) => {
 const getServicesByid = async (id) => {
 	try {
 		const dbResponse = await dbServices.Services.getServicesByid(id);
-		console.log('************record******', dbResponse)
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
+// get Services by name +
+const getServicesByName = async (name) => {
+	try {
+		const dbResponse = await dbServices.Services.getServicesByName(name);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -65,4 +73,5 @@ module.exports = {
 	updateServicesById,
 	deleteServicesById,
 	BestSeller,
+	getServicesByName
 }; 

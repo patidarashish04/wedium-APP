@@ -3,8 +3,9 @@ const services = require('../services/index');
 
 const multer = require('multer');
 const upload = multer();
-// const { loggedIn, adminOnly } = require("../middlewares/auth.middleware");
+const { loggedIn, adminOnly } = require("../middlewares/auth.middleware");
 module.exports = (app) => {
+
 
 	//*********** User *************************/
 
@@ -115,7 +116,7 @@ module.exports = (app) => {
  *         description: The User details not found
  */
 
-	app.post('/api/v1/profile', services.User.profile);
+	app.post('/api/v1/profile', loggedIn, services.User.profile);
 
 	/**
  * @swagger
@@ -149,7 +150,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/updateUser/:id', services.User.updateUser);
+	app.patch('/api/updateUser/:id', loggedIn, services.User.updateUser);
 
 	/**
  * @swagger
@@ -171,7 +172,7 @@ module.exports = (app) => {
  *       404:
  *         description: The User was not found
  */
-	app.delete('/api/deleteUser/:id', services.User.deleteUser);
+	app.delete('/api/deleteUser/:id', loggedIn, services.User.deleteUser);
 
 	//*********** category *************************/
 
@@ -210,7 +211,6 @@ module.exports = (app) => {
  * @swagger
  * /api/v1/createCategory:
  *   post:
- *     summary: Create a new category
  *     tags: [Category]
  *     requestBody:
  *       required: true
@@ -229,7 +229,7 @@ module.exports = (app) => {
  *         description: Some server error
 	*/
 
-	app.post('/api/v1/createCategory', services.categories.createCategory);
+	app.post('/api/v1/createCategory', loggedIn, services.categories.createCategory);
 
 	/**
 	 * @swagger
@@ -248,13 +248,14 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Category'
 	   */
 
-	app.get('/api/v1/getCategory', services.categories.getCategory);
+	app.get('/api/v1/getCategory', loggedIn, services.categories.getCategory);
 
 	/**
 	 * @swagger
 	 * /api/v1/FindOneCategory/{id}:
 	 *   get:
 	 *     summary: Get the Category by id
+	 *     description: admin on can get data.
 	 *     tags: [Category]
 	 *     parameters:
 	 *       - in: path
@@ -273,7 +274,7 @@ module.exports = (app) => {
 	 *       404:
 	 *         description: The Category was not found
 	 */
-	app.get('/api/v1/FindOneCategory/:id', services.categories.FindOneCategory);
+	app.get('/api/v1/FindOneCategory/:id', loggedIn, services.categories.FindOneCategory);
 
 	/**
  * @swagger
@@ -307,7 +308,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateCategory/:id', services.categories.updateCategory);
+	app.patch('/api/v1/updateCategory/:id', loggedIn, services.categories.updateCategory);
 
 	/**
  * @swagger
@@ -329,11 +330,10 @@ module.exports = (app) => {
  *       404:
  *         description: The Category was not found
  */
-	app.delete('/api/v1/deleteCategory/:id', services.categories.deleteCategory);
+	app.delete('/api/v1/deleteCategory/:id', loggedIn, services.categories.deleteCategory);
 
 
 	//*********** Sub category *************************/
-
 
 	/**
 	 * @swagger
@@ -399,9 +399,9 @@ module.exports = (app) => {
 *       500:
 *         description: Some server error
 */
-	app.post('/api/v1/createSubCategory', services.subcategories.createNewSubCategory);
+	app.post('/api/v1/createSubCategory', loggedIn, services.subcategories.createNewSubCategory);
 
-	app.post('/api/v1/Category/subCategory', services.subcategories.CreateSubCategory);
+	app.post('/api/v1/Category/subCategory', loggedIn, services.subcategories.CreateSubCategory);
 
 	/**
 	 * @swagger
@@ -419,7 +419,7 @@ module.exports = (app) => {
 	   *               items:
 	   *                  $ref: '#/components/schemas/SubCategory'
 	   */
-	app.get('/api/v1/getSubCategory', services.subcategories.getSubCategory);
+	app.get('/api/v1/getSubCategory', loggedIn, services.subcategories.getSubCategory);
 
 	/**
 	 * @swagger
@@ -444,7 +444,7 @@ module.exports = (app) => {
 	 *       404:
 	 *         description: The SubCategory was not found
 	 */
-	app.get('/api/v1/FindOneSubCategory/:id', services.subcategories.FindOneSubCategory);
+	app.get('/api/v1/FindOneSubCategory/:id', loggedIn, services.subcategories.FindOneSubCategory);
 
 	/**
  * @swagger
@@ -477,7 +477,7 @@ module.exports = (app) => {
  *      500:
  *        description: Some error happened
  */
-	app.patch('/api/v1/updateSubCategory/:id', services.subcategories.updateSubCategory);
+	app.patch('/api/v1/updateSubCategory/:id', loggedIn, services.subcategories.updateSubCategory);
 
 	/**
  * @swagger
@@ -499,10 +499,9 @@ module.exports = (app) => {
  *       404:
  *         description: The SubCategory was not found
  */
-	app.delete('/api/v1/deleteSubCategory/:id', services.subcategories.deleteSubCategory);
+	app.delete('/api/v1/deleteSubCategory/:id', loggedIn, services.subcategories.deleteSubCategory);
 
 	//**************** Services *************************/
-
 
 	/**
 	 * @swagger
@@ -568,7 +567,7 @@ module.exports = (app) => {
 *       500:
 *         description: Some server error
 */
-	app.post('/api/v1/createServices', services.Services.createNewServices);
+	app.post('/api/v1/createServices', loggedIn, services.Services.createNewServices);
 
 	/**
 	 * @swagger
@@ -587,7 +586,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Services'
 	   */
 
-	app.get('/api/v1/getServices', services.Services.getServices);
+	app.get('/api/v1/getServices', loggedIn, services.Services.getServices);
 
 	/**
 	 * @swagger
@@ -613,7 +612,7 @@ module.exports = (app) => {
 	 *         description: The Services was not found
 	 */
 
-	app.get('/api/v1/FindOneServices/:id', services.Services.FindOneServices);
+	app.get('/api/v1/FindOneServices/:id', loggedIn, services.Services.FindOneServices);
 
 	/**
 	 * @swagger
@@ -632,7 +631,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Services'
 	   */
 
-	app.get('/api/v1/getBestSeller', services.Services.getBestSeller);
+	app.get('/api/v1/getBestSeller', loggedIn, services.Services.getBestSeller);
 
 	/**
  * @swagger
@@ -666,7 +665,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateServices/:id', services.Services.updateServices);
+	app.patch('/api/v1/updateServices/:id', loggedIn, services.Services.updateServices);
 
 	/**
  * @swagger
@@ -689,10 +688,9 @@ module.exports = (app) => {
  *         description: The Services was not found
  */
 
-	app.delete('/api/v1/deleteServices/:id', services.Services.deleteServices);
+	app.delete('/api/v1/deleteServices/:id', loggedIn, services.Services.deleteServices);
 
 	//*********** Order *************************/
-
 
 	/**
 	 * @swagger
@@ -755,7 +753,7 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	app.post('/api/v1/createNewOrder', services.Order.createNewOrder);
+	app.post('/api/v1/createNewOrder', loggedIn, services.Order.createNewOrder);
 
 	/**
 	 * @swagger
@@ -774,7 +772,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Order'
 	   */
 
-	app.get('/api/v1/getOrderList', services.Order.getOrderList);
+	app.get('/api/v1/getOrderList', loggedIn, services.Order.getOrderList);
 
 	/**
 	 * @swagger
@@ -800,7 +798,7 @@ module.exports = (app) => {
 	 *         description: The Order was not found
 	 */
 
-	app.get('/api/v1/getSingleOrder/:id', services.Order.getSingleOrder);
+	app.get('/api/v1/getSingleOrder/:id', loggedIn, services.Order.getSingleOrder);
 
 	/**
  * @swagger
@@ -834,7 +832,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateOrder/:id', services.Order.updateOrder);
+	app.patch('/api/v1/updateOrder/:id', loggedIn, services.Order.updateOrder);
 
 	/**
  * @swagger
@@ -856,10 +854,9 @@ module.exports = (app) => {
  *       404:
  *         description: The Order was not found
  */
-	app.delete('/api/v1/deleteOrder/:id', services.Order.deleteOrder);
+	app.delete('/api/v1/deleteOrder/:id', loggedIn, services.Order.deleteOrder);
 
 	//****************** Vendor *************************/
-
 
 	/**
 	 * @swagger
@@ -922,7 +919,7 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	app.post('/api/v1/createVendors', upload.any(), services.Vendor.createVendors);
+	app.post('/api/v1/createVendors', upload.any(), loggedIn, services.Vendor.createVendors);
 
 	/**
 	 * @swagger
@@ -941,7 +938,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Order'
 	   */
 
-	app.get('/api/v1/getVendor', services.Vendor.getVendor);
+	app.get('/api/v1/getVendor', loggedIn, services.Vendor.getVendor);
 
 	/**
 	 * @swagger
@@ -967,7 +964,7 @@ module.exports = (app) => {
 	 *         description: The Order was not found
 	 */
 
-	app.get('/api/v1/FindOneVendor/:id', services.Vendor.FindOneVendor);
+	app.get('/api/v1/FindOneVendor/:id', loggedIn, services.Vendor.FindOneVendor);
 
 	/**
 	* @swagger
@@ -1001,7 +998,7 @@ module.exports = (app) => {
 	*        description: Some error happened
 	*/
 
-	app.patch('/api/v1/updateVendor/:id', services.Vendor.updateVendor);
+	app.patch('/api/v1/updateVendor/:id', loggedIn, services.Vendor.updateVendor);
 
 	/**
 	* @swagger
@@ -1023,7 +1020,7 @@ module.exports = (app) => {
 	*       404:
 	*         description: The Order was not found
 	*/
-	app.delete('/api/v1/deleteVendor/:id', services.Vendor.deleteVendor);
+	app.delete('/api/v1/deleteVendor/:id', loggedIn, services.Vendor.deleteVendor);
 
 
 	//********************** profile *************************/
@@ -1086,7 +1083,7 @@ module.exports = (app) => {
  *       500:
  *         description: Some server error
 	*/
-	app.post('/api/v1/createProfiles', services.Profile.createProfiles);
+	app.post('/api/v1/createProfiles', loggedIn, services.Profile.createProfiles);
 
 	/**
 	 * @swagger
@@ -1105,7 +1102,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Profile'
 	   */
 
-	app.get('/api/v1/getProfile', services.Profile.getProfile);
+	app.get('/api/v1/getProfile', loggedIn, services.Profile.getProfile);
 
 	/**
 	 * @swagger
@@ -1130,7 +1127,7 @@ module.exports = (app) => {
 	 *       404:
 	 *         description: The profile was not found
 	 */
-	app.get('/api/v1/FindOneProfile/:id', services.Profile.FindOneProfile);
+	app.get('/api/v1/FindOneProfile/:id', loggedIn, services.Profile.FindOneProfile);
 
 	/**
  * @swagger
@@ -1164,7 +1161,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateProfile/:id', services.Profile.updateProfile);
+	app.patch('/api/v1/updateProfile/:id', loggedIn, services.Profile.updateProfile);
 
 	/**
  * @swagger
@@ -1186,10 +1183,10 @@ module.exports = (app) => {
  *       404:
  *         description: The Profile was not found
  */
-	app.delete('/api/v1/deleteProfile/:id', services.Profile.deleteProfile);
+	app.delete('/api/v1/deleteProfile/:id', loggedIn, services.Profile.deleteProfile);
 
 
-		//********************** Banner *************************/
+	//********************** Banner *************************/
 
 	/**
 	 * @swagger
@@ -1239,7 +1236,7 @@ module.exports = (app) => {
  *       500:
  *         description: Some server error
 	*/
-	app.post('/api/v1/createBanner', services.Banner.createBanner);
+	app.post('/api/v1/createBanner', loggedIn, services.Banner.createBanner);
 
 	/**
 	 * @swagger
@@ -1258,7 +1255,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Banner'
 	   */
 
-	app.get('/api/v1/getBanner', services.Banner.getBanner);
+	app.get('/api/v1/getBanner', loggedIn, services.Banner.getBanner);
 
 	/**
 	 * @swagger
@@ -1283,7 +1280,7 @@ module.exports = (app) => {
 	 *       404:
 	 *         description: The Banner was not found
 	 */
-	app.get('/api/v1/FindOneBanner/:id', services.Banner.FindOneBanner);
+	app.get('/api/v1/FindOneBanner/:id', loggedIn, services.Banner.FindOneBanner);
 
 	/**
  * @swagger
@@ -1317,7 +1314,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateBanner/:id', services.Banner.updateBanner);
+	app.patch('/api/v1/updateBanner/:id', loggedIn, services.Banner.updateBanner);
 
 	/**
  * @swagger
@@ -1339,8 +1336,14 @@ module.exports = (app) => {
  *       404:
  *         description: The Banner was not found
  */
-	app.delete('/api/v1/deleteBanner/:id', services.Banner.deleteBanner);
+	app.delete('/api/v1/deleteBanner/:id', loggedIn, services.Banner.deleteBanner);
 
-	app.get('/api/v1/location', services.User.location);
+	app.get('/api/v1/location', loggedIn, services.User.location);
+
+	app.post('/api/v1/createNewUser', services.User.createNewUser);
+
+	app.post('/api/v1/loginWithPhoneOtp', services.User.loginWithPhoneOtp);
+
+	app.post('/api/v1/verifyPhoneOtp', services.User.verifyPhoneOtp);
 
 };

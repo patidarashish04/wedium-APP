@@ -3,8 +3,11 @@ const { User } = require("../dao/queries");
 const { getUserByEmail, } = require('../services/User/function');
 
 const loggedIn = async (req, res, next) => {
-    let token = req.headers.authorization.split(" ")[1];
-    if (!token) return res.status(401).json("Access Denied..No token provided.");
+    let token;
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+     token = req.headers.authorization.split(' ')[1];
+    }
+    if (!token) return res.status(401).send("Access Denied..No token provided.");
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         if (verified.role === 'Admin') {

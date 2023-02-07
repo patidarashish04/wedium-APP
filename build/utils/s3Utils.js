@@ -28,7 +28,6 @@ const generateS3FileKey = name => {
 	const originalName = nameArray[0];
 	const fileExt = nameArray[nameArray.length - 1];
 	const fileName = `${originalName}-${timestamp}.${fileExt}`.replace(/[^A-Z0-9.-]/ig, '').replace(/%20/g, '_');
-	console.log('-------------->>>>>>>>>>>filename--------->', fileName);
 	return fileName;
 };
 
