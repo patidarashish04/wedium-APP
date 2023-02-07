@@ -58,6 +58,7 @@ function sessionMiddleware() {
 			}),
 		});
 	} catch (err) {
+		console.log('***ERROR****', err);
 	}
 }
 

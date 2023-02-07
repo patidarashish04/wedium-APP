@@ -42,6 +42,7 @@ const updateVendorById = async (id, data) => {
 const deleteVendorById = async (id) => {
 	try {
 		const dbResponse = await dbServices.Vendor.deleteVendorbyid(id);
+		console.log('==========dbResponse========>>>>>', dbResponse)
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
