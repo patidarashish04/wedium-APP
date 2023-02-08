@@ -54,10 +54,11 @@ const login = async (req, res, next) => {
         }
         // Validate if user exist in our database
         const user = await getUserByPhone(body.phone);
-        if (user && (await bcrypt.compare(body.password, user[0].password))) {
+        
+        if (user && (await bcrypt.compare(body.password, user.password))) {
             // Create token
             const token = jwt.sign(
-                { User_id: user[0]._id, User_phone: user[0].phone, role: user[0].role },
+                { User_id: user._id, User_phone: user.phone, role: user.role },
                 process.env.TOKEN_SECRET,
                 {
                     expiresIn: "7d",
@@ -65,7 +66,6 @@ const login = async (req, res, next) => {
             );
             res.header("auth-token", token).json({ user, "token": token });
             user.token = token;
-
             const updatedUser = await updateUserById(user._id, {
                 $set: { active: true },
             });
