@@ -48,11 +48,11 @@ const login = async (req, res, next) => {
             res.status(400).json("All input is required");
         }
         // Validate if user exist in our database
-        const user = await getUserByEmail(body.email);
-        if (user && (await bcrypt.compare(body.password, user[0].password))) {
+        const user = await getUserByPhone(body.phone);
+        if (user && (await bcrypt.compare(body.password, user.password))) {
             // Create token
             const token = jwt.sign(
-                { User_id: user[0]._id, User_email: user[0].email, role: user[0].role },
+                { User_id: user._id, User_phone: user.phone, role: user.role },
                 process.env.TOKEN_SECRET,
                 {
                     expiresIn: "24h",
