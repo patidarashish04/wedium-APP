@@ -10,9 +10,9 @@ const createUser = async (User) => {
 	}
 };
 // get category by id +
-const getUserByPhone = async (phone) => {
+const getUserByEmail = async (email) => {
 	try {
-		const dbResponse = await dbServices.User.getUserByPhone(phone);
+		const dbResponse = await dbServices.User.getUserByEmail(email);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -48,7 +48,7 @@ const deleteUserById = async (id) => {
 };
 module.exports = {
 	createUser,
-	getUserByPhone,
+	getUserByEmail,
 	getAllUser,
 	updateUserById,
 	deleteUserById,

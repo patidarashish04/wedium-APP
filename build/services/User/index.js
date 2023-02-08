@@ -93,6 +93,7 @@ const location = async (req, res) => {
         // console.log('***********locaton***********88',Country.getAllCountries())
         // console.log('***********locaton***********88',State.getAllStates())
         // let States = getStates('in');
+        // console.log('*************************',States);
         // const countries = Countries.getCountries({ locale: 'it' })
         // const location = await getLocation(phone);
         res.status(201).json({
@@ -146,5 +147,6 @@ module.exports = {
     login,
     updateUser,
     deleteUser,
+    profile,
     location
 };

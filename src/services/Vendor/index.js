@@ -10,14 +10,19 @@ const createVendors = async (req, res, next) => {
     try {
         let body = parseFormData(req.body);required: true
         body = body['form-data'];
+        console.log('<<<<<<<<<<<<<---body=========>>>>>>>>>>>>>>', body);
         const file = req.files ? req.files[0] : null;
+        console.log('-------------file ----====>>', file);
         if (file) {
             // this condition will executed if a Vendors photo has been uploaded
             const imageData = await uploadToS3(file);
+            console.log('<<<<<<<<<<<<<---body=========>>>>>>>>>>>>>>', imageData);
             body.imagekey = imageData.Key;
             body.imagelocation = `${IMAGE_BASE_CDN}/${imageData.Key}`;
         }
+        console.log('==========---->>  Password=========>>>>>>>>>>>>>>', body.password);
         encryptedPassword = await bcrypt.hash(body.password, 10);
+        console.log('encryptedPassword=========>>>>>>>>>>>>>>', encryptedPassword);
         const options = {
             vendorName: body.vendorName,
             email: body.email.toLowerCase(), // sanitize: convert email to lowercase

@@ -6,7 +6,6 @@ const categorySchema = new mongoose.Schema({
         trim: true,
         required: [true, 'Please add a category_name '],
         maxlength: 32,
-        // unique :true
     },
     imagePath: {
         type: String,
