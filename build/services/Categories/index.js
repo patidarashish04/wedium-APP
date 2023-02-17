@@ -1,17 +1,26 @@
-const { createCategorys, getCategoryByid, getAllCategory, updateCategoryByid, deleteCategoryByid } = require('../Categories/functions');
+const { createCategorys, getCategoryByid, getAllCategory, updateCategoryByid, deleteCategoryByid, getCategoryByName } = require('../Categories/functions');
 
 // GET category
 const createCategory = async (req, res, next) => {
     try {
         const body = req.body;
-        // Validate Category input
-        if (!(body.name && body.imagePath)) {
-            res.status(400).json("All input is required");
+        const categoryName = await getCategoryByName(body.name);
+        if (categoryName.length === 0) {
+            // Validate Category input
+            if (!(body.name && body.imagePath)) {
+                res.status(400).json("All input is required");
+            }
+            const options = {
+                name: body.name,
+                imagePath: body.imagePath
+            };
+            const category = await createCategorys(options);
+            res.status(200).json(category);
+        } else {
+            res.status(404).json({ message: 'This category has already been created' });
         }
-        const category = await createCategorys(body);
-        res.status(200).json(category);
     } catch (err) {
-        console.log(err);
+        res.status(500).json({ message: "Error creating category" });
     }
 };
 
@@ -32,10 +41,10 @@ const getCategory = async (req, res, next) => {
         }).catch(err => res.status(500).json(err));
     } else {
         getAllCategory().then(categories => {
-            res.status(201).json({
+            res.status(200).json({
                 data: categories,
-                status: true,
-                message: null
+                success: true,
+                message: "Categories found"
             });
         }).catch(err => {
             res.status(500).json({ message: err.message || "Error Occurred while retriving Category information" });
@@ -62,6 +71,36 @@ const getCategory = async (req, res, next) => {
 //       });
 //   },
 
+// exports.displayProduct = async (req, res, next) => {
+//     //enable pagination
+//     const pageSize = 3;
+//     const page = Number(req.query.pageNumber) || 1;
+//     const count = await Product.find({}).estimatedDocumentCount();
+//     //all categories ids
+//     let ids = [];
+//     const categ = await Category.find({}, { _id: 1 });
+//     categ.forEach(cat => {
+//         ids.push(cat._id);
+//     })
+//     //filter
+//     let cat = req.query.cat;
+//     let query = cat !== '' ? cat : ids;
+//     try {
+//         const products = await Product.find({ category: query }).populate('category', 'name')
+//             .skip(pageSize * (page - 1))
+//             .limit(pageSize)
+//         res.status(201).json({
+//             success: true,
+//             products,
+//             page,
+//             pages: Math.ceil(count / pageSize),
+//             count
+//         })
+//     } catch (error) {
+//         console.log(error);
+//         next(error);
+//     }
+// }
 
 // retrive and return a single Category
 const FindOneCategory = async (req, res, next) => {

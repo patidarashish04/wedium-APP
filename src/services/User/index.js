@@ -71,24 +71,22 @@ const login = async (req, res, next) => {
     }
 };
 
-// user profile
-const profile = async (req, res) => {
-    try {
-        console.log('under aa gya h')
-        const userRef = firebase.firestore().collection('users');
-        userRef
-        .get()
-        .then((snapshot) => {
-          const data = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          console.log("All data in 'books' collection", data); 
-          // [ { id: 'glMeZvPpTN1Ah31sKcnj', title: 'The Great Gatsby' } ]
-        });
-    } catch (err) {
-        console.log(err);
-    }
+const generateOtp = async (req, res) => {
+    const contact = pass.contact;
+    const otp = await otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, alphabets: false });
+    const options = { authorization: FAST2SMS_API_KEY, message: `Your OTP is ${otp}`, numbers: [8888888888, 9999999999, 6666666666] };
+    const message = await fast2sms.sendMessage(options) //Asynchronous Function.
+    const user = new user({
+        contact,
+        otp
+    })
+    user.save()
+        .then(result => {
+            console.log(otp);
+            console.log(result);
+            message,
+            res.end();
+        })
 }
 
 // user location

@@ -7,7 +7,11 @@ const schema = new mongoose.Schema({
     required: [true, 'Please add a Name'],
     maxlength: 32
   },
-
+  phone: {
+    type: Number,
+    required: [true, 'Please add a Phone.No'],
+    maxlength: 13
+  },
   // email: {
   //   type: String,
   //   required: () => {
@@ -18,7 +22,7 @@ const schema = new mongoose.Schema({
   email: {
     type: String,
     trim: true,
-    required: [true, 'Please add a E-mail'],
+    // required: [true, 'Please add a E-mail'],
     unique: true
     // match: [
     //     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -42,16 +46,16 @@ const schema = new mongoose.Schema({
     //     'Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and a special characters'
     // ]
   },
-  // role: {
-  //   type: String,
-  //   enum: ['Member', 'Client', 'Owner', 'Admin'],
-  //   default: 'Member'
-  // },
   role: {
     type: String,
-    default: ROLES.Member,
-    enum: [ROLES.Admin, ROLES.Member, ROLES.Merchant]
+    enum: ['Member', 'Client', 'Owner', 'Admin'],
+    default: 'Member'
   },
+  // role: {
+  //   type: String,
+  //   default: ROLES.Member,
+  //   enum: [ROLES.Admin, ROLES.Member, ROLES.Merchant]
+  // },
   token: {
     type: String
   },
