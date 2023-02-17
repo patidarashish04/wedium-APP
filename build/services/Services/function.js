@@ -18,6 +18,15 @@ const getServicesByid = async id => {
 		throw new Error(err);
 	}
 };
+// get Services by name +
+const getServicesByName = async name => {
+	try {
+		const dbResponse = await dbServices.Services.getServicesByName(name);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
 // get All Services +
 const getAllServices = async () => {
 	try {
@@ -63,5 +72,6 @@ module.exports = {
 	getAllServices,
 	updateServicesById,
 	deleteServicesById,
-	BestSeller
+	BestSeller,
+	getServicesByName
 };

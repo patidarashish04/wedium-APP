@@ -1,20 +1,25 @@
 // const Services = require('../../dao/queries/model/services');
 const { getSubCategoryByid } = require('../SubCategories/functions');
-const { createServices, getServicesByid, BestSeller, getAllServices, updateServicesById, deleteServicesById } = require('../Services/function');
+const { createServices, getServicesByid, BestSeller, getAllServices, updateServicesById, deleteServicesById, getServicesByName } = require('../Services/function');
 
 // GET Services
 const createNewServices = async (req, res, next) => {
     try {
-        const id = req.body.subCatgoryId;
-        const SubCategory = await getSubCategoryByid(id);
-        if (!SubCategory) return res.status(400).send('SubCategory Not Found ');
         const body = req.body;
-        // Validate services input
-        if (!(body.subCatgoryId && body.name && body.image)) {
-            res.status(400).json("All input is required");
+        const ServicesName = await getServicesByName(body.name);
+        if (ServicesName.length === 0) {
+            const id = req.body.subCatgoryId;
+            const SubCategory = await getSubCategoryByid(id);
+            if (!SubCategory) return res.status(400).send('SubCategory Not Found ');
+            // Validate services input
+            if (!(body.subCatgoryId && body.name && body.image)) {
+                res.status(400).json("All input is required");
+            }
+            const services = await createServices(body);
+            res.status(200).json(services);
+        } else {
+            res.status(404).json({ message: 'This Services has already been created' });
         }
-        const services = await createServices(body);
-        res.status(200).json(services);
     } catch (err) {
         console.log(err);
     }
