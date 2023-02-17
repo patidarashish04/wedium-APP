@@ -9,7 +9,7 @@ const deleteUser = (id) => Registers.findByIdAndDelete(id);
 
 module.exports = {
     createUser,
-    getUserByPhone,
+    getUserByEmail,
     getAllUser,
     findUserUpdate,
     deleteUser,

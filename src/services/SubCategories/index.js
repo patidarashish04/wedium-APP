@@ -1,24 +1,19 @@
 const { getCategoryByid } = require('../Categories/functions');
-const { createSubCategory, getSubCategoryByid, getAllSubCategory, updateSubCategoryById, deleteSubCategoryById, getSubCategoryByName } = require('../SubCategories/functions')
+const { createSubCategory, getSubCategoryByid, getAllSubCategory, updateSubCategoryById, deleteSubCategoryById } = require('../SubCategories/functions')
 
 // GET SubCategory
 const createNewSubCategory = async (req, res, next) => {
     try {
+        const id = req.body.categoryId;
+        const categories = await getCategoryByid(id);
+        if(!categories) return res.status(400).send('Category Not Found ');
         const body = req.body;
-        const subCategoryName = await getSubCategoryByName(body.name);
-        if (subCategoryName.length === 0) {
-            const id = req.body.categoryId;
-            const categories = await getCategoryByid(id);
-            if (!categories) return res.status(400).send('Category Not Found ');
-            // Validate user input
-            if (!(body.categoryId && body.name && body.imagePath)) {
-                res.status(400).json("All input is required");
-            }
-            const SubCategory = await createSubCategory(body);
-            res.status(200).json(SubCategory);
-        } else {
-            res.status(404).json({ message: 'This SubCategory has already been created' })
+        // Validate user input
+        if (!(body.categoryId && body.name && body.imagePath)) {
+            res.status(400).json("All input is required");
         }
+        const SubCategory = await createSubCategory(body);
+        res.status(200).json(SubCategory);
     } catch (err) {
         console.log(err);
     }
