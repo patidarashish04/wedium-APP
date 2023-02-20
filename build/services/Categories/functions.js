@@ -4,7 +4,6 @@ const dbServices = require('../../dao/queries/index');
 const createCategorys = async category => {
 	try {
 		const dbResponse = await dbServices.Category.createCategory(category);
-		console.log('CREATE CATEGORY', dbResponse);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);

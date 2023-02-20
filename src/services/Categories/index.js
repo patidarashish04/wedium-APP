@@ -4,6 +4,7 @@ const { createCategorys, getCategoryByid, getAllCategory, updateCategoryByid, de
 const createCategory = async (req, res, next) => {
     try {
         const body = req.body;
+        console.log('********* CREATE CATEGORY', body);
         // Validate Category input
         if (!(body.name && body.imagePath)) {
             res.status(400).json("All input is required");
@@ -11,7 +12,10 @@ const createCategory = async (req, res, next) => {
         const category = await createCategorys(body);
         res.status(200).json(category);
     } catch (err) {
-        console.log(err);
+        res.status(409).json({
+            'message': `${err.message}`
+        });
+        console.log(err.message);
     }
 }
 
