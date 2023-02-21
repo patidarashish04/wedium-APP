@@ -27,8 +27,7 @@ const getProfile = async (req, res, next) => {
                     } else {
                         res.json(profile)
                     }
-div
-} catch (err) {
+                } catch (err) {
                     res.status(500).json({ message: "Error retrieving profile with id " + id })
                 }
             })

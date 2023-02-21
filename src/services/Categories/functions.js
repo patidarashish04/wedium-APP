@@ -1,7 +1,7 @@
 const dbServices = require('../../dao/queries/index');
 
 // create category +
-const createCategorys = async (category) => {
+const createCategorys = async category => {
 	try {
 		const dbResponse = await dbServices.Category.createCategory(category);
 		return dbResponse;
@@ -10,9 +10,18 @@ const createCategorys = async (category) => {
 	}
 };
 // get category by id +
-const getCategoryByid = async (id) => {
+const getCategoryByid = async id => {
 	try {
 		const dbResponse = await dbServices.Category.getCategoryByid(id);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
+// get category by name +
+const getCategoryByName = async name => {
+	try {
+		const dbResponse = await dbServices.Category.getCategoryByName(name);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -38,7 +47,7 @@ const updateCategoryByid = async (id, data) => {
 };
 
 // delete category +
-const deleteCategoryByid = async (id) => {
+const deleteCategoryByid = async id => {
 	try {
 		const dbResponse = await dbServices.Category.deleteCategoryByid(id);
 		return dbResponse;
@@ -52,4 +61,5 @@ module.exports = {
 	getAllCategory,
 	updateCategoryByid,
 	deleteCategoryByid,
-}; 
+	getCategoryByName
+};

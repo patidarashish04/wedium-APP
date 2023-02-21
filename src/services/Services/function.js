@@ -1,7 +1,7 @@
 const dbServices = require('../../dao/queries/index');
 
 // create Services +
-const createServices = async (body) => {
+const createServices = async body => {
 	try {
 		const dbResponse = await dbServices.Services.createService(body);
 		return dbResponse;
@@ -10,10 +10,18 @@ const createServices = async (body) => {
 	}
 };
 // get Services by id +
-const getServicesByid = async (id) => {
+const getServicesByid = async id => {
 	try {
 		const dbResponse = await dbServices.Services.getServicesByid(id);
-		console.log('************record******', dbResponse)
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
+// get Services by name +
+const getServicesByName = async name => {
+	try {
+		const dbResponse = await dbServices.Services.getServicesByName(name);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -50,7 +58,7 @@ const updateServicesById = async (id, data) => {
 };
 
 // delete Services +
-const deleteServicesById = async (id) => {
+const deleteServicesById = async id => {
 	try {
 		const dbResponse = await dbServices.Services.deleteServicesById(id);
 		return dbResponse;
@@ -65,4 +73,5 @@ module.exports = {
 	updateServicesById,
 	deleteServicesById,
 	BestSeller,
-}; 
+	getServicesByName
+};
