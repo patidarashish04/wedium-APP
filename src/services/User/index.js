@@ -63,7 +63,7 @@ const login = async (req, res, next) => {
             });
             return [true, updatedUser, token];
         }
-        res.status(400).json("Invalid Credentials");
+        res.status(400).json({message: "Invalid Credentials"});
     } catch (err) {
         console.log(err);
     }
