@@ -68,7 +68,7 @@ module.exports = (app) => {
 	*/
 
 
-	app.post('/api/users/register', services.User.register);
+	app.post('/api/v1/users/register', services.User.register);
 
 	/**
 * @swagger
@@ -92,7 +92,7 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	app.post('/api/users/login', services.User.login);
+	app.post('/api/v1/users/login', services.User.login);
 
 	/**
  * @swagger
@@ -126,7 +126,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/updateUser/:id', services.User.updateUser);
+	app.patch('/api/v1/updateUser/:id', services.User.updateUser);
 
 	/**
  * @swagger
@@ -148,7 +148,7 @@ module.exports = (app) => {
  *       404:
  *         description: The User was not found
  */
-	app.delete('/api/deleteUser/:id', loggedIn, services.User.deleteUser);
+	app.delete('/api/v1/deleteUser/:id', loggedIn, services.User.deleteUser);
 
 	//*********** category *************************/
 
