@@ -36,7 +36,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get('/', (req, res) => res.send('Hellooooo'))
+app.get('/', (req, res) => res.json({message : 'Hellooooo'}))
 // app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({
     limit: '10gb',
@@ -62,6 +62,6 @@ app.get('/', (req, res) => {
 
 require('./src/routes/apis')(app);
 
-app.get('*', (req, res) => res.status(404).send({ error: 'API not found.' }));
+app.get('*', (req, res) => res.status(404).json({ error: 'API not found.' }));
 
 app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`) });   // PORT listening to..
