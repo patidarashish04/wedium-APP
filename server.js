@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 8080
 
 const connectDB = require('./src/dao/database');
 
+console.log('START');
+
 
 //mongodb connection 
 connectDB();
