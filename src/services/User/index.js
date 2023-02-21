@@ -1,27 +1,24 @@
 const bcrypt = require('bcrypt');
-// const { Countries, State, City }  = require('country-state-city');
-// let Country = require('country-state-city').Country;
-// let State = require('country-state-city').State;
-// const { Countries, States, Cities } = require('countries-states-cities-service');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config('.env.local');
-const { getUserByEmail, createUser, updateUserById, deleteUserById,} = require('../User/function');
-const {firebase} = require('../../utils/firebase');
+const { getUserByPhone, oldUserByEmail, createUser, updateUserById, deleteUserById } = require('../User/function');
 // user register
 const register = async (req, res, next) => {
     try {
         const body = req.body;
         // Validate user input
-        if (!(body.email && body.password && body.name)) {
+        if (!(body.phone && body.password)) {
             res.status(400).json("All input is required");
         }
-        // check if user already exist
-        const oldUser = await getUserByEmail(body.email);
-        if (oldUser.length > 0) {
+        // check if user already exist by phone
+        const oldUserByphone = await getUserByPhone(body.phone);
+        // check if user already exist by email
+        const oldUserByemail = await oldUserByEmail(body.email);
+        if (oldUserByphone != 0 || oldUserByemail != 0) {
             return res.status(409).json("User Already Exist. Please Login");
-        }
-        //Encrypt user password
+        }else{
+        // Encrypt user password
         encryptedPassword = await bcrypt.hash(body.password, 5);
         const options = {
             name: body.name,
@@ -31,6 +28,7 @@ const register = async (req, res, next) => {
         };
         // Create user in our database
         const user = await createUser(options);
+    }
         const token = jwt.sign({ User_id: user._id, User_email: user.email, role: user.role }, process.env.TOKEN_SECRET);
         res.status(201).json({ userDetails: user, token });
     } catch (err) {
@@ -44,15 +42,15 @@ const login = async (req, res, next) => {
         // Get user input
         const body = req.body;
         // Validate user input
-        if (!(body.email && body.password)) {
+        if (!(body.phone && body.password)) {
             res.status(400).json("All input is required");
         }
         // Validate if user exist in our database
-        const user = await getUserByEmail(body.email);
-        if (user && (await bcrypt.compare(body.password, user[0].password))) {
+        const user = await getUserByPhone(body.phone);
+        if (user && (await bcrypt.compare(body.password, user.password))) {
             // Create token
             const token = jwt.sign(
-                { User_id: user[0]._id, User_email: user[0].email, role: user[0].role },
+                { User_id: user._id, User_phone: user.phone, role: user.role },
                 process.env.TOKEN_SECRET,
                 {
                     expiresIn: "24h",
@@ -71,24 +69,22 @@ const login = async (req, res, next) => {
     }
 };
 
-// user profile
-const profile = async (req, res) => {
-    try {
-        console.log('under aa gya h')
-        const userRef = firebase.firestore().collection('users');
-        userRef
-        .get()
-        .then((snapshot) => {
-          const data = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          console.log("All data in 'books' collection", data); 
-          // [ { id: 'glMeZvPpTN1Ah31sKcnj', title: 'The Great Gatsby' } ]
-        });
-    } catch (err) {
-        console.log(err);
-    }
+const generateOtp = async (req, res) => {
+    const contact = pass.contact;
+    const otp = await otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, alphabets: false });
+    const options = { authorization: FAST2SMS_API_KEY, message: `Your OTP is ${otp}`, numbers: [8888888888, 9999999999, 6666666666] };
+    const message = await fast2sms.sendMessage(options) //Asynchronous Function.
+    const user = new user({
+        contact,
+        otp
+    })
+    user.save()
+        .then(result => {
+            console.log(otp);
+            console.log(result);
+            message,
+                res.end();
+        })
 }
 
 // user location
@@ -157,6 +153,5 @@ module.exports = {
     login,
     updateUser,
     deleteUser,
-    profile,
     location
 };

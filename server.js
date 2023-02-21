@@ -2,7 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyparser = require("body-parser");
 const cookieParser = require('cookie-parser');
-const path = require('path');
 const cors = require("cors") // import cors
 const dotenv = require('dotenv');
 const swaggerJSDoc = require('swagger-jsdoc');
@@ -39,9 +38,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-
-app.get('/', (req, res) => res.send('Hellooooo'))
-// // view Engin setUp
+app.get('/', (req, res) => res.json({message : 'Hellooooo'}))
 // app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({
     limit: '10gb',
@@ -67,11 +64,6 @@ app.get('/', (req, res) => {
 
 require('./src/routes/apis')(app);
 
-app.get('*', (req, res) => res.status(404).send({ error: 'API not found.' }));
+app.get('*', (req, res) => res.status(404).json({ error: 'API not found.' }));
 
-// const multer = require('multer')
-// const upload = multer({
-//     dest: 'upload'
-// })
-
-app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`) });
+app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`) });   // PORT listening to..

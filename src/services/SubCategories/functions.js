@@ -1,7 +1,7 @@
 const dbServices = require('../../dao/queries/index');
 
 // create category +
-const createSubCategory = async (SubCategory) => {
+const createSubCategory = async SubCategory => {
 	try {
 		const dbResponse = await dbServices.SubCategory.createSubCategory(SubCategory);
 		return dbResponse;
@@ -10,9 +10,18 @@ const createSubCategory = async (SubCategory) => {
 	}
 };
 // get category by id +
-const getSubCategoryByid = async (id) => {
+const getSubCategoryByid = async id => {
 	try {
 		const dbResponse = await dbServices.SubCategory.getSubCategoryByid(id);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
+// get category by name +
+const getSubCategoryByName = async name => {
+	try {
+		const dbResponse = await dbServices.SubCategory.getSubCategoryByName(name);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -38,7 +47,7 @@ const updateSubCategoryById = async (id, data) => {
 };
 
 // delete category +
-const deleteSubCategoryById = async (id) => {
+const deleteSubCategoryById = async id => {
 	try {
 		const dbResponse = await dbServices.SubCategory.deleteSubCategory(id);
 		return dbResponse;
@@ -52,4 +61,5 @@ module.exports = {
 	getAllSubCategory,
 	updateSubCategoryById,
 	deleteSubCategoryById,
-}; 
+	getSubCategoryByName
+};
