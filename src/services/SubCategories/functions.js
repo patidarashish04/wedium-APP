@@ -47,7 +47,7 @@ const updateSubCategoryById = async (id, data) => {
 };
 
 // delete category +
-const deleteSubCategoryById = async id => {
+const deleteSubCategoryById = async (id) => {
 	try {
 		const dbResponse = await dbServices.SubCategory.deleteSubCategory(id);
 		return dbResponse;
