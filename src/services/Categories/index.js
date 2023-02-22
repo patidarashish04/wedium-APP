@@ -129,7 +129,7 @@ const updateCategory = async (req, res, next) => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update Category with ${id}. Maybe Category not found!` });
         } else {
-            res.json(data);
+            res.json({ message: " Successfully Updated Category information" });
         }
     }).catch(err => {
         res.status(500).json({ message: "Error Update Category information" });

@@ -149,7 +149,7 @@ const updateSubCategory = async (req, res, next) => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update SubCategory with ${id}. Maybe SubCategory not found!` });
         } else {
-            res.json(data);
+            res.json({ message: " Successfully Updated SubCategory information" });
         }
     }).catch(err => {
         res.status(500).json({ message: "Error Update SubCategory information" });

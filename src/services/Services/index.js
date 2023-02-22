@@ -112,7 +112,7 @@ const updateServices = async (req, res, next) => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update Services with ${id}. Maybe Services not found!` });
         } else {
-            res.json(data);
+            res.json({ message: " Successfully Updated Services information" });
         }
     }).catch(err => {
         res.status(500).json({ message: "Error Update Services information" });
