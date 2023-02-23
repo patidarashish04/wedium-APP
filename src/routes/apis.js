@@ -46,7 +46,7 @@ module.exports = (app) => {
 
 	/**
  * @swagger
- * /api/users/register:
+ * /api/users/signup:
  *   post:
  *     summary: Create a new User
  *     tags: [User]
@@ -68,7 +68,7 @@ module.exports = (app) => {
 	*/
 
 
-	app.post('/api/v1/users/register', services.User.register);
+	app.post('/api/v1/users/signup', services.User.signup);
 
 	/**
 * @swagger

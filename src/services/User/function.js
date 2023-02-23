@@ -1,7 +1,7 @@
 const dbServices = require('../../dao/queries/index');
 
 // create category +
-const createUser = async User => {
+const createUser = async (User) => {
 	try {
 		const dbResponse = await dbServices.User.createUser(User);
 		return dbResponse;
@@ -20,9 +20,9 @@ const getUserByPhone = async (phone) => {
 };
 
 // get category by id +
-const oldUserByEmail = async (email) => {
+const getUserdata = async (data) => {
 	try {
-		const dbResponse = await dbServices.User.oldUserByEmail(email);
+		const dbResponse = await dbServices.User.getUserdata(data);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -48,7 +48,7 @@ const updateUserById = async (id, data) => {
 };
 
 // delete category +
-const deleteUserById = async id => {
+const deleteUserById = async (id) => {
 	try {
 		const dbResponse = await dbServices.User.deleteUser(id);
 		return dbResponse;
@@ -59,7 +59,7 @@ const deleteUserById = async id => {
 module.exports = {
 	createUser,
 	getUserByPhone,
-	oldUserByEmail,
+	getUserdata,
 	getAllUser,
 	updateUserById,
 	deleteUserById

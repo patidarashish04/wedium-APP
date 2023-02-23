@@ -2,35 +2,34 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config('.env.local');
-const { getUserByPhone, oldUserByEmail, createUser, updateUserById, deleteUserById } = require('../User/function');
-// user register
-const register = async (req, res, next) => {
+const { getUserByPhone, getUserdata, createUser, updateUserById, deleteUserById } = require('../User/function');
+// user signup
+const signup = async (req, res, next) => {
     try {
         const body = req.body;
         // Validate user input
         if (!(body.phone && body.password)) {
             res.status(400).json("All input is required");
         }
+        const data = {phone: body.phone, email : body.email}
         // check if user already exist by phone
-        const oldUserByphone = await getUserByPhone(body.phone);
-        // check if user already exist by email
-        const oldUserByemail = await oldUserByEmail(body.email);
-        if (oldUserByphone != 0 || oldUserByemail != 0) {
+        const oldUserData = await getUserdata(data);
+        if (oldUserData != 0) {
             return res.status(409).json("User Already Exist. Please Login");
-        }else{
-        // Encrypt user password
-        encryptedPassword = await bcrypt.hash(body.password, 5);
-        const options = {
-            name: body.name,
-            email: body.email.toLowerCase(), // sanitize: convert email to lowercase
-            password: encryptedPassword,
-            // role : phone === process.env.ADMIN_PHONE ? "ADMIN" :"USER"
-        };
-        // Create user in our database
-        const user = await createUser(options);
-    }
-        const token = jwt.sign({ User_id: user._id, User_email: user.email, role: user.role }, process.env.TOKEN_SECRET);
-        res.status(201).json({ userDetails: user, token });
+        } else {
+            // Encrypt user password
+            encryptedPassword = await bcrypt.hash(body.password, 5);
+            const options = {
+                name: body.name,
+                email: body.email.toLowerCase(), // sanitize: convert email to lowercase
+                password: encryptedPassword,
+                phone: body.phone,
+            };
+            // Create user in our database
+            const user = await createUser(options);
+            const token = jwt.sign({ User_id: user._id, User_email: user.email, role: user.role }, process.env.TOKEN_SECRET);
+            res.status(201).json({ userDetails: user, token });
+        }
     } catch (err) {
         console.log(err);
     }
@@ -149,7 +148,7 @@ const deleteUser = async (req, res, next) => {
 }
 
 module.exports = {
-    register,
+    signup,
     login,
     updateUser,
     deleteUser,
