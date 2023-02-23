@@ -1,17 +1,17 @@
-const Registers = require('../queries/model/register');
+const Signup = require('../queries/model/signup');
 
-const createUser = (userBody) => Registers.create(userBody);
-const getUserByPhone = (phone) => Registers.findOne({ phone });
-const oldUserByEmail = (email) => Registers.findOne({ email });
-const getAllUser = () => Registers.find();
-const findUserUpdate = (id, data) => Registers.findByIdAndUpdate(id, data);
-const deleteUser = (id) => Registers.findByIdAndDelete(id);
+const createUser = (userBody) => Signup.create(userBody);
+const getUserByPhone = (phone) => Signup.findOne({ phone: phone });
+const getUserdata = (data) => Signup.find( {$or: [ {phone: data.phone }, { email: data.email } ]} );
+const getAllUser = () => Signup.find();
+const findUserUpdate = (id, data) => Signup.findByIdAndUpdate(id, data);
+const deleteUser = (id) => Signup.findByIdAndDelete(id);
 
 
 module.exports = {
     createUser,
     getUserByPhone,
-    oldUserByEmail,
+    getUserdata,
     getAllUser,
     findUserUpdate,
     deleteUser,
