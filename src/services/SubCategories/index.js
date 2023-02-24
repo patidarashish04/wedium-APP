@@ -7,6 +7,7 @@ const createNewSubCategory = async (req, res, next) => {
         const body = req.body;
         const id = req.body.categoryId;
         const categories = await getCategoryByid(id);
+        if (categories == null) res.status(500).json('Invalid category id.');
         if (!categories) return res.status(404).json({message : 'Category Not Found '});
         const subCategoryName = await getSubCategoryByName(body.name);
         if (subCategoryName.length === 0) {
