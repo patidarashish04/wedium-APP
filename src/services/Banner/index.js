@@ -9,7 +9,7 @@ const createBanner = async (req, res, next) => {
             res.status(400).json("All input is required");
         }
         const Banner = await createBanners(body);
-        res.status(200).json(Banner);
+        res.status(201).json(Banner);
     } catch (err) {
         console.log(err);
     }
@@ -25,7 +25,7 @@ const getBanner = async (req, res, next) => {
                     if (!Banner && Banner.id) {
                         res.status(404).json({ message: "Not found Banner with id " + id })
                     } else {
-                        res.json(Banner)
+                        res.status(200).json(Banner)
                     }
 } catch (err) {
                     res.status(500).json({ message: "Error retrieving Banner with id " + id })
@@ -76,7 +76,7 @@ const FindOneBanner = async (req, res, next) => {
                 if (!banner && banner.id) {
                     res.status(404).json({ message: "Not found banner with id " + id })
                 } else {
-                    res.json(banner)
+                    res.status(200).json(banner)
                 }
             } catch (err) {
                 res.status(500).json({ message: "Error retrieving banner with id " + id })
@@ -99,7 +99,7 @@ const updateBanner = async (req, res, next) => {
             if (!data) {
                 res.status(404).json({ message: `Cannot Update banner with ${id}. Maybe banner not found!` })
             } else {
-                res.json(data)
+                res.status(200).json(data)
             }
         })
         .catch(err => {
@@ -115,7 +115,7 @@ const deleteBanner = async (req, res, next) => {
             if (!data) {
                 res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })
             } else {
-                res.json({
+                res.status(200).json({
                     message: "banner was deleted successfully!"
                 })
             }

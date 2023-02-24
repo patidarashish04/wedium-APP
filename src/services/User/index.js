@@ -9,7 +9,7 @@ const signup = async (req, res, next) => {
         const body = req.body;
         // Validate user input
         if (!(body.phone && body.password)) {
-            res.status(400).json("All input is required");
+            res.status(404).json("All input is required");
         }
         const data = {phone: body.phone, email : body.email}
         // check if user already exist by phone
@@ -42,7 +42,7 @@ const login = async (req, res, next) => {
         const body = req.body;
         // Validate user input
         if (!(body.phone && body.password)) {
-            res.status(400).json("All input is required");
+            res.status(404).json("All input is required");
         }
         // Validate if user exist in our database
         const user = await getUserByPhone(body.phone);
@@ -108,22 +108,23 @@ const location = async (req, res) => {
 //  update user
 const updateUser = async (req, res, next) => {
     const data = req.body;
+
     if (!data) {
         return res
-            .status(400)
+            .status(404)
             .json({ message: "Data to update can not be empty" })
     }
     const id = req.params.id;
     await updateUserById(id, data)
         .then(data => {
             if (!data) {
-                res.status(404).json({ message: `Cannot Update SubCategory with ${id}. Maybe SubCategory not found!` })
+                res.status(404).json({ message: `Cannot Update User with ${id}. Maybe User not found!` })
             } else {
-                res.json(data)
+                res.status(200).json({ message: " Successfully Updated User Role" })
             }
         })
         .catch(err => {
-            res.status(500).json({ message: "Error Update SubCategory information" })
+            res.status(500).json({ message: "Error Update User Role" })
         })
 }
 
@@ -135,7 +136,7 @@ const deleteUser = async (req, res, next) => {
             if (!data) {
                 res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })
             } else {
-                res.json({
+                res.status(200).json({
                     message: "user was deleted successfully!"
                 })
             }

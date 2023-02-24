@@ -376,9 +376,9 @@ module.exports = (app) => {
 *       500:
 *         description: Some server error
 */
-	app.post('/api/v1/createSubCategory', loggedIn, services.subcategories.createNewSubCategory);
+	app.post('/api/v1/createSubCategory',  services.subcategories.createNewSubCategory);
 
-	app.post('/api/v1/Category/subCategory', loggedIn, services.subcategories.CreateSubCategory);
+	app.post('/api/v1/Category/subCategory',  services.subcategories.CreateSubCategory);
 
 	/**
 	 * @swagger

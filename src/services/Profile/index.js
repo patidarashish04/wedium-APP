@@ -6,7 +6,7 @@ const createProfiles = async (req, res, next) => {
         const body = req.body;
         // Validate profile input
         if (!(body.fullName && body.phoneNumber && body.coverImage)) {
-            res.status(400).json("All input is required");
+            res.status(404).json("All input is required");
         }
         const profile = await createProfile(body);
         res.status(200).json(profile);
