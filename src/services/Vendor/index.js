@@ -38,7 +38,7 @@ const getVendor = async (req, res, next) => {
                     if (!vendor && vendor.id) {
                         res.status(404).json({ message: "Not found vendor with id " + id })
                     } else {
-                        res.json(vendor)
+                        res.status(200).json(vendor)
                     }
                 } catch (err) {
                     res.status(500).json({ message: "Error retrieving vendor with id " + id })
@@ -89,7 +89,7 @@ const FindOneVendor = async (req, res, next) => {
                 if (!vendor && vendor.id) {
                     res.status(404).json({ message: "Not found vendor with id " + id })
                 } else {
-                    res.json(vendor)
+                    res.status(200).json(vendor)
                 }
             } catch (err) {
                 res.status(500).json({ message: "Error retrieving vendor with id " + id })
@@ -112,7 +112,7 @@ const updateVendor = async (req, res, next) => {
             if (!data) {
                 res.status(404).json({ message: `Cannot Update vendor with ${id}. Maybe vendor not found!` })
             } else {
-                res.json(data)
+                res.status(200).json(data)
             }
         })
         .catch(err => {
@@ -128,7 +128,7 @@ const deleteVendor = async (req, res, next) => {
             if (!data) {
                 res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })
             } else {
-                res.json({
+                res.status(200).json({
                     message: "vendor was deleted successfully!"
                 })
             }

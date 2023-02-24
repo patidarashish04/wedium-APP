@@ -1,7 +1,7 @@
 const Services = require('../queries/model/services');
 
 const createService = (ServicesBody) => Services.create(ServicesBody);
-const getServicesByid = (id) => Services.find({ subCatgoryId: id });
+const getServicesByid = (id) => Services.findById( id );
 const getServicesByName = (name) => Services.find({ name });
 const getAllServices = () => Services.find();
 const updateServicesById = (id, data) => Services.findByIdAndUpdate(id, data);

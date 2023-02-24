@@ -8,14 +8,14 @@ const createCategory = async (req, res, next) => {
         if (categoryName.length === 0) {
             // Validate Category input
             if (!(body.name && body.imagePath)) {
-                res.status(400).json(" Name and Image Required");
+                res.status(404).json(" Name and Image Required");
             }
             const options = {
                 name: body.name,
                 imagePath: body.imagePath
             };
             const category = await createCategorys(options);
-            res.status(200).json(category);
+            res.status(201).json(category);
         } else {
             res.status(404).json({ message: 'This category has already been created' });
         }
@@ -33,7 +33,7 @@ const getCategory = async (req, res, next) => {
                 if (!category && category.id) {
                     res.status(404).json({ message: "Not found category with id " + id });
                 } else {
-                    res.json(category);
+                    res.status(200).json(category);
                 }
             } catch (err) {
                 res.status(500).json({ message: "Error retrieving category with id " + id });
@@ -110,7 +110,7 @@ const FindOneCategory = async (req, res, next) => {
             if (!category && category.id) {
                 res.status(404).json({ message: "Not found category with id " + id });
             } else {
-                res.json(category);
+                res.status(200).json(category);
             }
         } catch (err) {
             res.status(500).json({ message: "Error retrieving category with id " + id });
@@ -129,7 +129,7 @@ const updateCategory = async (req, res, next) => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update Category with ${id}. Maybe Category not found!` });
         } else {
-            res.json({ message: " Successfully Updated Category information" });
+            res.status(200).json({ message: " Successfully Updated Category information" });
         }
     }).catch(err => {
         res.status(500).json({ message: "Error Update Category information" });
@@ -142,7 +142,7 @@ const deleteCategory = async (req, res, next) => {
         if (!data) {
             res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });
         } else {
-            res.json({
+            res.status(200).json({
                 message: "Category was deleted successfully!"
             });
         }

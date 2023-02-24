@@ -6,17 +6,17 @@ const { createServices, getServicesByid, BestSeller, getAllServices, updateServi
 const createNewServices = async (req, res, next) => {
     try {
         const body = req.body;
+        const id = req.body.subCatgoryId;
+        const SubCategory = await getSubCategoryByid(id);
+        if (!SubCategory) return res.status(404).json({message : 'SubCategory Not Found '});
         const ServicesName = await getServicesByName(body.name);
         if (ServicesName.length === 0) {
-            const id = req.body.subCatgoryId;
-            const SubCategory = await getSubCategoryByid(id);
-            if (!SubCategory) return res.status(400).json({message : 'SubCategory Not Found '});
             // Validate services input
             if (!(body.subCatgoryId && body.name && body.image)) {
-                res.status(400).json("All input is required");
+                res.status(404).json("All input is required");
             }
             const services = await createServices(body);
-            res.status(200).json(services);
+            res.status(201).json(services);
         } else {
             res.status(404).json({ message: 'This Services has already been created' });
         }
@@ -34,7 +34,7 @@ const getServices = async (req, res, next) => {
                 if (!Services && Services.id) {
                     res.status(404).json({ message: "Not found Services with id " + id });
                 } else {
-                    res.json(Services);
+                    res.status(200).json(Services);
                 }
             } catch (err) {
                 res.status(500).json({ message: "Error retrieving Services with id " + id });
@@ -93,7 +93,7 @@ const FindOneServices = async (req, res, next) => {
             if (!Services && Services.id) {
                 res.status(404).json({ message: "Not found Services with id " + id });
             } else {
-                res.json(Services);
+                res.status(200).json(Services);
             }
         } catch (err) {
             res.status(500).json({ message: "Error retrieving Services with id " + id });
@@ -105,14 +105,14 @@ const FindOneServices = async (req, res, next) => {
 const updateServices = async (req, res, next) => {
     const data = req.body;
     if (!data) {
-        return res.status(400).json({ message: "Data to update can not be empty" });
+        return res.status(404).json({ message: "Data to update can not be empty" });
     }
     const id = req.params.id;
     await updateServicesById(id, data).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update Services with ${id}. Maybe Services not found!` });
         } else {
-            res.json({ message: " Successfully Updated Services information" });
+            res.status(200).json({ message: " Successfully Updated Services information" });
         }
     }).catch(err => {
         res.status(500).json({ message: "Error Update Services information" });
@@ -125,7 +125,7 @@ const deleteServices = async (req, res, next) => {
         if (!data) {
             res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });
         } else {
-            res.json({
+            res.status(200).json({
                 message: "Services was deleted successfully!"
             });
         }

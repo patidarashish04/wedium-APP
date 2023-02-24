@@ -5,17 +5,17 @@ const { createSubCategory, getSubCategoryByid, getAllSubCategory, updateSubCateg
 const createNewSubCategory = async (req, res, next) => {
     try {
         const body = req.body;
+        const id = req.body.categoryId;
+        const categories = await getCategoryByid(id);
+        if (!categories) return res.status(404).json({message : 'Category Not Found '});
         const subCategoryName = await getSubCategoryByName(body.name);
         if (subCategoryName.length === 0) {
-            const id = req.body.categoryId;
-            const categories = await getCategoryByid(id);
-            if (!categories) return res.status(400).json({message : 'Category Not Found '});
             // Validate user input
             if (!(body.categoryId && body.name && body.imagePath)) {
-                res.status(400).json("All input is required");
+                res.status(404).json("All input is required");
             }
             const SubCategory = await createSubCategory(body);
-            res.status(200).json(SubCategory);
+            res.status(201).json(SubCategory);
         } else {
             res.status(404).json({ message: 'This SubCategory has already been created' });
         }
@@ -83,7 +83,7 @@ const getSubCategory = async (req, res, next) => {
                 if (!SubCategory && SubCategory.id) {
                     res.status(404).json({ message: "Not found SubCategory with id " + id });
                 } else {
-                    res.json(SubCategory);
+                    res.status(200).json(SubCategory);
                 }
             } catch (err) {
                 res.status(500).json({ message: "Error retrieving SubCategory with id " + id });
@@ -130,7 +130,7 @@ const FindOneSubCategory = async (req, res, next) => {
             if (!SubCategory && SubCategory.id) {
                 res.status(404).json({ message: "Not found SubCategory with id " + id });
             } else {
-                res.json(SubCategory);
+                res.status(200).json(SubCategory);
             }
         } catch (err) {
             res.status(500).json({ message: "Error retrieving SubCategory with id " + id });
@@ -149,7 +149,7 @@ const updateSubCategory = async (req, res, next) => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update SubCategory with ${id}. Maybe SubCategory not found!` });
         } else {
-            res.json({ message: " Successfully Updated SubCategory information" });
+            res.status(200).json({ message: " Successfully Updated SubCategory information" });
         }
     }).catch(err => {
         res.status(500).json({ message: "Error Update SubCategory information" });
