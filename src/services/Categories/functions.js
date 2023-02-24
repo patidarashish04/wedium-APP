@@ -15,7 +15,8 @@ const getCategoryByid = async id => {
 		const dbResponse = await dbServices.Category.getCategoryByid(id);
 		return dbResponse;
 	} catch (err) {
-		throw new Error(err);
+		return null;
+		// throw new Error(err);
 	}
 };
 // get category by name +
@@ -24,6 +25,7 @@ const getCategoryByName = async name => {
 		const dbResponse = await dbServices.Category.getCategoryByName(name);
 		return dbResponse;
 	} catch (err) {
+		// return null;
 		throw new Error(err);
 	}
 };
