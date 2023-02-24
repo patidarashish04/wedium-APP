@@ -28,7 +28,7 @@ const signup = async (req, res, next) => {
             // Create user in our database
             const user = await createUser(options);
             const token = jwt.sign({ User_id: user._id, User_email: user.email, role: user.role }, process.env.TOKEN_SECRET);
-            res.status(201).json({ userDetails: user, token });
+            res.status(200).json({ userDetails: user, token });
         }
     } catch (err) {
         console.log(err);
@@ -95,7 +95,7 @@ const location = async (req, res) => {
         // console.log('*************************',States);
         // const countries = Countries.getCountries({ locale: 'it' })
         // const location = await getLocation(phone);
-        res.status(201).json({
+        res.status(200).json({
             data: location,
             status: true,
             message: null

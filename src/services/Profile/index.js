@@ -35,7 +35,7 @@ const getProfile = async (req, res, next) => {
     } else {
         getAllProfile()
             .then(categories => {
-                res.status(201).json({
+                res.status(200).json({
                     data: categories,
                     status: true,
                     message: null

@@ -15,7 +15,7 @@ const createCategory = async (req, res, next) => {
                 imagePath: body.imagePath
             };
             const category = await createCategorys(options);
-            res.status(201).json(category);
+            res.status(200).json(category);
         } else {
             res.status(404).json({ message: 'This category has already been created' });
         }
@@ -89,7 +89,7 @@ const getCategory = async (req, res, next) => {
 //         const products = await Product.find({ category: query }).populate('category', 'name')
 //             .skip(pageSize * (page - 1))
 //             .limit(pageSize)
-//         res.status(201).json({
+//         res.status(200).json({
 //             success: true,
 //             products,
 //             page,
