@@ -396,7 +396,7 @@ module.exports = (app) => {
 	   *               items:
 	   *                  $ref: '#/components/schemas/SubCategory'
 	   */
-	app.get('/api/v1/getSubCategory', loggedIn, services.subcategories.getSubCategory);
+	app.get('/api/v1/getSubCategory', services.subcategories.getSubCategory);
 
 	/**
 	 * @swagger
