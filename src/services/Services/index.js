@@ -16,7 +16,7 @@ const createNewServices = async (req, res, next) => {
                 res.status(404).json("All input is required");
             }
             const services = await createServices(body);
-            res.status(201).json(services);
+            res.status(200).json(services);
         } else {
             res.status(404).json({ message: 'This Services has already been created' });
         }
@@ -42,7 +42,7 @@ const getServices = async (req, res, next) => {
         }).catch(err => res.status(500).json(err));
     } else {
         getAllServices().then(Services => {
-            res.status(201).json({
+            res.status(200).json({
                 data: Services,
                 success: true,
                 message: null
@@ -53,29 +53,10 @@ const getServices = async (req, res, next) => {
         });
     }
 };
-//*********************Pagination code for all data*******************************
-//     limitPage = parseInt(req.query.limit, 10) || 10;
-//     const pageChange = parseInt(req.query.page, 10) || 1;
-//     Product.paginate({}, { limit: limitPage, page: pageChange }).populate('category')
-//       .then((result) => {
-//         return res.status(200).json({
-//           message: "GET request to all getAllProducts",
-//           dataCount: result.length,
-//           result: result,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json({
-//           error: err,
-//         });
-//       });
-//   },
-
 
 const getBestSeller = async (req, res, next) => {
     BestSeller().then(Services => {
-        res.status(201).json({
+        res.status(200).json({
             data: Services,
             success: true,
             message: null

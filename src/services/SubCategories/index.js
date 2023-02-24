@@ -15,7 +15,7 @@ const createNewSubCategory = async (req, res, next) => {
                 res.status(404).json("All input is required");
             }
             const SubCategory = await createSubCategory(body);
-            res.status(201).json(SubCategory);
+            res.status(200).json(SubCategory);
         } else {
             res.status(404).json({ message: 'This SubCategory has already been created' });
         }
@@ -55,7 +55,7 @@ function CreateSubCategory(categories, categoryId = null) {
 //     cat.save((error, category) => {
 //         if (error) return res.status(400).json({ error });
 //         if (category) {
-//             return res.status(201).json({ category });
+//             return res.status(200).json({ category });
 //         }
 //     });
 // };
@@ -91,7 +91,7 @@ const getSubCategory = async (req, res, next) => {
         }).catch(err => res.status(500).json(err));
     } else {
         getAllSubCategory().then(SubCategory => {
-            res.status(201).json({
+            res.status(200).json({
                 data: SubCategory,
                 success: true,
                 message: null

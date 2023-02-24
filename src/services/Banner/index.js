@@ -9,7 +9,7 @@ const createBanner = async (req, res, next) => {
             res.status(400).json("All input is required");
         }
         const Banner = await createBanners(body);
-        res.status(201).json(Banner);
+        res.status(200).json(Banner);
     } catch (err) {
         console.log(err);
     }
@@ -35,7 +35,7 @@ const getBanner = async (req, res, next) => {
     } else {
         getAllBanner()
             .then(categories => {
-                res.status(201).json({
+                res.status(200).json({
                     data: categories,
                     status: true,
                     message: null
@@ -47,25 +47,6 @@ const getBanner = async (req, res, next) => {
             })
     }
 }
-//*********************Pagination code for all data*******************************
-//     limitPage = parseInt(req.query.limit, 10) || 10;
-//     const pageChange = parseInt(req.query.page, 10) || 1;
-//     Product.paginate({}, { limit: limitPage, page: pageChange }).populate('Banner')
-//       .then((result) => {
-//         return res.status(200).json({
-//           message: "GET request to all getAllProducts",
-//           dataCount: result.length,
-//           result: result,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json({
-//           error: err,
-//         });
-//       });
-//   },
-
 
 // retrive and return a single Banner
 const FindOneBanner = async (req, res, next) => {

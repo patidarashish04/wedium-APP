@@ -11,7 +11,7 @@ const createNewOrder = async (req, res, next) => {
             });
         }
         const Order = await createOrders(body);
-        res.status(201).json(Order);
+        res.status(200).json(Order);
     } catch (err) {
         console.log(err);
     }
@@ -36,7 +36,7 @@ const getOrderList = async (req, res, next) => {
     } else {
         getAllOrder()
             .then(Order => {
-                res.status(201).json({
+                res.status(200).json({
                     data: Order,
                     success: true,
                     message: null
