@@ -1,7 +1,7 @@
 const dbServices = require('../../dao/queries/index');
 
 // create Services +
-const createServices = async body => {
+const createServices = async (body) => {
 	try {
 		const dbResponse = await dbServices.Services.createService(body);
 		return dbResponse;
@@ -10,7 +10,7 @@ const createServices = async body => {
 	}
 };
 // get Services by id +
-const getServicesByid = async id => {
+const getServicesByid = async (id) => {
 	try {
 		const dbResponse = await dbServices.Services.getServicesByid(id);
 		return dbResponse;
@@ -19,7 +19,7 @@ const getServicesByid = async id => {
 	}
 };
 // get Services by name +
-const getServicesByName = async name => {
+const getServicesByName = async (name) => {
 	try {
 		const dbResponse = await dbServices.Services.getServicesByName(name);
 		return dbResponse;

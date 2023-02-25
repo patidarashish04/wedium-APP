@@ -7,21 +7,26 @@ const createNewServices = async (req, res, next) => {
     try {
         const body = req.body;
         const id = req.body.subCatgoryId;
+        if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
         const SubCategory = await getSubCategoryByid(id);
-        if (!SubCategory) return res.status(404).json({message : 'SubCategory Not Found '});
+        if (!SubCategory) return res.status(404).json({ message: 'SubCategory Not Found ' });
         const ServicesName = await getServicesByName(body.name);
         if (ServicesName.length === 0) {
             // Validate services input
             if (!(body.subCatgoryId && body.name && body.image)) {
                 res.status(404).json("All input is required");
             }
+            body.subCatgoryData = SubCategory;
             const services = await createServices(body);
             res.status(200).json(services);
         } else {
             res.status(404).json({ message: 'This Services has already been created' });
         }
     } catch (err) {
-        console.log(err);
+        return res.sendStatus(500).json({
+			error: 'Failed to create Services',
+			message: err.message,
+		});
     }
 };
 
@@ -69,6 +74,7 @@ const getBestSeller = async (req, res, next) => {
 // retrive and return a single Category
 const FindOneServices = async (req, res, next) => {
     const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
     getServicesByid(id).then(async Services => {
         try {
             if (!Services && Services.id) {
@@ -89,6 +95,7 @@ const updateServices = async (req, res, next) => {
         return res.status(404).json({ message: "Data to update can not be empty" });
     }
     const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
     await updateServicesById(id, data).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update Services with ${id}. Maybe Services not found!` });
@@ -102,6 +109,7 @@ const updateServices = async (req, res, next) => {
 // delete services
 const deleteServices = async (req, res, next) => {
     const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
     await deleteServicesById(id).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });

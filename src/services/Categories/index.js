@@ -8,7 +8,7 @@ const createCategory = async (req, res, next) => {
         if (categoryName.length === 0) {
             // Validate Category input
             if (!(body.name && body.imagePath)) {
-                res.status(404).json(" Name and Image Required");
+                res.status(404).json("Name and Image Required");
             }
             const options = {
                 name: body.name,
@@ -20,7 +20,10 @@ const createCategory = async (req, res, next) => {
             res.status(404).json({ message: 'This category has already been created' });
         }
     } catch (err) {
-        res.status(500).json({ message: "Error creating category" });
+        return res.sendStatus(500).json({
+			error: 'Failed to create Category',
+			message: err.message,
+		});
     }
 };
 
@@ -125,6 +128,7 @@ const updateCategory = async (req, res, next) => {
         return res.status(400).json({ message: "Data to update can not be empty" });
     }
     const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
     await updateCategoryByid(id, data).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update Category with ${id}. Maybe Category not found!` });
@@ -138,6 +142,7 @@ const updateCategory = async (req, res, next) => {
 
 const deleteCategory = async (req, res, next) => {
     const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
     await deleteCategoryByid(id).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });

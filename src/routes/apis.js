@@ -378,7 +378,7 @@ module.exports = (app) => {
 */
 	app.post('/api/v1/createSubCategory',  services.subcategories.createNewSubCategory);
 
-	app.post('/api/v1/Category/subCategory',  services.subcategories.CreateSubCategory);
+	// app.post('/api/v1/Category/subCategory',  services.subcategories.CreateSubCategory);
 
 	/**
 	 * @swagger
@@ -1318,6 +1318,68 @@ module.exports = (app) => {
  */
 	app.delete('/api/v1/deleteBanner/:id',  services.Banner.deleteBanner);
 
-	app.get('/api/v1/location',  services.User.location);
+	app.get('/api/v1/location',  services.User.location); 
+
+			//********************** Banner *************************/
+
+	/**
+	 * @swagger
+	 * tags:
+	 *   name: Customer
+	 *   description: The Customer managing API
+	 */
+
+	/**
+	 * @swagger
+	 * components:
+	 *   schemas:
+	 *     Customer:
+	 *       type: object
+	 *       required:
+	 *         - email
+	 *         - phone
+	 *         - fullName
+	 *       properties:
+	 *         id:
+	 *           type: string
+	 *           description: The auto-generated id of the Customer
+	 *         fullName:
+	 *           type: string
+	 *           description: The Customer fullName 
+	 *         email:
+	 *           type: string
+	 *           description: The Customer email
+	 *         phone:
+	 *           type: string
+	 *           description: The  Customer phone 
+	 *       example:
+	 *         fullName: xyz
+	 *         email: xyz@gmail.com
+	 *         phone: 1234567890
+	 */
+
+	/**
+ * @swagger
+ * /api/v1/createCustomer:
+ *   post:
+ *     summary: Create a new Customer
+ *     tags: [Customer]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Customer'
+ *     responses:
+ *       200:
+ *         description: The Customer was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Customer'
+ *       500:
+ *         description: Some server error
+	*/
+	app.post('/api/v1/createCustomer',  services.Customer.createCustomer);
 
 };

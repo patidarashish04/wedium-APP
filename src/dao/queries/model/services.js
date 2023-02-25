@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-    subCatgoryId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'SubCategory',
-        required: true,
-        required: [true, 'sub subCatgoryId required'],
+    // subCatgoryId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'SubCategory',
+    //     required: true,
+    //     required: [true, 'sub subCatgoryId required'],
+    // },
+    subCatgoryData: {
+        type: Object,
     },
     name: {
         type: String,
@@ -14,7 +17,7 @@ const categorySchema = new mongoose.Schema({
         unique:true,
     },
     image: {
-        type: String,
+        type: [String], default: [],
         required: [true, 'Please add a image'],
     },
     absoluteServicePath: {
