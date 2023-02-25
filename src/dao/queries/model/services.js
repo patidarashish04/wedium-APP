@@ -17,7 +17,7 @@ const categorySchema = new mongoose.Schema({
         unique:true,
     },
     image: {
-        type: String,
+        type: [String], default: [],
         required: [true, 'Please add a image'],
     },
     absoluteServicePath: {
