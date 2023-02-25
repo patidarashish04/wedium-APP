@@ -8,7 +8,7 @@ const createCategory = async (req, res, next) => {
         if (categoryName.length === 0) {
             // Validate Category input
             if (!(body.name && body.imagePath)) {
-                res.status(404).json(" Name and Image Required");
+                res.status(404).json("Name and Image Required");
             }
             const options = {
                 name: body.name,

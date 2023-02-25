@@ -7,8 +7,9 @@ const createNewServices = async (req, res, next) => {
     try {
         const body = req.body;
         const id = req.body.subCatgoryId;
+        if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
         const SubCategory = await getSubCategoryByid(id);
-        if (!SubCategory) return res.status(404).json({message : 'SubCategory Not Found '});
+        if (!SubCategory) return res.status(404).json({ message: 'SubCategory Not Found ' });
         const ServicesName = await getServicesByName(body.name);
         if (ServicesName.length === 0) {
             // Validate services input
