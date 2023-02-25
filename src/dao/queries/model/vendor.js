@@ -13,9 +13,11 @@ const VendorSchema = new mongoose.Schema({
     },
     imagelocation: {
         type: String,
+        default: null,
     },
     imagekey: {
         type: String,
+        default: null,
     },
     phone: {
         type: Number,

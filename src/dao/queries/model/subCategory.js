@@ -17,9 +17,11 @@ const categorySchema = new mongoose.Schema({
     imagePath: {
         type: String,
         required: [true, 'Please add a image Path'],
+        default: null,
     },
     bannerPath: {
         type: String,
+        default: null,
     },
     status: {
         type: String,

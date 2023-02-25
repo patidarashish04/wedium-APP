@@ -1320,7 +1320,7 @@ module.exports = (app) => {
 
 	app.get('/api/v1/location',  services.User.location); 
 
-			//********************** Banner *************************/
+			//********************** Customer *************************/
 
 	/**
 	 * @swagger
@@ -1382,4 +1382,103 @@ module.exports = (app) => {
 	*/
 	app.post('/api/v1/createCustomer',  services.Customer.createCustomer);
 
+		/**
+	 * @swagger
+	 * /api/v1/getCustomer:
+	 *   get:
+	 *     summary: Returns the list of all the Customer
+	 *     tags: [Customer]
+	 *     responses:
+	 *       200:
+	 *         description: The list of the Customer
+	 *         content:
+	 *           application/json:
+	 *             schema:	
+	 *               type: array
+	   *               items:
+	   *                  $ref: '#/components/schemas/Customer'
+	   */
+
+		app.get('/api/v1/getCustomer',  services.Customer.getCustomer);
+
+		/**
+		 * @swagger
+		 * /api/v1/FindOneCustomer/{id}:
+		 *   get:
+		 *     summary: Get the Customer by id
+		 *     tags: [Customer]
+		 *     parameters:
+		 *       - in: path
+		 *         name: id
+		 *         schema:
+		 *           type: string
+		 *         required: true
+		 *         description: The Customer id
+		 *     responses:
+		 *       200:
+		 *         description: The Customer description by id
+		 *         contens:
+		 *           application/json:
+		 *             schema:
+		 *             $ref: '#/components/schemas/Customer'
+		 *       404:
+		 *         description: The Customer was not found
+		 */
+		app.get('/api/v1/FindOneCustomer/:id',  services.Customer.FindOneCustomer);
+	
+		/**
+	 * @swagger
+	 * /api/v1/updateCustomer/{id}:
+	 *  patch:
+	 *    summary: Update the Customer by the id
+	 *    tags: [Customer]
+	 *    parameters:
+	 *      - in: path
+	 *        name: id
+	 *        schema:
+	 *          type: string
+	 *        required: true
+	 *        description: The Customer id
+	 *    requestBody:
+	 *      required: true
+	 *      content:
+	 *        application/json:
+	 *          schema:
+	 *            $ref: '#/components/schemas/Customer'
+	 *    responses:
+	 *      200:
+	 *        description: The Customer was updated
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              $ref: '#/components/schemas/Customer'
+	 *      404:
+	 *        description: The Customer was not found
+	 *      500:
+	 *        description: Some error happened
+	 */
+	
+		app.patch('/api/v1/updateCustomer/:id',  services.Customer.updateCustomer);
+	
+		/**
+	 * @swagger
+	 *  /api/v1/deleteCustomer/{id}:
+	 *   delete:
+	 *     summary: Remove the Customer by id
+	 *     tags: [Customer]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The Customer id
+	 * 
+	 *     responses:
+	 *       200:
+	 *         description: The Customer was deleted
+	 *       404:
+	 *         description: The Customer was not found
+	 */
+		app.delete('/api/v1/deleteCustomer/:id',  services.Customer.deleteCustomer);
 };
