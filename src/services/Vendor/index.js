@@ -22,7 +22,7 @@ const createVendors = async (req, res, next) => {
             password: encryptedPassword
         };
         const vendor = await createVendor(options);
-        res.status(201).json({ vendorDetails: vendor });
+        res.status(200).json({ vendorDetails: vendor });
     } catch (err) {
         console.log(err);
     }
@@ -48,7 +48,7 @@ const getVendor = async (req, res, next) => {
     } else {
         getAllVendor()
             .then(vendor => {
-                res.status(201).json({
+                res.status(200).json({
                     data: vendor,
                     success: true,
                     message: null

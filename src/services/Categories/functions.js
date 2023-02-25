@@ -10,7 +10,7 @@ const createCategorys = async (category) => {
 	}
 };
 // get category by id +
-const getCategoryByid = async (id) => {
+const getCategoryByid = async id => {
 	try {
 		const dbResponse = await dbServices.Category.getCategoryByid(id);
 		return dbResponse;
@@ -20,7 +20,7 @@ const getCategoryByid = async (id) => {
 	}
 };
 // get category by name +
-const getCategoryByName = async (name) => {
+const getCategoryByName = async name => {
 	try {
 		const dbResponse = await dbServices.Category.getCategoryByName(name);
 		return dbResponse;
@@ -49,7 +49,7 @@ const updateCategoryByid = async (id, data) => {
 };
 
 // delete category +
-const deleteCategoryByid = async (id) => {
+const deleteCategoryByid = async id => {
 	try {
 		const dbResponse = await dbServices.Category.deleteCategoryByid(id);
 		return dbResponse;
