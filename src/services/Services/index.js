@@ -16,6 +16,7 @@ const createNewServices = async (req, res, next) => {
             if (!(body.subCatgoryId && body.name && body.image)) {
                 res.status(404).json("All input is required");
             }
+            body.subCatgoryData = SubCategory;
             const services = await createServices(body);
             res.status(200).json(services);
         } else {

@@ -15,10 +15,7 @@ const createNewSubCategory = async (req, res, next) => {
             if (!(body.categoryId && body.name && body.imagePath)) {
                 res.status(404).json("All input is required");
             }
-            const categoriesData = {};
-            categoriesData.name = categories.name;
-            categoriesData.id = categories.id;
-            body.categoriesData = categoriesData
+            body.categoryData = categories;
             const SubCategory = await createSubCategory(body);
             res.status(200).json(SubCategory);
         } else {
