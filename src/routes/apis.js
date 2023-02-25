@@ -378,7 +378,7 @@ module.exports = (app) => {
 */
 	app.post('/api/v1/createSubCategory',  services.subcategories.createNewSubCategory);
 
-	app.post('/api/v1/Category/subCategory',  services.subcategories.CreateSubCategory);
+	// app.post('/api/v1/Category/subCategory',  services.subcategories.CreateSubCategory);
 
 	/**
 	 * @swagger

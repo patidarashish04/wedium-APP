@@ -10,22 +10,20 @@ const createCategorys = async (category) => {
 	}
 };
 // get category by id +
-const getCategoryByid = async id => {
+const getCategoryByid = async (id) => {
 	try {
 		const dbResponse = await dbServices.Category.getCategoryByid(id);
 		return dbResponse;
 	} catch (err) {
-		return null;
-		// throw new Error(err);
+		throw new Error(err);
 	}
 };
 // get category by name +
-const getCategoryByName = async name => {
+const getCategoryByName = async (name) => {
 	try {
 		const dbResponse = await dbServices.Category.getCategoryByName(name);
 		return dbResponse;
 	} catch (err) {
-		// return null;
 		throw new Error(err);
 	}
 };
@@ -49,7 +47,7 @@ const updateCategoryByid = async (id, data) => {
 };
 
 // delete category +
-const deleteCategoryByid = async id => {
+const deleteCategoryByid = async (id) => {
 	try {
 		const dbResponse = await dbServices.Category.deleteCategoryByid(id);
 		return dbResponse;

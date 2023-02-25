@@ -5,7 +5,7 @@ const getServicesByid = (id) => Services.findById( id );
 const getServicesByName = (name) => Services.find({ name });
 const getAllServices = () => Services.find();
 const updateServicesById = (id, data) => Services.findByIdAndUpdate(id, data);
-const deleteServicesById = id => Services.findByIdAndDelete(id);
+const deleteServicesById = (id) => Services.findByIdAndDelete(id);
 const BestSeller = () => Services.find({ isBestSeller: true });
 
 module.exports = {

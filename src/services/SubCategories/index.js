@@ -6,8 +6,8 @@ const createNewSubCategory = async (req, res, next) => {
     try {
         const body = req.body;
         const id = req.body.categoryId;
+        if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
         const categories = await getCategoryByid(id);
-        if (categories == null) res.status(500).json('Invalid category id.');
         if (!categories) return res.status(404).json({message : 'Category Not Found '});
         const subCategoryName = await getSubCategoryByName(body.name);
         if (subCategoryName.length === 0) {
@@ -15,6 +15,10 @@ const createNewSubCategory = async (req, res, next) => {
             if (!(body.categoryId && body.name && body.imagePath)) {
                 res.status(404).json("All input is required");
             }
+            const categoriesData = {};
+            categoriesData.name = categories.name;
+            categoriesData.id = categories.id;
+            body.categoriesData = categoriesData
             const SubCategory = await createSubCategory(body);
             res.status(200).json(SubCategory);
         } else {
@@ -24,56 +28,6 @@ const createNewSubCategory = async (req, res, next) => {
         console.log(err);
     }
 };
-
-function CreateSubCategory(categories, categoryId = null) {
-    const categoryList = [];
-    let category;
-    if (categoryId == null) {
-        categories.filter(cat => cat.categoryId == undefined);
-    } else {
-        category = categories.filter(cat => cat.categoryId === categoryId);
-    }
-    for (let cate of category) {
-        categoryList.push({
-            _id: cate._id,
-            name: cate._name,
-            slug: cate.slug,
-            children: createCategories(categories.cate._id)
-        });
-    }
-    return categoryList;
-}
-
-// exports.addCategory = (req, res) => {
-//     const categoryObj = {
-//         name: req.body.name,
-//         slug: slugify(req.body.name),
-//     };
-//     if (req.body.category_id) {
-//         categoryObj.category_id = req.body.category_id;
-//     }
-//     const cat = new Category(categoryObj);
-//     cat.save((error, category) => {
-//         if (error) return res.status(400).json({ error });
-//         if (category) {
-//             return res.status(200).json({ category });
-//         }
-//     });
-// };
-
-// exports.getCategories = (req, res) => {
-//     Category.find({}).exec((error, categories) => {
-//         if (error) console.log(error);
-//         if (categories) {
-//             const categoryList = createCategories(categories);
-//             res.status(200).json({ categoryList });
-//         }
-//         if (categories) {
-//             res.status(200).json({ categories });
-//         }
-//     });
-// };
-
 
 // retrieve and return all SubCategory/ retrive and return a single SubCategory
 const getSubCategory = async (req, res, next) => {
@@ -177,7 +131,6 @@ const deleteSubCategory = async (req, res, next) => {
 
 module.exports = {
     createNewSubCategory,
-    CreateSubCategory,
     getSubCategory,
     FindOneSubCategory,
     updateSubCategory,
