@@ -30,6 +30,7 @@ const schema = new mongoose.Schema({
   },
   imagePath: {
     type: String,
+    default: null,
   },
   lastActive: {
     type: String,

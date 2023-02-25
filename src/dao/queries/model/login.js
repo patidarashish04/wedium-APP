@@ -17,10 +17,6 @@ const schemas = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    // role: {
-    //     type: String,
-    //     enum: ['Admin', 'Chief-Editor', 'Customer'],
-    //  },
     token: {
         type: String
     },
