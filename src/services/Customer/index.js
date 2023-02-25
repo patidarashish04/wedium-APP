@@ -1,31 +1,27 @@
-const { createCustomers, getCustomerByid, getAllCustomer, updateCustomerByid, deleteCustomerByid, getCustomerByName } = require('../Customer/function');
+const { createCustomers, getCustomerdata, getCustomerByid, getAllCustomer, updateCustomerByid, deleteCustomerByid, getCustomerByName } = require('../Customer/function');
 
 // GET Customer
 const createCustomer = async (req, res, next) => {
     try {
         const body = req.body;
-        const CustomerName = await getCustomerByName(body.fullName);
-            // Validate Customer input
-            if (!(body.fullName && body.email&& body.phone)) {
-                res.status(404).json("All Data Required");
-            }
-            const data = {phone: body.phone, email : body.email}
-            // check if user already exist by phone
-            const oldUserData = await getUserdata(data);
-            if (oldUserData != 0) {
-                res.status(404).json({ message: 'This Customer has already been created' });
-            } else {
-                // Encrypt user password
-                encryptedPassword = await bcrypt.hash(body.password, 5);
-                const options = {
-                    name: body.name,
-                    email: body.email.toLowerCase(), // sanitize: convert email to lowercase
-                    password: encryptedPassword,
-                    phone: body.phone,
-                };
-            }
+        // Validate Customer input
+        if (!(body.fullName && body.email && body.phone)) {
+            res.status(404).json("All Data Required");
+        }
+        const data = { phone: body.phone, email: body.email }
+        // check if Customer already exist by phone
+        const oldCustomerData = await getCustomerdata(data);
+        if (!oldCustomerData) {
+            res.status(404).json({ message: 'This Customer has already been created' });
+        } else {
+            const options = {
+                name: body.name,
+                email: body.email.toLowerCase(), // sanitize: convert email to lowercase
+                phone: body.phone,
+            };
             const Customer = await createCustomers(options);
             res.status(200).json(Customer);
+        }
     } catch (err) {
         res.status(500).json({ message: "Error creating Customer" });
     }

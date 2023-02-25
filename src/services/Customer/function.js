@@ -9,6 +9,17 @@ const createCustomers = async (Customer) => {
 		throw new Error(err);
 	}
 };
+
+// get Customer +
+const getCustomerdata = async (data) => {
+	try {
+		const dbResponse = await dbServices.Customer.getCustomerdata(data);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
+
 // get Customer by id +
 const getCustomerByid = async (id) => {
 	try {
@@ -58,6 +69,7 @@ const deleteCustomerByid = async (id) => {
 module.exports = {
 	createCustomers,
 	getCustomerByid,
+	getCustomerdata,
 	getAllCustomer,
 	updateCustomerByid,
 	deleteCustomerByid,
