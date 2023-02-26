@@ -1,4 +1,5 @@
 const { getVendorByid } = require('../Vendor/function');
+const { getCityByid } = require('../City/function');
 const { createStore, getStoreByid, getAllStore, updateStoreById, deleteStoreById } = require('../Store/function');
 
 // create store
@@ -6,7 +7,11 @@ const createStores = async (req, res) => {
     try {
         const body = req.body;
         const id = req.body.vendorId;
+        const cityId = req.body.cityId
         if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid vendor id.'})};
+        if (!(cityId.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid city id.'})};
+        const cities = await getCityByid(cityId);
+        if (!cities) return res.status(404).json({message : 'City not Found '});
         const vendor = await getVendorByid(id);
         // Create Store in our database
         body.vendorData = vendor;

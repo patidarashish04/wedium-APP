@@ -36,25 +36,8 @@ const createVendors = async (req, res, next) => {
     }
 }
 
-// retrieve and return all vendor/ retrive and return a single vendor
+// retrieve and return all vendor
 const getVendor = async (req, res, next) => {
-    if (req.query.id) {
-        const id = req.query.id;
-        if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
-        getVendorByid(id)
-            .then(async (vendor) => {
-                try {
-                    if (!vendor && vendor.id) {
-                        res.status(404).json({ message: "Not found vendor with id " + id })
-                    } else {
-                        res.status(200).json(vendor)
-                    }
-                } catch (err) {
-                    res.status(500).json({ message: "Error retrieving vendor with id " + id })
-                }
-            })
-            .catch((err) => res.status(500).json(err));
-    } else {
         getAllVendor()
             .then(vendor => {
                 res.status(200).json({
@@ -67,7 +50,6 @@ const getVendor = async (req, res, next) => {
                 res.status(500).json({ message: err.message || "Error Occurred while retriving vendor information" })
                 next(err);
             })
-    }
 }
 
 // retrive and return a single vendor

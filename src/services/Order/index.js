@@ -16,24 +16,8 @@ const createNewOrder = async (req, res, next) => {
         console.log(err);
     }
 }
-// retrieve and return all Order/ retrive and return a single Order
+// retrieve and return all Order
 const getOrderList = async (req, res, next) => {
-    if (req.query.id) {
-        const id = req.query.id;
-        getOrderByid(id)
-            .then(async (category) => {
-                try {
-                    if (!category && category.id) {
-                        res.status(404).json({ message: "Not found Order with id " + id })
-                    } else {
-                        res.json(category)
-                    }
-                } catch (err) {
-                    res.status(500).json({ message: "Error retrieving Order with id " + id })
-                }
-            })
-            .catch((err) => res.status(500).json(err));
-    } else {
         getAllOrder()
             .then(Order => {
                 res.status(200).json({
@@ -46,7 +30,6 @@ const getOrderList = async (req, res, next) => {
                 res.status(500).json({ message: err.message || "Error Occurred while retriving Order information" })
                 next(err);
             })
-    }
 }
 //*********************Pagination code for all data*******************************
 //     limitPage = parseInt(req.query.limit, 10) || 10;

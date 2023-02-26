@@ -1720,5 +1720,29 @@ module.exports = (app) => {
    */
 
 		app.get('/api/v1/getCity',  services.City.getCity);
+				/**
+		 * @swagger
+		 * /api/v1/FindOneCity/{id}:
+		 *   get:
+		 *     summary: Get the City by id
+		 *     tags: [City]
+		 *     parameters:
+		 *       - in: path
+		 *         name: id
+		 *         schema:
+		 *           type: string
+		 *         required: true
+		 *         description: The City id
+		 *     responses:
+		 *       200:
+		 *         description: The City description by id
+		 *         contens:
+		 *           application/json:
+		 *             schema:
+		 *             $ref: '#/components/schemas/City'
+		 *       404:
+		 *         description: The City was not found
+		 */
+				app.get('/api/v1/FindOneCity/:id',  services.City.FindOneCity);
 
 };

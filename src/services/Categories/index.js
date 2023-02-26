@@ -29,20 +29,6 @@ const createCategory = async (req, res, next) => {
 
 // retrieve and return all Category/ retrive and return a single Category
 const getCategory = async (req, res, next) => {
-    if (req.query.id) {
-        const id = req.query.id;
-        getCategoryByid(id).then(async category => {
-            try {
-                if (!category && category.id) {
-                    res.status(404).json({ message: "Not found category with id " + id });
-                } else {
-                    res.status(200).json(category);
-                }
-            } catch (err) {
-                res.status(500).json({ message: "Error retrieving category with id " + id });
-            }
-        }).catch(err => res.status(500).json(err));
-    } else {
         getAllCategory().then(categories => {
             res.status(200).json({
                 data: categories,
@@ -53,7 +39,6 @@ const getCategory = async (req, res, next) => {
             res.status(500).json({ message: err.message || "Error Occurred while retriving Category information" });
             next(err);
         });
-    }
 };
 //*********************Pagination code for all data*******************************
 //     limitPage = parseInt(req.query.limit, 10) || 10;
