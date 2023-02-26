@@ -16,14 +16,6 @@ const profileSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
-    // image: {
-    //     data: Buffer,
-    //     contentType: String
-    //   },
-    // isActive: {
-    //     type: Boolean,
-    //     default: true
-    //   },
     profileImage: {
         type: String,
         default: null,

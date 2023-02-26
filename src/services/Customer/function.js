@@ -29,15 +29,6 @@ const getCustomerByid = async (id) => {
 		throw new Error(err);
 	}
 };
-// get Customer by name +
-const getCustomerByName = async (name) => {
-	try {
-		const dbResponse = await dbServices.Customer.getCustomerByName(name);
-		return dbResponse;
-	} catch (err) {
-		throw new Error(err);
-	}
-};
 // get All Customer +
 const getAllCustomer = async () => {
 	try {
@@ -72,6 +63,5 @@ module.exports = {
 	getCustomerdata,
 	getAllCustomer,
 	updateCustomerByid,
-	deleteCustomerByid,
-	getCustomerByName
+	deleteCustomerByid
 };

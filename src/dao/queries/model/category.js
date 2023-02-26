@@ -10,11 +10,8 @@ const categorySchema = new mongoose.Schema({
     imagePath: {
         type: String,
         required: [true, 'Please add a category_image '],
+        default: null,
     },
-    // category_banner_image: {
-    //     type: String,
-    //     required: [true, 'Please add a category_banner_image '],
-    // },
     status: {
         type: String,
         enum: ['ACTIVE', 'INACTIVE'],

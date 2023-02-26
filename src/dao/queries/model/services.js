@@ -19,15 +19,19 @@ const categorySchema = new mongoose.Schema({
     image: {
         type: [String], default: [],
         required: [true, 'Please add a image'],
+        default: null,
     },
     absoluteServicePath: {
         type: String,
+        default: null,
     },
     descriptions: {
         type: String,
+        default: null,
     },
     note: {
         type: String,
+        default: null,
     },
     price: {
         type: Number,
