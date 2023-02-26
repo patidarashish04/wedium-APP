@@ -1,6 +1,6 @@
 const dbServices = require('../../dao/queries/index');
 
-// create category +
+// create User +
 const createUser = async (User) => {
 	try {
 		const dbResponse = await dbServices.User.createUser(User);
@@ -9,7 +9,7 @@ const createUser = async (User) => {
 		throw new Error(err);
 	}
 };
-// get category by id +
+// get User by id +
 const getUserByPhone = async (phone) => {
 	try {
 		const dbResponse = await dbServices.User.getUserByPhone(phone);
@@ -19,7 +19,7 @@ const getUserByPhone = async (phone) => {
 	}
 };
 
-// get category by id +
+// get User  +
 const getUserdata = async (data) => {
 	try {
 		const dbResponse = await dbServices.User.getUserdata(data);
@@ -28,7 +28,7 @@ const getUserdata = async (data) => {
 		throw new Error(err);
 	}
 };
-// get All category +
+// get All User +
 const getAllUser = async () => {
 	try {
 		const dbResponse = await dbServices.User.getAllUser();
@@ -37,7 +37,7 @@ const getAllUser = async () => {
 		throw new Error(err);
 	}
 };
-// create category +
+// create User +
 const updateUserById = async (id, data) => {
 	try {
 		const dbResponse = await dbServices.User.findUserUpdate(id, data);
@@ -47,7 +47,7 @@ const updateUserById = async (id, data) => {
 	}
 };
 
-// delete category +
+// delete User +
 const deleteUserById = async (id) => {
 	try {
 		const dbResponse = await dbServices.User.deleteUser(id);
