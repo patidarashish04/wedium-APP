@@ -29,11 +29,9 @@ const StoreSchema = new mongoose.Schema({
     },
     state: {
         type: String,
-        enum: ['Odisha'],
     },
     city: {
         type: String,
-        enum: ['Bhubaneswar'],
     },
     cityId: {
         type: mongoose.Schema.Types.ObjectId,
