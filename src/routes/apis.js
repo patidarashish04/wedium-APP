@@ -1481,4 +1481,6 @@ module.exports = (app) => {
 	 *         description: The Customer was not found
 	 */
 		app.delete('/api/v1/deleteCustomer/:id',  services.Customer.deleteCustomer);
+
+		app.post('/api/v1/createStores',  services.Store.createStores);
 };

@@ -7,6 +7,7 @@ const Vendor = require('./Vendor');
 const Profile = require('./Profile');
 const Banner = require('./Banner');
 const Customer = require('./Customer');
+const Store = require('./Store');
 
 module.exports = {
 	categories,
@@ -17,5 +18,6 @@ module.exports = {
 	Vendor,
 	Profile,
 	Banner,
-	Customer
+	Customer,
+	Store
 };
