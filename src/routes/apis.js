@@ -878,7 +878,7 @@ module.exports = (app) => {
 
 	/**
 * @swagger
-* /api/v1/createNewOrder:
+* /api/v1/createVendors:
 *   post:
 *     summary: Create a new Vendor
 *     tags: [Vendor]
