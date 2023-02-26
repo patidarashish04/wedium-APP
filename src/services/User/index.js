@@ -89,12 +89,6 @@ const generateOtp = async (req, res) => {
 // user location
 const location = async (req, res) => {
     try {
-        // console.log('***********locaton***********88',Country.getAllCountries())
-        // console.log('***********locaton***********88',State.getAllStates())
-        // let States = getStates('in');
-        // console.log('*************************',States);
-        // const countries = Countries.getCountries({ locale: 'it' })
-        // const location = await getLocation(phone);
         res.status(200).json({
             data: location,
             status: true,

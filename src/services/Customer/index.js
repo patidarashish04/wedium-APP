@@ -23,22 +23,8 @@ const createCustomer = async (req, res) => {
     }
 };
 
-// retrieve and return all Customer/ retrive and return a single Customer
+// retrieve and return all Customer
 const getCustomer = async (req, res, next) => {
-    if (req.query.id) {
-        const id = req.query.id;
-        getCustomerByid(id).then(async Customer => {
-            try {
-                if (!Customer && Customer.id) {
-                    res.status(404).json({ message: "Not found Customer with id " + id });
-                } else {
-                    res.status(200).json(Customer);
-                }
-            } catch (err) {
-                res.status(500).json({ message: "Error retrieving Customer with id " + id });
-            }
-        }).catch(err => res.status(500).json(err));
-    } else {
         getAllCustomer().then(Customer => {
             res.status(200).json({
                 data: Customer,
@@ -49,7 +35,6 @@ const getCustomer = async (req, res, next) => {
             res.status(500).json({ message: err.message || "Error Occurred while retriving Customer information" });
             next(err);
         });
-    }
 };
 
 // retrive and return a single Customer

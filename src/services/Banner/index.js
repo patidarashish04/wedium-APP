@@ -15,24 +15,9 @@ const createBanner = async (req, res, next) => {
     }
 }
 
-// retrieve and return all Banner/ retrive and return a single Banner
+// retrieve and return all Banner
 const getBanner = async (req, res, next) => {
-    if (req.query.id) {
-        const id = req.query.id;
-        getBannerByid(id)
-            .then(async (Banner) => {
-                try {
-                    if (!Banner && Banner.id) {
-                        res.status(404).json({ message: "Not found Banner with id " + id })
-                    } else {
-                        res.status(200).json(Banner)
-                    }
-} catch (err) {
-                    res.status(500).json({ message: "Error retrieving Banner with id " + id })
-                }
-            })
-            .catch((err) => res.status(500).json(err));
-    } else {
+ 
         getAllBanner()
             .then(categories => {
                 res.status(200).json({
@@ -45,7 +30,6 @@ const getBanner = async (req, res, next) => {
                 res.status(500).json({ message: err.message || "Error Occurred while retriving Banner information" })
                 next(err);
             })
-    }
 }
 
 // retrive and return a single Banner

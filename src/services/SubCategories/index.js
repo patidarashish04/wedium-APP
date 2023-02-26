@@ -29,7 +29,7 @@ const createNewSubCategory = async (req, res, next) => {
     }
 };
 
-// retrieve and return all SubCategory/ retrive and return a single SubCategory
+// retrieve and return all SubCategory
 const getSubCategory = async (req, res, next) => {
         getAllSubCategory().then(SubCategory => {
             res.status(200).json({

@@ -15,24 +15,8 @@ const createProfiles = async (req, res, next) => {
     }
 }
 
-// retrieve and return all Profiles/ retrive and return a single Profiles
+// retrieve and return all Profiles
 const getProfile = async (req, res, next) => {
-    if (req.query.id) {
-        const id = req.query.id;
-        getProfilesByid(id)
-            .then(async (profile) => {
-                try {
-                    if (!profile && profile.id) {
-                        res.status(404).json({ message: "Not found profile with id " + id })
-                    } else {
-                        res.json(profile)
-                    }
-                } catch (err) {
-                    res.status(500).json({ message: "Error retrieving profile with id " + id })
-                }
-            })
-            .catch((err) => res.status(500).json(err));
-    } else {
         getAllProfile()
             .then(categories => {
                 res.status(200).json({
@@ -45,7 +29,6 @@ const getProfile = async (req, res, next) => {
                 res.status(500).json({ message: err.message || "Error Occurred while retriving profile information" })
                 next(err);
             })
-    }
 }
 //*********************Pagination code for all data*******************************
 //     limitPage = parseInt(req.query.limit, 10) || 10;

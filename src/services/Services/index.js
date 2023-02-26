@@ -30,22 +30,8 @@ const createNewServices = async (req, res, next) => {
     }
 };
 
-// retrieve and return all Services/ retrive and return a single Services
+// retrieve and return all Services
 const getServices = async (req, res, next) => {
-    if (req.query.subCatgoryId) {
-        const id = req.query.subCatgoryId;
-        getServicesByid(id).then(async Services => {
-            try {
-                if (!Services && Services.id) {
-                    res.status(404).json({ message: "Not found Services with id " + id });
-                } else {
-                    res.status(200).json(Services);
-                }
-            } catch (err) {
-                res.status(500).json({ message: "Error retrieving Services with id " + id });
-            }
-        }).catch(err => res.status(500).json(err));
-    } else {
         getAllServices().then(Services => {
             res.status(200).json({
                 data: Services,
@@ -56,7 +42,6 @@ const getServices = async (req, res, next) => {
             res.status(500).json({ message: err.message || "Error Occurred while retriving Services information" });
             next(err);
         });
-    }
 };
 
 const getBestSeller = async (req, res, next) => {
