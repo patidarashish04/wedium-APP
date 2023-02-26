@@ -35,6 +35,11 @@ const StoreSchema = new mongoose.Schema({
         type: String,
         enum: ['Bhubaneswar'],
     },
+    cityId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'City',
+        required: [true, 'CityId required'],
+    },
     longitude: {
         type: Number,
     },
