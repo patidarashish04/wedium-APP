@@ -1643,4 +1643,82 @@ module.exports = (app) => {
 		 *         description: The Store was not found
 		 */
 			app.delete('/api/v1/deleteStore/:id',  services.Store.deleteStore);
+
+			//********************** City *************************/
+
+
+			/**
+	 * @swagger
+	 * tags:
+	 *   name: City
+	 *   description: The City managing API
+	 */
+
+	/**
+	 * @swagger
+	 * components:
+	 *   schemas:
+	 *     City:
+	 *       type: object
+	 *       required:
+	 *         - city
+	 *         - state
+	 *       properties:
+	 *         id:
+	 *           type: string
+	 *           description: The auto-generated id of the City
+	 *         city:
+	 *           type: string
+	 *           description: The City  
+	 *         state:
+	 *           type: string
+	 *           description: The state 
+	 *       example:
+	 *         city: Banaglore
+	 *         state: Karnataka
+	 */
+
+	/**
+ * @swagger
+ * /api/v1/createCity:
+ *   post:
+ *     summary: Create a new City
+ *     tags: [City]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/City'
+ *     responses:
+ *       200:
+ *         description: The City was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/City'
+ *       500:
+ *         description: Some server error
+	*/
+		app.post('/api/v1/createCity',  services.City.createCity);
+
+		/**
+ * @swagger
+ * /api/v1/getCity:
+ *   get:
+ *     summary: Returns the list of all the City
+ *     tags: [City]
+ *     responses:
+ *       200:
+ *         description: The list of the City
+ *         content:
+ *           application/json:
+ *             schema:	
+ *               type: array
+   *               items:
+   *                  $ref: '#/components/schemas/City'
+   */
+
+		app.get('/api/v1/getCity',  services.City.getCity);
+
 };

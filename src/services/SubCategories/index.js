@@ -31,20 +31,6 @@ const createNewSubCategory = async (req, res, next) => {
 
 // retrieve and return all SubCategory/ retrive and return a single SubCategory
 const getSubCategory = async (req, res, next) => {
-    if (req.query.categoryId) {
-        const id = req.query.categoryId;
-        getSubCategoryByid(id).then(async SubCategory => {
-            try {
-                if (!SubCategory && SubCategory.id) {
-                    res.status(404).json({ message: "Not found SubCategory with id " + id });
-                } else {
-                    res.status(200).json(SubCategory);
-                }
-            } catch (err) {
-                res.status(500).json({ message: "Error retrieving SubCategory with id " + id });
-            }
-        }).catch(err => res.status(500).json(err));
-    } else {
         getAllSubCategory().then(SubCategory => {
             res.status(200).json({
                 data: SubCategory,
@@ -55,26 +41,7 @@ const getSubCategory = async (req, res, next) => {
             res.status(500).json({ message: err.message || "Error Occurred while retriving SubCategory information" });
             next(err);
         });
-    }
 };
-//*********************Pagination code for all data*******************************
-//     limitPage = parseInt(req.query.limit, 10) || 10;
-//     const pageChange = parseInt(req.query.page, 10) || 1;
-//     Product.paginate({}, { limit: limitPage, page: pageChange }).populate('category')
-//       .then((result) => {
-//         return res.status(200).json({
-//           message: "GET request to all getAllProducts",
-//           dataCount: result.length,
-//           result: result,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json({
-//           error: err,
-//         });
-//       });
-//   },
 
 
 // retrive and return a single SubCategory
