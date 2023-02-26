@@ -1,30 +1,38 @@
-const { createVendor, getVendorByid, getAllVendor, updateVendorById, deleteVendorById, uploadToS3 } = require('../Vendor/function');
+const { createVendor, getVendorByid, getVendordata, getAllVendor, updateVendorById, deleteVendorById } = require('../Vendor/function');
 const dotenv = require('dotenv');
 dotenv.config('.env.local');
 const bcrypt = require('bcrypt');
-const IMAGE_BASE_CDN = process.env.IMAGE_BASE_CDN;
-// GET category
 const createVendors = async (req, res, next) => {
     try {
-        let body = parseFormData(req.body);required: true
-        body = body['form-data'];
-        const file = req.files ? req.files[0] : null;
-        if (file) {
-            // this condition will executed if a Vendors photo has been uploaded
-            const imageData = await uploadToS3(file);
-            body.imagekey = imageData.Key;
-            body.imagelocation = `${IMAGE_BASE_CDN}/${imageData.Key}`;
+        const body = req.body;
+        // Validate user input
+        if (!(body.phone && body.password)) {
+            res.status(404).json("All input is required");
         }
-        encryptedPassword = await bcrypt.hash(body.password, 10);
-        const options = {
-            vendorName: body.vendorName,
-            email: body.email.toLowerCase(), // sanitize: convert email to lowercase
-            password: encryptedPassword
-        };
-        const vendor = await createVendor(options);
-        res.status(200).json({ vendorDetails: vendor });
+        const data = {phone: body.phone, email : body.email}
+        // check if user already exist by phone
+        const oldVendorData = await getVendordata(data);
+        if (oldVendorData != 0) {
+            return res.status(409).json("Vendor Already Exist..");
+        } else {
+            // Encrypt user password
+            encryptedPassword = await bcrypt.hash(body.password, 5);
+            const options = {
+                name: body.name,
+                email: body.email.toLowerCase(), // sanitize: convert email to lowercase
+                password: encryptedPassword,
+                phone: body.phone,
+                profileImage: body.profileImage,
+                aadharcardupload: body.aadharcardupload,
+                pancardupload: body.pancardupload,
+                
+            };
+            // Create Vendor in our database
+            const vendor = await createVendor(options);
+            res.status(200).json({ VendorDetails: vendor });
+        }
     } catch (err) {
-        console.log(err);
+        res.status(500).json({ message: "Error creating vendor" });
     }
 }
 
@@ -32,6 +40,7 @@ const createVendors = async (req, res, next) => {
 const getVendor = async (req, res, next) => {
     if (req.query.id) {
         const id = req.query.id;
+        if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
         getVendorByid(id)
             .then(async (vendor) => {
                 try {
@@ -60,30 +69,12 @@ const getVendor = async (req, res, next) => {
             })
     }
 }
-//*********************Pagination code for all data*******************************
-//     limitPage = parseInt(req.query.limit, 10) || 10;
-//     const pageChange = parseInt(req.query.page, 10) || 1;
-//     Product.paginate({}, { limit: limitPage, page: pageChange }).populate('category')
-//       .then((result) => {
-//         return res.status(200).json({
-//           message: "GET request to all getAllProducts",
-//           dataCount: result.length,
-//           result: result,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json({
-//           error: err,
-//         });
-//       });
-//   },
-
 
 // retrive and return a single vendor
 const FindOneVendor = async (req, res, next) => {
     const id = req.params.id;
-    getCategoryByid(id)
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+    getVendorByid(id)
         .then(async (vendor) => {
             try {
                 if (!vendor && vendor.id) {
@@ -107,12 +98,13 @@ const updateVendor = async (req, res, next) => {
             .json({ message: "Data to update can not be empty" })
     }
     const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
     await updateVendorById(id, data)
         .then(data => {
             if (!data) {
                 res.status(404).json({ message: `Cannot Update vendor with ${id}. Maybe vendor not found!` })
             } else {
-                res.status(200).json(data)
+                res.status(200).json({ message: " Successfully Updated Vendor information" });
             }
         })
         .catch(err => {
@@ -123,6 +115,7 @@ const updateVendor = async (req, res, next) => {
 // delete vendor
 const deleteVendor = async (req, res, next) => {
     const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
     await deleteVendorById(id)
         .then(data => {
             if (!data) {

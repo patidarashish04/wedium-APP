@@ -1,7 +1,6 @@
 const dbServices = require('../../dao/queries/index');
-const AWS = require('aws-sdk');
 const { generateS3FileKey } = require('../../utils/s3Utils');
-// create category +
+// create Vendor +
 const createVendor = async (vendor) => {
 	try {
 		const dbResponse = await dbServices.Vendor.createVendor(vendor);
@@ -10,7 +9,7 @@ const createVendor = async (vendor) => {
 		throw new Error(err);
 	}
 };
-// get category by id +
+// get Vendor by id +
 const getVendorByid = async (id) => {
 	try {
 		const dbResponse = await dbServices.Vendor.getVendorByid(id);
@@ -19,7 +18,18 @@ const getVendorByid = async (id) => {
 		throw new Error(err);
 	}
 };
-// get All category +
+
+// get Vendor  +
+const getVendordata = async (data) => {
+	try {
+		const dbResponse = await dbServices.Vendor.getVendordata(data);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
+
+// get All Vendor +
 const getAllVendor = async () => {
 	try {
 		const dbResponse = await dbServices.Vendor.getAllVendor();
@@ -28,7 +38,7 @@ const getAllVendor = async () => {
 		throw new Error(err);
 	}
 };
-// create category +
+// create Vendor +
 const updateVendorById = async (id, data) => {
 	try {
 		const dbResponse = await dbServices.Vendor.updateVendorById(id, data);
@@ -38,11 +48,10 @@ const updateVendorById = async (id, data) => {
 	}
 };
 
-// delete category +
+// delete Vendor +
 const deleteVendorById = async (id) => {
 	try {
 		const dbResponse = await dbServices.Vendor.deleteVendorbyid(id);
-		console.log('==========dbResponse========>>>>>', dbResponse)
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
@@ -74,6 +83,7 @@ const uploadToS3 = (file) => {
 module.exports = {
 	createVendor,
 	getVendorByid,
+	getVendordata,
 	getAllVendor,
 	updateVendorById,
 	deleteVendorById,
