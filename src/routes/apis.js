@@ -878,7 +878,7 @@ module.exports = (app) => {
 
 	/**
 * @swagger
-* /api/v1/createNewOrder:
+* /api/v1/createVendors:
 *   post:
 *     summary: Create a new Vendor
 *     tags: [Vendor]
@@ -1481,4 +1481,166 @@ module.exports = (app) => {
 	 *         description: The Customer was not found
 	 */
 		app.delete('/api/v1/deleteCustomer/:id',  services.Customer.deleteCustomer);
+
+			//********************** Store *************************/
+
+	/**
+	 * @swagger
+	 * tags:
+	 *   name: Store
+	 *   description: The Store managing API
+	 */
+
+	/**
+	 * @swagger
+	 * components:
+	 *   schemas:
+	 *     Store:
+	 *       type: object
+	 *       required:
+	 *         - email
+	 *         - phone
+	 *         - fullName
+	 *       properties:
+	 *         id:
+	 *           type: string
+	 *           description: The auto-generated id of the Store
+	 *         fullName:
+	 *           type: string
+	 *           description: The Store fullName 
+	 *         email:
+	 *           type: string
+	 *           description: The Store email
+	 *         phone:
+	 *           type: string
+	 *           description: The  Store phone 
+	 *       example:
+	 *         fullName: xyz
+	 *         email: xyz@gmail.com
+	 *         phone: 1234567890
+	 */
+
+	/**
+ * @swagger
+ * /api/v1/createStore:
+ *   post:
+ *     summary: Create a new Store
+ *     tags: [Store]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Store'
+ *     responses:
+ *       200:
+ *         description: The Store was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Store'
+ *       500:
+ *         description: Some server error
+	*/
+		app.post('/api/v1/createStores',  services.Store.createStores);
+
+			/**
+	 * @swagger
+	 * /api/v1/getStore:
+	 *   get:
+	 *     summary: Returns the list of all the Store
+	 *     tags: [Store]
+	 *     responses:
+	 *       200:
+	 *         description: The list of the Store
+	 *         content:
+	 *           application/json:
+	 *             schema:	
+	 *               type: array
+	   *               items:
+	   *                  $ref: '#/components/schemas/Store'
+	   */
+
+			app.get('/api/v1/getStore',  services.Store.getStore);
+
+			/**
+			 * @swagger
+			 * /api/v1/FindOneStore/{id}:
+			 *   get:
+			 *     summary: Get the Store by id
+			 *     tags: [Store]
+			 *     parameters:
+			 *       - in: path
+			 *         name: id
+			 *         schema:
+			 *           type: string
+			 *         required: true
+			 *         description: The Store id
+			 *     responses:
+			 *       200:
+			 *         description: The Store description by id
+			 *         contens:
+			 *           application/json:
+			 *             schema:
+			 *             $ref: '#/components/schemas/Store'
+			 *       404:
+			 *         description: The Store was not found
+			 */
+			app.get('/api/v1/FindOneStore/:id',  services.Store.FindOneStore);
+		
+			/**
+		 * @swagger
+		 * /api/v1/updateStore/{id}:
+		 *  patch:
+		 *    summary: Update the Store by the id
+		 *    tags: [Store]
+		 *    parameters:
+		 *      - in: path
+		 *        name: id
+		 *        schema:
+		 *          type: string
+		 *        required: true
+		 *        description: The Store id
+		 *    requestBody:
+		 *      required: true
+		 *      content:
+		 *        application/json:
+		 *          schema:
+		 *            $ref: '#/components/schemas/Store'
+		 *    responses:
+		 *      200:
+		 *        description: The Store was updated
+		 *        content:
+		 *          application/json:
+		 *            schema:
+		 *              $ref: '#/components/schemas/Store'
+		 *      404:
+		 *        description: The Store was not found
+		 *      500:
+		 *        description: Some error happened
+		 */
+		
+			app.patch('/api/v1/updateStore/:id',  services.Store.updateStore);
+		
+			/**
+		 * @swagger
+		 *  /api/v1/deleteStore/{id}:
+		 *   delete:
+		 *     summary: Remove the Store by id
+		 *     tags: [Store]
+		 *     parameters:
+		 *       - in: path
+		 *         name: id
+		 *         schema:
+		 *           type: string
+		 *         required: true
+		 *         description: The Store id
+		 * 
+		 *     responses:
+		 *       200:
+		 *         description: The Store was deleted
+		 *       404:
+		 *         description: The Store was not found
+		 */
+			app.delete('/api/v1/deleteStore/:id',  services.Store.deleteStore);
 };
