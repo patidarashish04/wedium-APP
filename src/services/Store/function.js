@@ -57,27 +57,6 @@ const deleteStoreById = async (id) => {
 	}
 };
 
-// upload Store image to S3
-const uploadToS3 = (file) => {
-	const s3bucket = new AWS.S3({ params: { Bucket: 'content.ys.com/cs/images/Store' } });
-	const fileName = generateS3FileKey(file.originalname);
-	const params = {
-		Key: fileName,
-		Body: file.buffer,
-		ContentType: file.mimetype,
-	};
-	return new Promise((resolve, reject) => {
-		s3bucket.upload(params, (err, data) => {
-			if (err) {
-				// logger('Validate API Error - Upload Store image to S3', err);
-				console.log('Store S3 upload error', err);
-				reject(err);
-			} else {
-				resolve(data);
-			}
-		});
-	});
-};
 
 module.exports = {
 	createStore,
@@ -85,6 +64,5 @@ module.exports = {
 	getStoredata,
 	getAllStore,
 	updateStoreById,
-	deleteStoreById,
-	uploadToS3
+	deleteStoreById
 }; 
