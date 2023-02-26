@@ -6,7 +6,7 @@ const createVendors = async (req, res, next) => {
     try {
         const body = req.body;
         // Validate user input
-        if (!(body.phone && body.password)) {
+        if (!(body.phone && body.email)) {
             res.status(404).json("All input is required");
         }
         const data = {phone: body.phone, email : body.email}

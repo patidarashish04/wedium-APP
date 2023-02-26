@@ -10,14 +10,14 @@ const StoreSchema = new mongoose.Schema({
         required: [true, 'Please add a name '],
         maxlength: 32,
     },
-    Website: {
+    website: {
         type: String
     },
     phone: {
         type: String,
         required: [true, 'Please add a Phone No.'],
     },
-    Image: {
+    image: {
         type: String,
         required: [true, 'Please upload Image ']
     },
