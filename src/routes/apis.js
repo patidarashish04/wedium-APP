@@ -732,7 +732,7 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	app.post('/api/v1/createNewOrder',  services.Order.createNewOrder);
+	// app.post('/api/v1/createNewOrder',  services.Order.createNewOrder);
 
 	/**
 	 * @swagger
@@ -751,7 +751,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Order'
 	   */
 
-	app.get('/api/v1/getOrderList',  services.Order.getOrderList);
+	// app.get('/api/v1/getOrderList',  services.Order.getOrderList);
 
 	/**
 	 * @swagger
@@ -777,7 +777,7 @@ module.exports = (app) => {
 	 *         description: The Order was not found
 	 */
 
-	app.get('/api/v1/getSingleOrder/:id',  services.Order.getSingleOrder);
+	// app.get('/api/v1/getSingleOrder/:id',  services.Order.getSingleOrder);
 
 	/**
  * @swagger
@@ -811,7 +811,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateOrder/:id',  services.Order.updateOrder);
+	// app.patch('/api/v1/updateOrder/:id',  services.Order.updateOrder);
 
 	/**
  * @swagger
@@ -833,7 +833,7 @@ module.exports = (app) => {
  *       404:
  *         description: The Order was not found
  */
-	app.delete('/api/v1/deleteOrder/:id',  services.Order.deleteOrder);
+	// app.delete('/api/v1/deleteOrder/:id',  services.Order.deleteOrder);
 
 	//****************** Vendor *************************/
 
@@ -1744,5 +1744,30 @@ module.exports = (app) => {
 		 *         description: The City was not found
 		 */
 				app.get('/api/v1/FindOneCity/:id',  services.City.FindOneCity);
+
+	/**
+   * @swagger
+   * /api/v1/createOrder/:
+   *   post:
+   *     summary: Create an order
+   *     tags: [City]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         schema:
+   *           type: string
+   *         required: true
+   *         description: The City id
+   *     responses:
+   *       200:
+   *         description: The City description by id
+   *         contens:
+   *           application/json:
+   *             schema:
+   *             $ref: '#/components/schemas/City'
+   *       404:
+   *         description: The City was not found
+   */
+	app.post('/api/v1/createOrder', services.Order.createOrder);
 
 };
