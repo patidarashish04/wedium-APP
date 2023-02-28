@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-    userName: {
+    vendorId: {
         type: String,
-        trim: true,
-        required: [true, 'Please add a userName '],
-        maxlength: 32,
+        required: [true, 'Please add a time slot'],
     },
-    serviceName: {
+    phoneNo: {
         type: String,
-        required: [true, 'Please add a serviceName '],
+        required: [true, 'Please add a phonenumber.'],
     },
-    cityName: {
+    time: {
         type: String,
-        enum: ['Bhubaneswar', 'Bhopal', 'Bangalore'],
+        required: [true, 'Please add a vendorId'],
+    },
+    cityId: {
+        type: String,
         default: 'Bhubaneswar'
     },
     orderStatus: {
