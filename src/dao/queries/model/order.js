@@ -3,24 +3,26 @@ const mongoose = require('mongoose');
 const categorySchema = new mongoose.Schema({
     vendorId: {
         type: String,
-        required: [true, 'Please add a time slot'],
+        required: [true, 'VendorId not found'],
     },
-    phoneNo: {
+    phone: {
         type: String,
-        required: [true, 'Please add a phonenumber.'],
+        required: [true, 'Please add a Phone Number.'],
     },
     time: {
         type: String,
-        required: [true, 'Please add a vendorId'],
+        required: [true, 'Please add a Time Slot'],
     },
     cityId: {
         type: String,
-        default: 'Bhubaneswar'
+    },
+    address: {  
+        type: String
     },
     orderStatus: {
         type: String,
-        enum: ['Pending', 'Open', 'Processing'],
-        default: 'Open'
+        enum: ['PENDING', 'OPEN', 'PROCESSING'],
+        default: 'OPEN'
     },
     orderDate: {
         type: Date, 

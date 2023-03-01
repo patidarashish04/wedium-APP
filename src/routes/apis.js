@@ -148,7 +148,7 @@ module.exports = (app) => {
  *       404:
  *         description: The User was not found
  */
-	app.delete('/api/v1/deleteUser/:id',  services.User.deleteUser);
+	app.delete('/api/v1/deleteUser/:id', services.User.deleteUser);
 
 	//*********** category *************************/
 
@@ -206,7 +206,7 @@ module.exports = (app) => {
  *         description: Some server error
 	*/
 
-	app.post('/api/v1/createCategory',  services.categories.createCategory);
+	app.post('/api/v1/createCategory', services.categories.createCategory);
 
 	/**
 	 * @swagger
@@ -225,7 +225,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Category'
 	   */
 
-	app.get('/api/v1/getCategory',  services.categories.getCategory);
+	app.get('/api/v1/getCategory', services.categories.getCategory);
 
 	/**
 	 * @swagger
@@ -250,7 +250,7 @@ module.exports = (app) => {
 	 *       404:
 	 *         description: The Category was not found
 	 */
-	app.get('/api/v1/FindOneCategory/:id',  services.categories.FindOneCategory);
+	app.get('/api/v1/FindOneCategory/:id', services.categories.FindOneCategory);
 
 	/**
  * @swagger
@@ -284,7 +284,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateCategory/:id',  services.categories.updateCategory);
+	app.patch('/api/v1/updateCategory/:id', services.categories.updateCategory);
 
 	/**
  * @swagger
@@ -306,7 +306,7 @@ module.exports = (app) => {
  *       404:
  *         description: The Category was not found
  */
-	app.delete('/api/v1/deleteCategory/:id',  services.categories.deleteCategory);
+	app.delete('/api/v1/deleteCategory/:id', services.categories.deleteCategory);
 
 
 	//*********** Sub category *************************/
@@ -376,7 +376,7 @@ module.exports = (app) => {
 *       500:
 *         description: Some server error
 */
-	app.post('/api/v1/createSubCategory',  services.subcategories.createNewSubCategory);
+	app.post('/api/v1/createSubCategory', services.subcategories.createNewSubCategory);
 
 	// app.post('/api/v1/Category/subCategory',  services.subcategories.CreateSubCategory);
 
@@ -396,7 +396,7 @@ module.exports = (app) => {
 	   *               items:
 	   *                  $ref: '#/components/schemas/SubCategory'
 	   */
-	app.get('/api/v1/getSubCategory',  services.subcategories.getSubCategory);
+	app.get('/api/v1/getSubCategory', services.subcategories.getSubCategory);
 
 	/**
 	 * @swagger
@@ -421,7 +421,7 @@ module.exports = (app) => {
 	 *       404:
 	 *         description: The SubCategory was not found
 	 */
-	app.get('/api/v1/FindOneSubCategory/:id',  services.subcategories.FindOneSubCategory);
+	app.get('/api/v1/FindOneSubCategory/:id', services.subcategories.FindOneSubCategory);
 
 	/**
  * @swagger
@@ -454,7 +454,7 @@ module.exports = (app) => {
  *      500:
  *        description: Some error happened
  */
-	app.patch('/api/v1/updateSubCategory/:id',  services.subcategories.updateSubCategory);
+	app.patch('/api/v1/updateSubCategory/:id', services.subcategories.updateSubCategory);
 
 	/**
  * @swagger
@@ -476,7 +476,7 @@ module.exports = (app) => {
  *       404:
  *         description: The SubCategory was not found
  */
-	app.delete('/api/v1/deleteSubCategory/:id',  services.subcategories.deleteSubCategory);
+	app.delete('/api/v1/deleteSubCategory/:id', services.subcategories.deleteSubCategory);
 
 	//**************** Services *************************/
 
@@ -545,7 +545,7 @@ module.exports = (app) => {
 *       500:
 *         description: Some server error
 */
-	app.post('/api/v1/createServices',  services.Services.createNewServices);
+	app.post('/api/v1/createServices', services.Services.createNewServices);
 
 	/**
 	 * @swagger
@@ -564,7 +564,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Services'
 	   */
 
-	app.get('/api/v1/getServices',  services.Services.getServices);
+	app.get('/api/v1/getServices', services.Services.getServices);
 
 	/**
 	 * @swagger
@@ -590,7 +590,7 @@ module.exports = (app) => {
 	 *         description: The Services was not found
 	 */
 
-	app.get('/api/v1/FindOneServices/:id',  services.Services.FindOneServices);
+	app.get('/api/v1/FindOneServices/:id', services.Services.FindOneServices);
 
 	/**
 	 * @swagger
@@ -609,7 +609,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Services'
 	   */
 
-	app.get('/api/v1/getBestSeller',  services.Services.getBestSeller);
+	app.get('/api/v1/getBestSeller', services.Services.getBestSeller);
 
 	/**
  * @swagger
@@ -643,7 +643,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateServices/:id',  services.Services.updateServices);
+	app.patch('/api/v1/updateServices/:id', services.Services.updateServices);
 
 	/**
  * @swagger
@@ -666,7 +666,7 @@ module.exports = (app) => {
  *         description: The Services was not found
  */
 
-	app.delete('/api/v1/deleteServices/:id',  services.Services.deleteServices);
+	app.delete('/api/v1/deleteServices/:id', services.Services.deleteServices);
 
 	//*********** Order *************************/
 
@@ -732,7 +732,7 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	// app.post('/api/v1/createNewOrder',  services.Order.createNewOrder);
+	app.post('/api/v1/createNewOrder', services.Order.createNewOrder);
 
 	/**
 	 * @swagger
@@ -751,7 +751,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Order'
 	   */
 
-	// app.get('/api/v1/getOrderList',  services.Order.getOrderList);
+	app.get('/api/v1/getOrderList', services.Order.getOrderList);
 
 	/**
 	 * @swagger
@@ -777,7 +777,7 @@ module.exports = (app) => {
 	 *         description: The Order was not found
 	 */
 
-	// app.get('/api/v1/getSingleOrder/:id',  services.Order.getSingleOrder);
+	app.get('/api/v1/getSingleOrder/:id', services.Order.getSingleOrder);
 
 	/**
  * @swagger
@@ -811,7 +811,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	// app.patch('/api/v1/updateOrder/:id',  services.Order.updateOrder);
+	app.patch('/api/v1/updateOrder/:id', services.Order.updateOrder);
 
 	/**
  * @swagger
@@ -833,7 +833,7 @@ module.exports = (app) => {
  *       404:
  *         description: The Order was not found
  */
-	// app.delete('/api/v1/deleteOrder/:id',  services.Order.deleteOrder);
+	app.delete('/api/v1/deleteOrder/:id', services.Order.deleteOrder);
 
 	//****************** Vendor *************************/
 
@@ -899,7 +899,7 @@ module.exports = (app) => {
 *         description: Some server error
 */
 
-	app.post('/api/v1/createVendors', upload.any(),  services.Vendor.createVendors);
+	app.post('/api/v1/createVendors', upload.any(), services.Vendor.createVendors);
 
 	/**
 	 * @swagger
@@ -918,7 +918,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Order'
 	   */
 
-	app.get('/api/v1/getVendor',  services.Vendor.getVendor);
+	app.get('/api/v1/getVendor', services.Vendor.getVendor);
 
 	/**
 	 * @swagger
@@ -944,7 +944,7 @@ module.exports = (app) => {
 	 *         description: The Order was not found
 	 */
 
-	app.get('/api/v1/FindOneVendor/:id',  services.Vendor.FindOneVendor);
+	app.get('/api/v1/FindOneVendor/:id', services.Vendor.FindOneVendor);
 
 	/**
 	* @swagger
@@ -978,7 +978,7 @@ module.exports = (app) => {
 	*        description: Some error happened
 	*/
 
-	app.patch('/api/v1/updateVendor/:id',  services.Vendor.updateVendor);
+	app.patch('/api/v1/updateVendor/:id', services.Vendor.updateVendor);
 
 	/**
 	* @swagger
@@ -1000,7 +1000,7 @@ module.exports = (app) => {
 	*       404:
 	*         description: The Order was not found
 	*/
-	app.delete('/api/v1/deleteVendor/:id',  services.Vendor.deleteVendor);
+	app.delete('/api/v1/deleteVendor/:id', services.Vendor.deleteVendor);
 
 
 	//********************** profile *************************/
@@ -1063,7 +1063,7 @@ module.exports = (app) => {
  *       500:
  *         description: Some server error
 	*/
-	app.post('/api/v1/createProfiles',  services.Profile.createProfiles);
+	app.post('/api/v1/createProfiles', services.Profile.createProfiles);
 
 	/**
 	 * @swagger
@@ -1082,7 +1082,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Profile'
 	   */
 
-	app.get('/api/v1/getProfile',  services.Profile.getProfile);
+	app.get('/api/v1/getProfile', services.Profile.getProfile);
 
 	/**
 	 * @swagger
@@ -1107,7 +1107,7 @@ module.exports = (app) => {
 	 *       404:
 	 *         description: The profile was not found
 	 */
-	app.get('/api/v1/FindOneProfile/:id',  services.Profile.FindOneProfile);
+	app.get('/api/v1/FindOneProfile/:id', services.Profile.FindOneProfile);
 
 	/**
  * @swagger
@@ -1141,7 +1141,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateProfile/:id',  services.Profile.updateProfile);
+	app.patch('/api/v1/updateProfile/:id', services.Profile.updateProfile);
 
 	/**
  * @swagger
@@ -1163,10 +1163,10 @@ module.exports = (app) => {
  *       404:
  *         description: The Profile was not found
  */
-	app.delete('/api/v1/deleteProfile/:id',  services.Profile.deleteProfile);
+	app.delete('/api/v1/deleteProfile/:id', services.Profile.deleteProfile);
 
 
-		//********************** Banner *************************/
+	//********************** Banner *************************/
 
 	/**
 	 * @swagger
@@ -1216,7 +1216,7 @@ module.exports = (app) => {
  *       500:
  *         description: Some server error
 	*/
-	app.post('/api/v1/createBanner',  services.Banner.createBanner);
+	app.post('/api/v1/createBanner', services.Banner.createBanner);
 
 	/**
 	 * @swagger
@@ -1235,7 +1235,7 @@ module.exports = (app) => {
 	   *                  $ref: '#/components/schemas/Banner'
 	   */
 
-	app.get('/api/v1/getBanner',  services.Banner.getBanner);
+	app.get('/api/v1/getBanner', services.Banner.getBanner);
 
 	/**
 	 * @swagger
@@ -1260,7 +1260,7 @@ module.exports = (app) => {
 	 *       404:
 	 *         description: The Banner was not found
 	 */
-	app.get('/api/v1/FindOneBanner/:id',  services.Banner.FindOneBanner);
+	app.get('/api/v1/FindOneBanner/:id', services.Banner.FindOneBanner);
 
 	/**
  * @swagger
@@ -1294,7 +1294,7 @@ module.exports = (app) => {
  *        description: Some error happened
  */
 
-	app.patch('/api/v1/updateBanner/:id',  services.Banner.updateBanner);
+	app.patch('/api/v1/updateBanner/:id', services.Banner.updateBanner);
 
 	/**
  * @swagger
@@ -1316,11 +1316,11 @@ module.exports = (app) => {
  *       404:
  *         description: The Banner was not found
  */
-	app.delete('/api/v1/deleteBanner/:id',  services.Banner.deleteBanner);
+	app.delete('/api/v1/deleteBanner/:id', services.Banner.deleteBanner);
 
-	app.get('/api/v1/location',  services.User.location); 
+	app.get('/api/v1/location', services.User.location);
 
-			//********************** Customer *************************/
+	//********************** Customer *************************/
 
 	/**
 	 * @swagger
@@ -1380,91 +1380,32 @@ module.exports = (app) => {
  *       500:
  *         description: Some server error
 	*/
-	app.post('/api/v1/createCustomer',  services.Customer.createCustomer);
+	app.post('/api/v1/createCustomer', services.Customer.createCustomer);
 
-		/**
+	/**
+ * @swagger
+ * /api/v1/getCustomer:
+ *   get:
+ *     summary: Returns the list of all the Customer
+ *     tags: [Customer]
+ *     responses:
+ *       200:
+ *         description: The list of the Customer
+ *         content:
+ *           application/json:
+ *             schema:	
+ *               type: array
+   *               items:
+   *                  $ref: '#/components/schemas/Customer'
+   */
+
+	app.get('/api/v1/getCustomer', services.Customer.getCustomer);
+
+	/**
 	 * @swagger
-	 * /api/v1/getCustomer:
+	 * /api/v1/FindOneCustomer/{id}:
 	 *   get:
-	 *     summary: Returns the list of all the Customer
-	 *     tags: [Customer]
-	 *     responses:
-	 *       200:
-	 *         description: The list of the Customer
-	 *         content:
-	 *           application/json:
-	 *             schema:	
-	 *               type: array
-	   *               items:
-	   *                  $ref: '#/components/schemas/Customer'
-	   */
-
-		app.get('/api/v1/getCustomer',  services.Customer.getCustomer);
-
-		/**
-		 * @swagger
-		 * /api/v1/FindOneCustomer/{id}:
-		 *   get:
-		 *     summary: Get the Customer by id
-		 *     tags: [Customer]
-		 *     parameters:
-		 *       - in: path
-		 *         name: id
-		 *         schema:
-		 *           type: string
-		 *         required: true
-		 *         description: The Customer id
-		 *     responses:
-		 *       200:
-		 *         description: The Customer description by id
-		 *         contens:
-		 *           application/json:
-		 *             schema:
-		 *             $ref: '#/components/schemas/Customer'
-		 *       404:
-		 *         description: The Customer was not found
-		 */
-		app.get('/api/v1/FindOneCustomer/:id',  services.Customer.FindOneCustomer);
-	
-		/**
-	 * @swagger
-	 * /api/v1/updateCustomer/{id}:
-	 *  patch:
-	 *    summary: Update the Customer by the id
-	 *    tags: [Customer]
-	 *    parameters:
-	 *      - in: path
-	 *        name: id
-	 *        schema:
-	 *          type: string
-	 *        required: true
-	 *        description: The Customer id
-	 *    requestBody:
-	 *      required: true
-	 *      content:
-	 *        application/json:
-	 *          schema:
-	 *            $ref: '#/components/schemas/Customer'
-	 *    responses:
-	 *      200:
-	 *        description: The Customer was updated
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              $ref: '#/components/schemas/Customer'
-	 *      404:
-	 *        description: The Customer was not found
-	 *      500:
-	 *        description: Some error happened
-	 */
-	
-		app.patch('/api/v1/updateCustomer/:id',  services.Customer.updateCustomer);
-	
-		/**
-	 * @swagger
-	 *  /api/v1/deleteCustomer/{id}:
-	 *   delete:
-	 *     summary: Remove the Customer by id
+	 *     summary: Get the Customer by id
 	 *     tags: [Customer]
 	 *     parameters:
 	 *       - in: path
@@ -1473,16 +1414,75 @@ module.exports = (app) => {
 	 *           type: string
 	 *         required: true
 	 *         description: The Customer id
-	 * 
 	 *     responses:
 	 *       200:
-	 *         description: The Customer was deleted
+	 *         description: The Customer description by id
+	 *         contens:
+	 *           application/json:
+	 *             schema:
+	 *             $ref: '#/components/schemas/Customer'
 	 *       404:
 	 *         description: The Customer was not found
 	 */
-		app.delete('/api/v1/deleteCustomer/:id',  services.Customer.deleteCustomer);
+	app.get('/api/v1/FindOneCustomer/:id', services.Customer.FindOneCustomer);
 
-			//********************** Store *************************/
+	/**
+ * @swagger
+ * /api/v1/updateCustomer/{id}:
+ *  patch:
+ *    summary: Update the Customer by the id
+ *    tags: [Customer]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The Customer id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Customer'
+ *    responses:
+ *      200:
+ *        description: The Customer was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Customer'
+ *      404:
+ *        description: The Customer was not found
+ *      500:
+ *        description: Some error happened
+ */
+
+	app.patch('/api/v1/updateCustomer/:id', services.Customer.updateCustomer);
+
+	/**
+ * @swagger
+ *  /api/v1/deleteCustomer/{id}:
+ *   delete:
+ *     summary: Remove the Customer by id
+ *     tags: [Customer]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Customer id
+ * 
+ *     responses:
+ *       200:
+ *         description: The Customer was deleted
+ *       404:
+ *         description: The Customer was not found
+ */
+	app.delete('/api/v1/deleteCustomer/:id', services.Customer.deleteCustomer);
+
+	//********************** Store *************************/
 
 	/**
 	 * @swagger
@@ -1542,117 +1542,117 @@ module.exports = (app) => {
  *       500:
  *         description: Some server error
 	*/
-		app.post('/api/v1/createStores',  services.Store.createStores);
+	app.post('/api/v1/createStores', services.Store.createStores);
 
-			/**
+	/**
+* @swagger
+* /api/v1/getStore:
+*   get:
+*     summary: Returns the list of all the Store
+*     tags: [Store]
+*     responses:
+*       200:
+*         description: The list of the Store
+*         content:
+*           application/json:
+*             schema:	
+*               type: array
+*               items:
+*                  $ref: '#/components/schemas/Store'
+*/
+
+	app.get('/api/v1/getStore', services.Store.getStore);
+
+	/**
 	 * @swagger
-	 * /api/v1/getStore:
+	 * /api/v1/FindOneStore/{id}:
 	 *   get:
-	 *     summary: Returns the list of all the Store
+	 *     summary: Get the Store by id
 	 *     tags: [Store]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The Store id
 	 *     responses:
 	 *       200:
-	 *         description: The list of the Store
-	 *         content:
+	 *         description: The Store description by id
+	 *         contens:
 	 *           application/json:
-	 *             schema:	
-	 *               type: array
-	   *               items:
-	   *                  $ref: '#/components/schemas/Store'
-	   */
-
-			app.get('/api/v1/getStore',  services.Store.getStore);
-
-			/**
-			 * @swagger
-			 * /api/v1/FindOneStore/{id}:
-			 *   get:
-			 *     summary: Get the Store by id
-			 *     tags: [Store]
-			 *     parameters:
-			 *       - in: path
-			 *         name: id
-			 *         schema:
-			 *           type: string
-			 *         required: true
-			 *         description: The Store id
-			 *     responses:
-			 *       200:
-			 *         description: The Store description by id
-			 *         contens:
-			 *           application/json:
-			 *             schema:
-			 *             $ref: '#/components/schemas/Store'
-			 *       404:
-			 *         description: The Store was not found
-			 */
-			app.get('/api/v1/FindOneStore/:id',  services.Store.FindOneStore);
-		
-			/**
-		 * @swagger
-		 * /api/v1/updateStore/{id}:
-		 *  patch:
-		 *    summary: Update the Store by the id
-		 *    tags: [Store]
-		 *    parameters:
-		 *      - in: path
-		 *        name: id
-		 *        schema:
-		 *          type: string
-		 *        required: true
-		 *        description: The Store id
-		 *    requestBody:
-		 *      required: true
-		 *      content:
-		 *        application/json:
-		 *          schema:
-		 *            $ref: '#/components/schemas/Store'
-		 *    responses:
-		 *      200:
-		 *        description: The Store was updated
-		 *        content:
-		 *          application/json:
-		 *            schema:
-		 *              $ref: '#/components/schemas/Store'
-		 *      404:
-		 *        description: The Store was not found
-		 *      500:
-		 *        description: Some error happened
-		 */
-		
-			app.patch('/api/v1/updateStore/:id',  services.Store.updateStore);
-		
-			/**
-		 * @swagger
-		 *  /api/v1/deleteStore/{id}:
-		 *   delete:
-		 *     summary: Remove the Store by id
-		 *     tags: [Store]
-		 *     parameters:
-		 *       - in: path
-		 *         name: id
-		 *         schema:
-		 *           type: string
-		 *         required: true
-		 *         description: The Store id
-		 * 
-		 *     responses:
-		 *       200:
-		 *         description: The Store was deleted
-		 *       404:
-		 *         description: The Store was not found
-		 */
-			app.delete('/api/v1/deleteStore/:id',  services.Store.deleteStore);
-
-			//********************** City *************************/
-
-
-			/**
-	 * @swagger
-	 * tags:
-	 *   name: City
-	 *   description: The City managing API
+	 *             schema:
+	 *             $ref: '#/components/schemas/Store'
+	 *       404:
+	 *         description: The Store was not found
 	 */
+	app.get('/api/v1/FindOneStore/:id', services.Store.FindOneStore);
+
+	/**
+ * @swagger
+ * /api/v1/updateStore/{id}:
+ *  patch:
+ *    summary: Update the Store by the id
+ *    tags: [Store]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The Store id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Store'
+ *    responses:
+ *      200:
+ *        description: The Store was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Store'
+ *      404:
+ *        description: The Store was not found
+ *      500:
+ *        description: Some error happened
+ */
+
+	app.patch('/api/v1/updateStore/:id', services.Store.updateStore);
+
+	/**
+ * @swagger
+ *  /api/v1/deleteStore/{id}:
+ *   delete:
+ *     summary: Remove the Store by id
+ *     tags: [Store]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Store id
+ * 
+ *     responses:
+ *       200:
+ *         description: The Store was deleted
+ *       404:
+ *         description: The Store was not found
+ */
+	app.delete('/api/v1/deleteStore/:id', services.Store.deleteStore);
+
+	//********************** City *************************/
+
+
+	/**
+* @swagger
+* tags:
+*   name: City
+*   description: The City managing API
+*/
 
 	/**
 	 * @swagger
@@ -1700,74 +1700,50 @@ module.exports = (app) => {
  *       500:
  *         description: Some server error
 	*/
-		app.post('/api/v1/createCity',  services.City.createCity);
-
-		/**
- * @swagger
- * /api/v1/getCity:
- *   get:
- *     summary: Returns the list of all the City
- *     tags: [City]
- *     responses:
- *       200:
- *         description: The list of the City
- *         content:
- *           application/json:
- *             schema:	
- *               type: array
-   *               items:
-   *                  $ref: '#/components/schemas/City'
-   */
-
-		app.get('/api/v1/getCity',  services.City.getCity);
-				/**
-		 * @swagger
-		 * /api/v1/FindOneCity/{id}:
-		 *   get:
-		 *     summary: Get the City by id
-		 *     tags: [City]
-		 *     parameters:
-		 *       - in: path
-		 *         name: id
-		 *         schema:
-		 *           type: string
-		 *         required: true
-		 *         description: The City id
-		 *     responses:
-		 *       200:
-		 *         description: The City description by id
-		 *         contens:
-		 *           application/json:
-		 *             schema:
-		 *             $ref: '#/components/schemas/City'
-		 *       404:
-		 *         description: The City was not found
-		 */
-				app.get('/api/v1/FindOneCity/:id',  services.City.FindOneCity);
+	app.post('/api/v1/createCity', services.City.createCity);
 
 	/**
-   * @swagger
-   * /api/v1/createOrder/:
-   *   post:
-   *     summary: Create an order
-   *     tags: [City]
-   *     parameters:
-   *       - in: path
-   *         name: id
-   *         schema:
-   *           type: string
-   *         required: true
-   *         description: The City id
-   *     responses:
-   *       200:
-   *         description: The City description by id
-   *         contens:
-   *           application/json:
-   *             schema:
-   *             $ref: '#/components/schemas/City'
-   *       404:
-   *         description: The City was not found
-   */
-	app.post('/api/v1/createOrder', services.Order.createOrder);
+* @swagger
+* /api/v1/getCity:
+*   get:
+*     summary: Returns the list of all the City
+*     tags: [City]
+*     responses:
+*       200:
+*         description: The list of the City
+*         content:
+*           application/json:
+*             schema:	
+*               type: array
+*               items:
+*                  $ref: '#/components/schemas/City'
+*/
+
+	app.get('/api/v1/getCity', services.City.getCity);
+	/**
+* @swagger
+* /api/v1/FindOneCity/{id}:
+*   get:
+*     summary: Get the City by id
+*     tags: [City]
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: string
+*         required: true
+*         description: The City id
+*     responses:
+*       200:
+*         description: The City description by id
+*         contens:
+*           application/json:
+*             schema:
+*             $ref: '#/components/schemas/City'
+*       404:
+*         description: The City was not found
+*/
+	app.get('/api/v1/FindOneCity/:id', services.City.FindOneCity);
+
 
 };
