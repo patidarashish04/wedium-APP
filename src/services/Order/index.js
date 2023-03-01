@@ -117,9 +117,9 @@ const updateOrderStatus = async (req, res, next) => {
         const status = await getOrderByid(orderId)
         // console.log('------status-------', status)
 
-        if( req.query.action === 1  && reqOrderStatus === 'CANCELED' ){
+        
 
-        }
+        // IF STATUS IS COMPLETED OR CANCELED then send a response
         if(status.orderStatus === 'COMPLETED' || status.orderStatus === 'CANCELED'){
             let statusData = ''
             if(status.orderStatus === 'COMPLETED') {
@@ -128,34 +128,25 @@ const updateOrderStatus = async (req, res, next) => {
             if(status.orderStatus === 'CANCELED') {
                 statusData = status.canceledDate
             }
-            //ToDO return the completedDate return the CANCELEDDate
             return res.status(200).json({ data: { statusData, orderStatus: status.orderStatus } , message: "success" });
         }
 
-        // TO CHECK VENDER ID IS ASSIGN OR NOT
-        if(vendorId && status.orderStatus === 'OPEN' ) {
-            //TODO change the status in pending
+        // VENDER ID IS ASSIGN when status is open or pending
+        if(vendorId && (status.orderStatus === 'OPEN' || status.orderStatus === 'PENDING') ) {
             console.log('-------status.orderStatus--------', status.orderStatus)
             // const condition =  { vendorId, orderStatus, otp }
+            //TODO generate the OTP and save the OTP in DB
             const condition =  { vendorId, orderStatus }
             await updateOrderById(orderId, condition )
-            //TODO generate the OTP and save the OTP in DB
             return res.status(200).json({ message: "status Updated successfully" });
         }
-        if(reqOrderStatus === 'COMPLETED' || reqOrderStatus === 'CANCELED') {
-            let statusDate = ''
-            if(reqOrderStatus === 'COMPLETED') {
-                statusDate = Date.now()
-            }
-            if(reqOrderStatus === 'CANCELED') {
-                statusDate = Date.now()
-            }
-            const condition =  { vendorId, orderStatus: reqOrderStatus, statusDate }
+
+        // UPDATE STATUS FOR ORDER
+        if(reqOrderStatus){
+            const condition =  { vendorId, orderStatus: reqOrderStatus, statusDate: Date.now() }
             console.log('--------condition----------', condition)
             await updateOrderById(orderId, condition )
-           return res.status(200).json({  message: "status Updated successfully" });
-            //TODO to update the completedDate in  DB an change the status  
-             //TODO to update the CANCELEDDate in  DB an change the status  
+            return res.status(200).json({  message: "status Updated successfully" });
         }
 
         
