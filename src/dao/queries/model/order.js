@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const categorySchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
     vendorId: {
         type: String,
         allowNull: true,
@@ -15,10 +15,10 @@ const categorySchema = new mongoose.Schema({
     },
     cityId: {
         type: String,
+        required: [true, 'Please add a cityId.'],
     },
     address: {
         type: String,
-        required: [true, 'Please add a Address.'],
     },
     orderStatus: {
         type: String,
@@ -38,6 +38,6 @@ const categorySchema = new mongoose.Schema({
 }, { timestamps: true });
 
 //we need to create collection
-const Order = mongoose.model('Order', categorySchema );
+const Order = mongoose.model('Order', orderSchema );
 
 module.exports = Order;
