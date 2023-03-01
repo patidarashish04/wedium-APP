@@ -733,6 +733,7 @@ module.exports = (app) => {
 */
 
 	app.post('/api/v1/createNewOrder', services.Order.createNewOrder);
+	app.patch('/api/v1/updateOrderStatus', services.Order.updateOrderStatus);
 
 	/**
 	 * @swagger

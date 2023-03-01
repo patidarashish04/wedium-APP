@@ -3,35 +3,38 @@ const mongoose = require('mongoose');
 const categorySchema = new mongoose.Schema({
     vendorId: {
         type: String,
-        required: [true, 'VendorId not found'],
+        allowNull: true,
     },
     phone: {
         type: String,
         required: [true, 'Please add a Phone Number.'],
     },
-    time: {
+    bookingTime: {
         type: String,
         required: [true, 'Please add a Time Slot'],
     },
     cityId: {
         type: String,
     },
-    address: {  
-        type: String
+    address: {
+        type: String,
+        required: [true, 'Please add a Address.'],
     },
     orderStatus: {
         type: String,
-        enum: ['PENDING', 'OPEN', 'PROCESSING'],
+        enum: ['PENDING', 'OPEN', 'PROCESSING', 'COMPLETED'],
         default: 'OPEN'
     },
     orderDate: {
         type: Date, 
         default: Date.now
     },
-    createdOn: {
-        type: Date, 
-        default: Date.now
+    statusDate: {
+        type: Date
     },
+    otp: {
+        type: String
+    }
 }, { timestamps: true });
 
 //we need to create collection
