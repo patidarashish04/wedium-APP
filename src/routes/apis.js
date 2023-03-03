@@ -734,7 +734,7 @@ module.exports = (app) => {
 
 	app.post('/api/v1/createNewOrder', services.Order.createNewOrder);
 	app.patch('/api/v1/updateOrderStatus/:id', services.Order.updateOrderStatus);
-	app.post('/api/v1/assignVendorToOrder', services.Order.assignVendorToOrder);
+	app.patch('/api/v1/assignVendorToOrder', services.Order.assignVendorToOrder);
 
 
 	/**
