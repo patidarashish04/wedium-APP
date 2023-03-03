@@ -6,8 +6,8 @@ const createOrders = async (orderBody) => {
 		const dbResponse = await dbServices.Order.createOrders(orderBody);
 		return dbResponse;
 	} catch (err) {
-		return err;
-		// throw new Error(err);
+		// return err;
+		throw  Error(err);
 	}
 };
 // get category by id +
