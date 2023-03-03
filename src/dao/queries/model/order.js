@@ -34,7 +34,10 @@ const orderSchema = new mongoose.Schema({
     },
     otp: {
         type: String
-    }
+    },
+    actionDate: {
+        type: Date,
+    },
 }, { timestamps: true });
 
 //we need to create collection
