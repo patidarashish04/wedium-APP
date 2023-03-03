@@ -10,10 +10,9 @@ const {
 const createNewOrder = async (req, res, next) => {
   try {
     const body = req.body;
-    console.log("--------body-----------", body);
     // Validate Order input
     if (!(body.bookingTime && body.phone)) {
-      res.status(404).json(" phone and bookingTime Required");
+      res.status(404).json("Phone no. and bookingTime Required");
     }
     var Order;
     try {
@@ -113,7 +112,6 @@ const deleteOrder = async (req, res, next) => {
 
 // assign vendor to order
 const assignVendorToOrder = async (req, res, next) => {
-  try {
     const vendorId = req.body.vendorId;
     const orderId = req.body.orderId;
 
@@ -123,15 +121,18 @@ const assignVendorToOrder = async (req, res, next) => {
     if (!(vendorId && orderId)) {
       res.status(404).json("vendorId and orderId Required");
     }
-    const Order = await updateOrderById(orderId, {
+    await updateOrderById(orderId, {
       vendorId: vendorId,
       otp: otp,
+    }).then(data => {
+        if (!data) {
+            res.status(404).json({ message: `Cannot Update vendor with ${vendorId}. Maybe vendor not found!` });
+        } else {
+            res.status(200).json({ message: " Successfully Assigned Vendor to Order" });
+        }
+    }).catch(err => {
+        res.status(500).json({ message: "Error Update order information" });
     });
-    res.status(200).json({ data: Order, message: "success" });
-  } catch (error) {
-    res.status(406).json({ data: error.message, message: "Failed" });
-    console.log("ERROR", error);
-  }
 };
 
 //  UPDATE THE STATUS OF ORDER
@@ -141,7 +142,6 @@ const updateOrderStatus = async (req, res, next) => {
     const reqOrderStatus = req.body.orderStatus;
     const orderId = req.params.id;
     const status = await getOrderByid(orderId);
-
     // if (status.orderStatus === "OPEN") {
       const Order = await updateOrderById(orderId, {
         orderStatus: reqOrderStatus,
@@ -156,6 +156,7 @@ const updateOrderStatus = async (req, res, next) => {
     console.log("ERROR", error);
   }
 };
+
 module.exports = {
   createNewOrder,
   getOrderList,

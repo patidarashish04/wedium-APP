@@ -5,6 +5,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         allowNull: true,
     },
+    name: {
+        type: String,
+        allowNull: true,
+    },
     phone: {
         type: String,
         required: [true, 'Please add a Phone Number.'],
