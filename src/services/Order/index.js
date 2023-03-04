@@ -111,6 +111,8 @@ const updateOrder = async (req, res, next) => {
     bookingTime: body.bookingTime,
     address: body.address,
     phone: body.phone,
+    orderStatus: body.orderStatus,
+    
   }).then(data => {
     if (!data) {
       res.status(404).json({ message: `Cannot Update order with ${cityId,serviceId}. Maybe service or city not found!` });
