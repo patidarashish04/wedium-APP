@@ -15,6 +15,9 @@ const orderSchema = new mongoose.Schema({
     cityData: {
         type: Object,
     },
+    vendorData: {
+        type: Object,
+    },
     name: {
         type: String,
         allowNull: true,
