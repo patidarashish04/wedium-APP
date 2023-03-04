@@ -66,9 +66,10 @@ const getSingleOrder = async (req, res, next) => {
 
 // update Order
 const updateOrder = async (req, res, next) => {
-  const orderData = req.body;
+  const body = req.body;
   const cityId = req.body.cityId
   const serviceId = req.body.serviceId
+  const vendorId = req.body.vendorId
   // Validate Order input
   if (cityId) { 
     if (!(cityId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid city id.' }) };
@@ -80,10 +81,20 @@ const updateOrder = async (req, res, next) => {
     var service = await getServicesByid(serviceId);
     if (!(service)) { return res.status(500).json({ message: 'service data not found.' }) };
   } 
+  if (vendorId) {
+    if (!(vendorId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid vendor Id.' }) };
+    var vendor = await getVendorByid(vendorId);
+    if (!(vendor)) { return res.status(500).json({ message: 'vendor data not found.' }) };
+  } 
   const orderId = req.params.id;
-  await updateOrderById(orderId, orderData, {
+  await updateOrderById(orderId, {
     cityData: cities,
-    ServiceData: service
+    ServiceData: service,
+    vendorData: vendor,
+    name: body.name,
+    bookingTime: body.bookingTime,
+    address: body.address,
+    phone: body.phone,
   }).then(data => {
     if (!data) {
       res.status(404).json({ message: `Cannot Update order with ${cityId,serviceId}. Maybe service or city not found!` });
@@ -91,7 +102,7 @@ const updateOrder = async (req, res, next) => {
       res.status(200).json({ message: " Successfully updated Order" });
     }
   }).catch(err => {
-    res.status(500).json({ message: "Error Update Order Information", err });
+    res.status(500).json({ message: "Error Update Order Information" });
   });
 };
 
