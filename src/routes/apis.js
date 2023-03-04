@@ -733,10 +733,8 @@ module.exports = (app) => {
 */
 
 	app.post('/api/v1/createNewOrder', services.Order.createNewOrder);
-	app.patch('/api/v1/updateOrderStatus/:id', services.Order.updateOrderStatus);
-	app.patch('/api/v1/assignVendorToOrder', services.Order.assignVendorToOrder);
-
-
+	
+	
 	/**
 	 * @swagger
 	 * /api/v1/getOrderList:
@@ -750,12 +748,12 @@ module.exports = (app) => {
 	 *           application/json:
 	 *             schema:
 	 *               type: array
-	   *               items:
-	   *                  $ref: '#/components/schemas/Order'
-	   */
-
+	 *               items:
+	 *                  $ref: '#/components/schemas/Order'
+	*/
+	
 	app.get('/api/v1/getOrderList', services.Order.getOrderList);
-
+	
 	/**
 	 * @swagger
 	 * /api/v1/getSingleOrder/{id}:
@@ -778,22 +776,22 @@ module.exports = (app) => {
 	 *             $ref: '#/components/schemas/Order'
 	 *       404:
 	 *         description: The Order was not found
-	 */
-
+	*/
+	
 	app.get('/api/v1/getSingleOrder/:id', services.Order.getSingleOrder);
-
+	
 	/**
- * @swagger
- * /api/v1/updateOrder/{id}:
- *  patch:
- *    summary: Update the Order by the id
- *    tags: [Order]
- *    parameters:
- *      - in: path
- *        name: id
- *        schema:
- *          type: string
- *        required: true
+	 * @swagger
+	 * /api/v1/updateOrder/{id}:
+	 *  patch:
+	 *    summary: Update the Order by the id
+	 *    tags: [Order]
+	 *    parameters:
+	 *      - in: path
+	 *        name: id
+	 *        schema:
+	 *          type: string
+	 *        required: true
  *        description: The Order id
  *    requestBody:
  *      required: true
@@ -812,42 +810,107 @@ module.exports = (app) => {
  *        description: The Order was not found
  *      500:
  *        description: Some error happened
- */
-
+	*/
+	
 	app.patch('/api/v1/updateOrder/:id', services.Order.updateOrder);
+	
+	/**
+	 * @swagger
+	 *  /api/v1/deleteOrder/{id}:
+	 *   delete:
+	 *     summary: Remove the Order by id
+	 *     tags: [Order]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The Order id
+	 * 
+	 *     responses:
+	 *       200:
+	 *         description: The Order was deleted
+	 *       404:
+	 *         description: The Order was not found
+	*/
+	app.delete('/api/v1/deleteOrder/:id', services.Order.deleteOrder);
+	
 
 	/**
- * @swagger
- *  /api/v1/deleteOrder/{id}:
- *   delete:
- *     summary: Remove the Order by id
- *     tags: [Order]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The Order id
- * 
- *     responses:
- *       200:
- *         description: The Order was deleted
- *       404:
- *         description: The Order was not found
- */
-	app.delete('/api/v1/deleteOrder/:id', services.Order.deleteOrder);
+	 * @swagger
+	 * /api/v1/updateOrderStatus/{id}:
+	 *  patch:
+	 *    summary: update Order Status by order id
+	 *    tags: [Order]
+	 *    parameters:
+	 *      - in: path
+	 *        name: id
+	 *        schema:
+	 *          type: string
+	 *        required: true
+ *        description: The Order id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Order'
+ *    responses:
+ *      200:
+ *        description: The Order was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Order'
+ *      404:
+ *        description: The Order was not found
+ *      500:
+ *        description: Some error happened
+	*/
+	app.patch('/api/v1/updateOrderStatus/:id', services.Order.updateOrderStatus);
+
+	/**
+	 * @swagger
+	 * /api/v1/assignVendorToOrder:
+	 *  patch:
+	 *    summary: assign vendor to Order
+	 *    tags: [Order]
+	 *    parameters:
+	 *      - in: path
+	 *        name: id
+	 *        schema:
+	 *          type: string
+	 *        required: true
+ *        description: The Order id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Order'
+ *    responses:
+ *      200:
+ *        description: vendor assigned to Order
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Order'
+ *      404:
+ *        description:  unable to assign vendor to Order
+ *      500:
+ *        description: Some error happened
+	*/
+	app.patch('/api/v1/assignVendorToOrder', services.Order.assignVendorToOrder);
 
 	//****************** Vendor *************************/
-
-
+	
 	/**
 	 * @swagger
 	 * tags:
 	 *   name: Vendor
 	 *   description: The Vendor managing API
 	*/
-
 
 	/**
 	 * @swagger
