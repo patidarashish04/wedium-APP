@@ -19,6 +19,22 @@ const createNewOrder = async (req, res, next) => {
     if (!(body.phone && body.bookingTime)) {
       res.status(404).json("BookingTime and Phone No. required");
     }
+    if (cityId) { 
+      if (!(cityId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid city id.' }) };
+      var cities = await getCityByid(cityId);
+      if (!(cities)) { return res.status(500).json({ message: 'city data not found.' }) };
+      body.cityData = cities;
+    } else {
+      res.status(404).json({ message: 'City id not Found ' });
+    }
+    if (serviceId) {
+      if (!(serviceId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid service Id.' }) };
+      const service = await getServicesByid(serviceId);
+      if (!(service)) { return res.status(500).json({ message: 'service data not found.' }) };
+      body.ServiceData = service;
+    } else {
+      res.status(404).json({ message: 'service id not Found ' });
+    }
     const Order = await createOrders(body);
     res.status(200).json({ data: Order, message: "success" });
   } catch (error) {
