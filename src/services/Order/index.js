@@ -15,7 +15,7 @@ const createNewOrder = async (req, res, next) => {
     const cityId = req.body.cityId
     const serviceId = req.body.serviceId
     // Validate Order input
-    var Order;
+    // var Order;
     // try {
       if (cityId) {
         if (!(cityId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid city id.' }) };
@@ -33,7 +33,7 @@ const createNewOrder = async (req, res, next) => {
       } else {
         res.status(404).json({ message: 'service id not Found ' });
       }
-     Order = await createOrders(body);
+   const Order = await createOrders(body);
     // } catch (err) {
     //   res.status(406).json({ data: err.message, message: "Failed" });
     // }
