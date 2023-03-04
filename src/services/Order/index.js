@@ -66,6 +66,7 @@ const getSingleOrder = async (req, res, next) => {
 
 // update Order
 const updateOrder = async (req, res, next) => {
+  const orderData = req.body;
   const cityId = req.body.cityId
   const serviceId = req.body.serviceId
   // Validate Order input
@@ -80,8 +81,7 @@ const updateOrder = async (req, res, next) => {
     if (!(service)) { return res.status(500).json({ message: 'service data not found.' }) };
   } 
   const orderId = req.params.id;
-  await updateOrderById(orderId, {
-    orderData: req.body,
+  await updateOrderById(orderId, orderData, {
     cityData: cities,
     ServiceData: service
   }).then(data => {
@@ -94,17 +94,6 @@ const updateOrder = async (req, res, next) => {
     res.status(500).json({ message: "Error Update Order Information", err });
   });
 };
-
-// const updateOrder = async (req, res) => {
-// 	try {
-// 			const id = req.params.id;
-// 			const orderBody = { ...req.body, cityId: req.body.cityId , serviceId: req.body.serviceId};
-// 			await updateOrderById(id, orderBody);
-//       res.status(200).json({ message: " Successfully Updated Order information" });
-// 	} catch (err) {
-// 		return res.status(500).json(response.failure('update', err.message));
-// 	}
-// };
 
 // delete Order
 const deleteOrder = async (req, res, next) => {

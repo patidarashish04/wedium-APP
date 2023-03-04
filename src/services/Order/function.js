@@ -29,9 +29,9 @@ const getAllOrder = async () => {
 	}
 };
 // create category +
-const updateOrderById = async (id, data) => {
+const updateOrderById = async (id, orderData, data) => {
 	try {
-		const dbResponse = await dbServices.Order.updateOrderById(id, data);
+		const dbResponse = await dbServices.Order.updateOrderById(id, orderData,data);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);
