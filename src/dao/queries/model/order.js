@@ -5,6 +5,16 @@ const orderSchema = new mongoose.Schema({
         type: String,
         allowNull: true,
     },
+    // serviceId: {
+    //     type: String,
+    //     required: [true, 'Please add a serviceId.'],
+    // },
+    ServiceData: {
+        type: Object,
+    },
+    cityData: {
+        type: Object,
+    },
     name: {
         type: String,
         allowNull: true,
@@ -17,10 +27,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a Time Slot'],
     },
-    cityId: {
-        type: String,
-        required: [true, 'Please add a cityId.'],
-    },
+    // cityId: {
+    //     type: String,
+    //     required: [true, 'Please add a cityId.'],
+    // },
     address: {
         type: String,
     },
