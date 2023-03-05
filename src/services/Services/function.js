@@ -18,6 +18,16 @@ const getServicesByid = async (id) => {
 		throw new Error(err);
 	}
 };
+
+// get SubCategory by id +
+const getserviceBySubCategoryid = async (id) => {
+	try {
+		const dbResponse = await dbServices.Services.getserviceBySubCategoryid(id);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
 // get Services by name +
 const getServicesByName = async (name) => {
 	try {
@@ -73,5 +83,6 @@ module.exports = {
 	updateServicesById,
 	deleteServicesById,
 	BestSeller,
-	getServicesByName
+	getServicesByName,
+	getserviceBySubCategoryid
 };

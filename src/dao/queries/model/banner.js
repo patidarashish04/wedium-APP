@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const bannerSchema = new mongoose.Schema({
     imagePath: {
-        type: String,
+        type: [String], default: [],
+        required: [true, 'Please add a image'],
         default: null,
     },
     status: {

@@ -18,6 +18,16 @@ const getSubCategoryByid = async (id) => {
 		throw new Error(err);
 	}
 };
+
+// get SubCategory By CategoryId +
+const getSubCategoryByCategoryId = async (id) => {
+	try {
+		const dbResponse = await dbServices.SubCategory.getSubCategoryByCategoryId(id);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
 // get category by name +
 const getSubCategoryByName = async (name) => {
 	try {
@@ -61,5 +71,6 @@ module.exports = {
 	getAllSubCategory,
 	updateSubCategoryById,
 	deleteSubCategoryById,
-	getSubCategoryByName
+	getSubCategoryByName,
+	getSubCategoryByCategoryId
 };

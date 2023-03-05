@@ -251,6 +251,7 @@ module.exports = (app) => {
 	 *         description: The Category was not found
 	 */
 	app.get('/api/v1/FindOneCategory/:id', services.categories.FindOneCategory);
+	
 
 	/**
  * @swagger
@@ -423,6 +424,8 @@ module.exports = (app) => {
 	 */
 	app.get('/api/v1/FindOneSubCategory/:id', services.subcategories.FindOneSubCategory);
 
+	app.get('/api/v1/getSubCategoryByCategory/:id', services.subcategories.getSubCategoryByCategory);
+
 	/**
  * @swagger
  * /api/v1/updateSubCategory/{id}:
@@ -591,6 +594,8 @@ module.exports = (app) => {
 	 */
 
 	app.get('/api/v1/FindOneServices/:id', services.Services.FindOneServices);
+
+	app.get('/api/v1/getserviceBySubCategory/:id', services.Services.getserviceBySubCategory);
 
 	/**
 	 * @swagger

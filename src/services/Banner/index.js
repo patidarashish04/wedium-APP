@@ -13,7 +13,7 @@ const createBanner = async (req, res, next) => {
     } catch (err) {
         console.log(err);
     }
-}
+}   
 
 // retrieve and return all Banner
 const getBanner = async (req, res, next) => {
@@ -74,7 +74,6 @@ const updateBanner = async (req, res, next) => {
 
 const deleteBanner = async (req, res, next) => {
     const id = req.params.id;
-    console.log('**********************', id)
     await deleteBannerByid(id)
         .then(data => {
             if (!data) {
