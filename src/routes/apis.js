@@ -423,6 +423,31 @@ module.exports = (app) => {
 	 */
 	app.get('/api/v1/FindOneSubCategory/:id', services.subcategories.FindOneSubCategory);
 
+		/**
+	 * @swagger
+	 * /api/v1/getSubCategoryByCategory/{id}:
+	 *   get:
+	 *     summary: Get the SubCategory By Category id
+	 *     tags: [SubCategory]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The Category id
+	 *     responses:
+	 *       200:
+	 *         description: The SubCategory description by id
+	 *         contens:
+	 *           application/json:
+	 *             schema:
+	 *             $ref: '#/components/schemas/SubCategory'
+	 *       404:
+	 *         description: The SubCategory was not found
+	 */
+	app.get('/api/v1/getSubCategoryByCategory/:id', services.subcategories.getSubCategoryByCategory);
+
 	/**
  * @swagger
  * /api/v1/updateSubCategory/{id}:
@@ -591,6 +616,33 @@ module.exports = (app) => {
 	 */
 
 	app.get('/api/v1/FindOneServices/:id', services.Services.FindOneServices);
+
+
+	/**
+	 * @swagger
+	 * /api/v1/getserviceBySubCategory/{id}:
+	 *   get:
+	 *     summary: Get the service By SubCategory id
+	 *     tags: [Services]
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         schema:
+	 *           type: string
+	 *         required: true
+	 *         description: The SubCategory id
+	 *     responses:
+	 *       200:
+	 *         description: The Services description by id
+	 *         contens:
+	 *           application/json:
+	 *             schema:
+	 *             $ref: '#/components/schemas/Services'
+	 *       404:
+	 *         description: The Services was not found
+	 */
+
+	app.get('/api/v1/getserviceBySubCategory/:id', services.Services.getserviceBySubCategory);
 
 	/**
 	 * @swagger
