@@ -28,6 +28,7 @@ const signup = async (req, res, next) => {
             // Create user in our database
             const user = await createUser(options);
             const token = jwt.sign({ User_id: user._id, User_email: user.email, role: user.role }, process.env.TOKEN_SECRET);
+            // const token = jwt.sign({ User_id: user._id, User_email: user.email, role: user.role }, process.env.TOKEN_SECRET, { expiresIn: "7d" });
             res.status(200).json({ userDetails: user, token });
         }
     } catch (err) {

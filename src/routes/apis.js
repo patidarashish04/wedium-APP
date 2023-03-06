@@ -251,6 +251,7 @@ module.exports = (app) => {
 	 *         description: The Category was not found
 	 */
 	app.get('/api/v1/FindOneCategory/:id', services.categories.FindOneCategory);
+	
 
 	/**
  * @swagger

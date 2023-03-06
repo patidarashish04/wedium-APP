@@ -31,7 +31,7 @@ const getAllOrder = async () => {
 // create category +
 const updateOrderById = async (id, data) => {
 	try {
-		const dbResponse = await dbServices.Order.updateOrderById(id, data);
+		const dbResponse = await dbServices.Order.updateOrderById(id,data);
 		return dbResponse;
 	} catch (err) {
 		throw new Error(err);

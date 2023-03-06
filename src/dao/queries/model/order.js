@@ -1,18 +1,26 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    vendorId: {
-        type: String,
-        allowNull: true,
-    },
+    // vendorId: {
+    //     type: String,
+    //     allowNull: true,
+    // },
     // serviceId: {
     //     type: String,
     //     required: [true, 'Please add a serviceId.'],
     // },
+    userId: {
+        type: String,
+        allowNull: true,
+        // required: [true, 'Please add a serviceId.'],
+    },
     ServiceData: {
         type: Object,
     },
     cityData: {
+        type: Object,
+    },
+    vendorData: {
         type: Object,
     },
     name: {
@@ -36,11 +44,11 @@ const orderSchema = new mongoose.Schema({
     },
     orderStatus: {
         type: String,
-        enum: ['PENDING', 'OPEN', 'PROCESSING', 'COMPLETED'],
+        enum: ['PENDING', 'OPEN', 'PROCESSING', 'COMPLETED','CANCELED'],
         default: 'OPEN'
     },
     orderDate: {
-        type: Date, 
+        type: Date,
         default: Date.now
     },
     statusDate: {
@@ -55,6 +63,6 @@ const orderSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 //we need to create collection
-const Order = mongoose.model('Order', orderSchema );
+const Order = mongoose.model('Order', orderSchema);
 
 module.exports = Order;

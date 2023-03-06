@@ -1,13 +1,13 @@
 // const Services = require('../../dao/queries/model/services');
 const { getSubCategoryByid } = require('../SubCategories/functions');
-const { createServices, getServicesByid, BestSeller, getAllServices, updateServicesById, deleteServicesById, getServicesByName } = require('../Services/function');
+const { createServices, getServicesByid, getserviceBySubCategoryid, BestSeller, getAllServices, updateServicesById, deleteServicesById, getServicesByName } = require('../Services/function');
 
 // GET Services
 const createNewServices = async (req, res, next) => {
     try {
         const body = req.body;
         const id = req.body.subCatgoryId;
-        if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+        if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid subCatgory id.'})};
         const SubCategory = await getSubCategoryByid(id);
         if (!SubCategory) return res.status(404).json({ message: 'SubCategory Not Found ' });
         const ServicesName = await getServicesByName(body.name);
@@ -56,10 +56,10 @@ const getBestSeller = async (req, res, next) => {
         next(err);
     });
 };
-// retrive and return a single Category
+// retrive and return a single Services
 const FindOneServices = async (req, res, next) => {
     const id = req.params.id;
-    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Services id.'})};
     getServicesByid(id).then(async Services => {
         try {
             if (!Services && Services.id) {
@@ -73,6 +73,23 @@ const FindOneServices = async (req, res, next) => {
     }).catch(err => res.status(500).json(err));
 };
 
+// retrive service By SubCategory id
+const getserviceBySubCategory = async (req, res, next) => {
+    const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Services id.'})};
+    getserviceBySubCategoryid(id).then(async SubCategory => {
+        try {
+            if (SubCategory.length === 0) {
+                res.status(404).json({ message: "Not found SubCategory with id " + id });
+            } else {
+                res.status(200).json(SubCategory);
+            }
+        } catch (err) {
+            res.status(500).json({ message: "Error retrieving SubCategory with id " + id });
+        }
+    }).catch(err => res.status(500).json(err));
+};
+
 // update Services
 const updateServices = async (req, res, next) => {
     const data = req.body;
@@ -80,7 +97,7 @@ const updateServices = async (req, res, next) => {
         return res.status(404).json({ message: "Data to update can not be empty" });
     }
     const id = req.params.id;
-    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Services id.'})};
     await updateServicesById(id, data).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update Services with ${id}. Maybe Services not found!` });
@@ -94,7 +111,7 @@ const updateServices = async (req, res, next) => {
 // delete services
 const deleteServices = async (req, res, next) => {
     const id = req.params.id;
-    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Services id.'})};
     await deleteServicesById(id).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });
@@ -116,5 +133,6 @@ module.exports = {
     FindOneServices,
     updateServices,
     deleteServices,
-    getBestSeller
+    getBestSeller,
+    getserviceBySubCategory
 };

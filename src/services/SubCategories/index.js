@@ -1,5 +1,5 @@
 const { getCategoryByid } = require('../Categories/functions');
-const { createSubCategory, getSubCategoryByid, getAllSubCategory, updateSubCategoryById, deleteSubCategoryById, getSubCategoryByName } = require('../SubCategories/functions');
+const { createSubCategory, getSubCategoryByid, getSubCategoryByCategoryId, getAllSubCategory, updateSubCategoryById, deleteSubCategoryById, getSubCategoryByName } = require('../SubCategories/functions');
 
 // GET SubCategory
 const createNewSubCategory = async (req, res, next) => {
@@ -47,7 +47,7 @@ const getSubCategory = async (req, res, next) => {
 // retrive and return a single SubCategory
 const FindOneSubCategory = async (req, res, next) => {
     const id = req.params.id;
-    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid SubCategory id.'})};
     getSubCategoryByid(id).then(async SubCategory => {
         try {
             if (!SubCategory && SubCategory.id) {
@@ -61,6 +61,23 @@ const FindOneSubCategory = async (req, res, next) => {
     }).catch(err => res.status(500).json(err));
 };
 
+// retrive SubCategory by category id
+const getSubCategoryByCategory = async (req, res, next) => {
+    const id = req.params.id;
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+    getSubCategoryByCategoryId(id).then(async Category => {
+        try {
+            if (Category.length === 0) {
+                res.status(404).json({ message: "Not found Category with id " + id });
+            } else {
+                res.status(200).json(Category);
+            }
+        } catch (err) {
+            res.status(500).json({ message: "Error retrieving Category with id " + id });
+        }
+    }).catch(err => res.status(500).json(err));
+};
+
 // update SubCategory
 const updateSubCategory = async (req, res, next) => {
     const data = req.body;
@@ -68,7 +85,7 @@ const updateSubCategory = async (req, res, next) => {
         return res.status(400).json({ message: "Data to update can not be empty" });
     }
     const id = req.params.id;
-    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid SubCategory id.'})};
     await updateSubCategoryById(id, data).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Update SubCategory with ${id}. Maybe SubCategory not found!` });
@@ -83,7 +100,7 @@ const updateSubCategory = async (req, res, next) => {
 //delete subCategory
 const deleteSubCategory = async (req, res, next) => {
     const id = req.params.id;
-    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid Category id.'})};
+    if (!(id.match(/^[0-9a-fA-F]{24}$/))) {return res.status(500).json({message :'Invalid SubCategory id.'})};
     await deleteSubCategoryById(id).then(data => {
         if (!data) {
             res.status(404).json({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });
@@ -104,5 +121,6 @@ module.exports = {
     getSubCategory,
     FindOneSubCategory,
     updateSubCategory,
-    deleteSubCategory
+    deleteSubCategory,
+    getSubCategoryByCategory
 };
