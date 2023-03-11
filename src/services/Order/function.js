@@ -57,6 +57,16 @@ const getOrdersByUserId = async (id) => {
 		throw new Error(err);
 	}
 };
+
+// delete category +
+const getCompletedOrdersByUserId = async (id) => {
+	try {
+		const dbResponse = await dbServices.Order.getCompletedOrdersByUserId(id);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
 module.exports = {
 	createOrders,
 	getOrderByid,
@@ -64,4 +74,5 @@ module.exports = {
 	updateOrderById,
 	deleteOrderById,
 	getOrdersByUserId,
+	getCompletedOrdersByUserId,
 }; 
