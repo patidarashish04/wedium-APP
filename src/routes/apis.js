@@ -1863,6 +1863,7 @@ module.exports = (app) => {
 *         description: The City was not found
 */
 	app.get('/api/v1/FindOneCity/:id', services.City.FindOneCity);
+	app.get('/api/v1/getOrdersByUserId/:id', services.Order.getOrderByUserId);
 
 
 };

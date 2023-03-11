@@ -4,6 +4,7 @@ const {
   getAllOrder,
   updateOrderById,
   deleteOrderById,
+  getOrdersByUserId,
 } = require("../Order/function");
 const { getCityByid } = require('../City/function');
 const { getServicesByid } = require('../Services/function');
@@ -44,6 +45,26 @@ const createNewOrder = async (req, res, next) => {
 // retrieve and return all Order
 const getOrderList = async (req, res, next) => {
   getAllOrder()
+    .then((Order) => {
+      res.status(200).json({
+        data: Order,
+        success: true,
+        message: null,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message:
+          err.message || "Error Occurred while retriving Order information",
+      });
+      next(err);
+    });
+};
+
+// retrieve and return all Order
+const getOrderByUserId = async (req, res, next) => {
+  const id = req.params.id;
+  getOrdersByUserId(id)
     .then((Order) => {
       res.status(200).json({
         data: Order,
@@ -209,4 +230,5 @@ module.exports = {
   deleteOrder,
   assignVendorToOrder,
   updateOrderStatus,
+  getOrderByUserId,
 };
