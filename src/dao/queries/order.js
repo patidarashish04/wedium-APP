@@ -21,4 +21,5 @@ module.exports = {
   updateOrderById,
   deleteOrderById,
   getOrdersByUserId,
+  getCompletedOrdersByUserId,
 };
