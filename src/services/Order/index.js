@@ -7,35 +7,48 @@ const {
   getOrdersByUserId,
   getCompletedOrdersByUserId,
 } = require("../Order/function");
-const { getCityByid } = require('../City/function');
-const { getServicesByid } = require('../Services/function');
-const { getVendorByid } = require('../Vendor/function');
+const { getCityByid } = require("../City/function");
+const { getServicesByid } = require("../Services/function");
+const { getVendorByid } = require("../Vendor/function");
 
 // GET Order
 const createNewOrder = async (req, res, next) => {
   try {
     const body = req.body;
-    const cityId = req.body.cityId
-    const serviceId = req.body.serviceId
+    const cityId = req.body.cityId;
+    const serviceId = req.body.serviceId;
+    const vendorId = req.body.vendorId;
     // Validate Order input
     if (!(body.phone && body.bookingTime)) {
       res.status(404).json("BookingTime and Phone No. required");
     }
-    if (cityId) { 
-      if (!(cityId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid city id.' }) };
+    if (cityId) {
+      if (!cityId.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(500).json({ message: "Invalid city id." });
+      }
       var cities = await getCityByid(cityId);
-      if (!(cities)) { return res.status(500).json({ message: 'city data not found.' }) };
+      if (!cities) {
+        return res.status(500).json({ message: "city data not found." });
+      }
       body.cityData = cities;
     } else {
-      res.status(404).json({ message: 'City id not Found ' });
+      res.status(404).json({ message: "City id not Found " });
     }
     if (serviceId) {
-      if (!(serviceId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid service Id.' }) };
+      if (!serviceId.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(500).json({ message: "Invalid service Id." });
+      }
       const service = await getServicesByid(serviceId);
-      if (!(service)) { return res.status(500).json({ message: 'service data not found.' }) };
+      if (!service) {
+        return res.status(500).json({ message: "service data not found." });
+      }
       body.ServiceData = service;
     } else {
-      res.status(404).json({ message: 'service id not Found ' });
+      res.status(404).json({ message: "service id not Found " });
+    }
+    if (vendorId) {
+      const otp = Math.floor(1000 + Math.random() * 9000);
+      body.otp = otp;
     }
     const Order = await createOrders(body);
     res.status(200).json({ data: Order, message: "success" });
@@ -125,25 +138,37 @@ const getSingleOrder = async (req, res, next) => {
 // update Order
 const updateOrder = async (req, res, next) => {
   const body = req.body;
-  const cityId = req.body.cityId
-  const serviceId = req.body.serviceId
-  const vendorId = req.body.vendorId
+  const cityId = req.body.cityId;
+  const serviceId = req.body.serviceId;
+  const vendorId = req.body.vendorId;
   // Validate Order input
-  if (cityId) { 
-    if (!(cityId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid city id.' }) };
+  if (cityId) {
+    if (!cityId.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(500).json({ message: "Invalid city id." });
+    }
     var cities = await getCityByid(cityId);
-    if (!(cities)) { return res.status(500).json({ message: 'city data not found.' }) };
-  } 
+    if (!cities) {
+      return res.status(500).json({ message: "city data not found." });
+    }
+  }
   if (serviceId) {
-    if (!(serviceId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid service Id.' }) };
+    if (!serviceId.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(500).json({ message: "Invalid service Id." });
+    }
     var service = await getServicesByid(serviceId);
-    if (!(service)) { return res.status(500).json({ message: 'service data not found.' }) };
-  } 
+    if (!service) {
+      return res.status(500).json({ message: "service data not found." });
+    }
+  }
   if (vendorId) {
-    if (!(vendorId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid vendor Id.' }) };
+    if (!vendorId.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(500).json({ message: "Invalid vendor Id." });
+    }
     var vendor = await getVendorByid(vendorId);
-    if (!(vendor)) { return res.status(500).json({ message: 'vendor data not found.' }) };
-  } 
+    if (!vendor) {
+      return res.status(500).json({ message: "vendor data not found." });
+    }
+  }
   const orderId = req.params.id;
   await updateOrderById(orderId, {
     cityData: cities,
@@ -154,16 +179,23 @@ const updateOrder = async (req, res, next) => {
     address: body.address,
     phone: body.phone,
     orderStatus: body.orderStatus,
-    
-  }).then(data => {
-    if (!data) {
-      res.status(404).json({ message: `Cannot Update order with ${cityId,serviceId}. Maybe service or city not found!` });
-    } else {
-      res.status(200).json({ message: " Successfully updated Order" });
-    }
-  }).catch(err => {
-    res.status(500).json({ message: "Error Update Order Information" });
-  });
+  })
+    .then((data) => {
+      if (!data) {
+        res
+          .status(404)
+          .json({
+            message: `Cannot Update order with ${
+              (cityId, serviceId)
+            }. Maybe service or city not found!`,
+          });
+      } else {
+        res.status(200).json({ message: " Successfully updated Order" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Error Update Order Information" });
+    });
 };
 
 // delete Order
@@ -183,7 +215,8 @@ const deleteOrder = async (req, res, next) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Could not delete Order with id=" + id, err
+        message: "Could not delete Order with id=" + id,
+        err,
       });
     });
 };
@@ -199,26 +232,38 @@ const assignVendorToOrder = async (req, res, next) => {
   if (!(vendorId && orderId)) {
     res.status(404).json("vendorId and orderId Required");
   }
-  if (vendorId) { 
-    if (!(vendorId.match(/^[0-9a-fA-F]{24}$/))) { return res.status(500).json({ message: 'Invalid vendor id.' }) };
+  if (vendorId) {
+    if (!vendorId.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(500).json({ message: "Invalid vendor id." });
+    }
     var vendor = await getVendorByid(vendorId);
-    if (!(vendor)) { return res.status(500).json({ message: 'vendor data not found.' }) };
+    if (!vendor) {
+      return res.status(500).json({ message: "vendor data not found." });
+    }
   } else {
-    res.status(404).json({ message: 'vendor id not Found ' });
+    res.status(404).json({ message: "vendor id not Found " });
   }
   await updateOrderById(orderId, {
     vendorId: vendorId,
     vendorData: vendor,
     otp: otp,
-  }).then(data => {
-    if (!data) {
-      res.status(404).json({ message: `Cannot Update Vendor with ${vendorId}. Maybe Vendor not found!` });
-    } else {
-      res.status(200).json({ message: " Successfully Assigned Vendor to Order" });
-    }
-  }).catch(err => {
-    res.status(500).json({ message: "Error Update Order Information", err });
-  });
+  })
+    .then((data) => {
+      if (!data) {
+        res
+          .status(404)
+          .json({
+            message: `Cannot Update Vendor with ${vendorId}. Maybe Vendor not found!`,
+          });
+      } else {
+        res
+          .status(200)
+          .json({ message: " Successfully Assigned Vendor to Order" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Error Update Order Information", err });
+    });
 };
 
 //  UPDATE THE STATUS OF ORDER
@@ -231,15 +276,21 @@ const updateOrderStatus = async (req, res, next) => {
   await updateOrderById(orderId, {
     orderStatus: reqOrderStatus,
     actionDate: Date.now(),
-  }).then(data => {
-    if (!data) {
-      res.status(404).json({ message: `Cannot Update Order Status with ${orderId}. Maybe order not found!` });
-    } else {
-      res.status(200).json({ message: " Successfully Changed Order Status" });
-    }
-  }).catch(err => {
-    res.status(500).json({ message: "Error Update Order Status", err });
-  });
+  })
+    .then((data) => {
+      if (!data) {
+        res
+          .status(404)
+          .json({
+            message: `Cannot Update Order Status with ${orderId}. Maybe order not found!`,
+          });
+      } else {
+        res.status(200).json({ message: " Successfully Changed Order Status" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Error Update Order Status", err });
+    });
   // }
 };
 

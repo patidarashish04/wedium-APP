@@ -5,6 +5,7 @@ const {
   getAllCustomer,
   updateCustomerByid,
   deleteCustomerByid,
+  getCustomersPhoneNumber,
 } = require("../Customer/function");
 
 // GET Customer
@@ -42,23 +43,52 @@ const getCustomer = async (req, res, next) => {
       });
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({
-          message:
-            err.message ||
-            "Error Occurred while retriving Customer information",
-        });
+      res.status(500).json({
+        message:
+          err.message || "Error Occurred while retriving Customer information",
+      });
       next(err);
     });
 };
 
+getFormattedPhone = (phone) => {
+  let _ph = "";
+
+  for (var i = phone.length; i > 0; i--) {
+    if (_ph.split("").length != 10) {
+      _ph += phone[i - 1];
+    }
+  }
+
+  return _ph.split("").reverse().join("");
+};
+
 // retrieve and return all Customer
 const getCustomerPhoneNumber = async (req, res, next) => {
-  console.log('REQ', req.query);
-  // console.log('RES', res);
+  // console.log("REQ", req.query);
+  // console.log("From", req.query.CallFrom);
 
-  res.status(200).json(req.query);
+  let vendorPhone = req.query.CallFrom;
+
+  getCustomersPhoneNumber(getFormattedPhone(vendorPhone)).then(
+    async (order) => {
+      try {
+        if (order != null) {
+          res
+            .status(200)
+            .json(getFormattedPhone(order.vendorData.phone));
+        } else {
+          res.status(404).json({ message: "order not found" });
+        }
+      } catch (error) {
+        res
+          .status(500)
+          .json({ message: "Error retrieving order with phone " + error });
+      }
+    }
+  );
+
+  // console.log('RES', res);
 };
 
 // retrive and return a single Customer
@@ -91,11 +121,9 @@ const updateCustomer = async (req, res, next) => {
   await updateCustomerByid(id, data)
     .then((data) => {
       if (!data) {
-        res
-          .status(404)
-          .json({
-            message: `Cannot Update Customer with ${id}. Maybe Customer not found!`,
-          });
+        res.status(404).json({
+          message: `Cannot Update Customer with ${id}. Maybe Customer not found!`,
+        });
       } else {
         res
           .status(200)
