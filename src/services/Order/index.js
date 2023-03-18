@@ -123,8 +123,8 @@ const getClosedOrderByVendorId = async (req, res, next) => {
   getClosedOrdersByVendorId(id)
     .then((Order) => {
       res.status(200).json({
-        data: Order ?? [],
-        success: Order == null ? false : true,
+        data: Order,
+        success: true,
         message: null,
       });
     })

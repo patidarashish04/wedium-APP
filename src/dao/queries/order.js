@@ -11,7 +11,7 @@ const getOrdersByUserId = async (id) =>
 const getOrderByVendorId = async (_id) =>
   {
     console.log('QWERTYUI', _id);
-    return await Order.findOne({
+    return await Order.find({
       "vendorData._id": mongoose.Types.ObjectId(_id),
       orderStatus: { $in: ["OPEN", "PROCESSING", "PENDING"] },
     });
@@ -20,7 +20,7 @@ const getOrderByVendorId = async (_id) =>
 const getClosedOrderByVendorId = async (_id) =>
   {
     console.log('QWERTYUI', _id);
-    return await Order.findOne({
+    return await Order.find({
       "vendorData._id": mongoose.Types.ObjectId(_id),
       orderStatus: { $in: ["CANCELED", "COMPLETED"] },
     });
