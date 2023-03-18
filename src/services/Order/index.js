@@ -13,6 +13,7 @@ const {
 const { getCityByid } = require("../City/function");
 const { getServicesByid } = require("../Services/function");
 const { getVendorByid } = require("../Vendor/function");
+const { Order } = require("..");
 
 // GET Order
 const createNewOrder = async (req, res, next) => {
@@ -49,10 +50,19 @@ const createNewOrder = async (req, res, next) => {
     } else {
       res.status(404).json({ message: "service id not Found " });
     }
+
     if (vendorId) {
       const otp = Math.floor(1000 + Math.random() * 9000);
       body.otp = otp;
-    }
+      if (!vendorId.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(500).json({ message: "Invalid service Id." });
+      }
+      const vendor = await getVendorByid(vendorId);
+      if (!vendor) {
+        return res.status(500).json({ message: "service data not found." });
+      }
+      body.vendorData = vendor;
+    } 
     const Order = await createOrders(body);
     res.status(200).json({ data: Order, message: "success" });
   } catch (error) {
@@ -279,7 +289,7 @@ const completeBooking = async (req, res, next) => {
             //   data: order,
             // });
             await updateOrderById(id, {
-              orderStatus: 'COMPLETED',
+              orderStatus: "COMPLETED",
               actionDate: Date.now(),
             })
               .then((data) => {
