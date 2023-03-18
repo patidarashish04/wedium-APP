@@ -1864,6 +1864,8 @@ module.exports = (app) => {
 */
 	app.get('/api/v1/FindOneCity/:id', services.City.FindOneCity);
 	app.get('/api/v1/getOrdersByUserId/:id', services.Order.getOrderByUserId);
+	app.get('/api/v1/getOrdersByVendorId/:id', services.Order.getOrdersByVendorId);
+	app.get('/api/v1/getClosedOrderByVendorId/:id', services.Order.getClosedOrderByVendorId);
 	app.get('/api/v1/getCompletedOrdersByUserId/:id', services.Order.getCompletedOrderByUserId);
 	app.get('/api/v1/getCustomerPhoneNumber', services.Customer.getCustomerPhoneNumber);
 	app.post('/api/v1/loginVendor', services.Vendor.loginVendor);

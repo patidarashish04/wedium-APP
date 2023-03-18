@@ -6,6 +6,8 @@ const {
   deleteOrderById,
   getOrdersByUserId,
   getCompletedOrdersByUserId,
+  getOrderByVendorId,
+  getClosedOrdersByVendorId,
 } = require("../Order/function");
 const { getCityByid } = require("../City/function");
 const { getServicesByid } = require("../Services/function");
@@ -83,6 +85,46 @@ const getOrderByUserId = async (req, res, next) => {
       res.status(200).json({
         data: Order,
         success: true,
+        message: null,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message:
+          err.message || "Error Occurred while retriving Order information",
+      });
+      next(err);
+    });
+};
+
+// retrieve and return all Order
+const getOrdersByVendorId = async (req, res, next) => {
+  const id = req.params.id;
+  getOrderByVendorId(id)
+    .then((Order) => {
+      res.status(200).json({
+        data: Order,
+        success: true,
+        message: null,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message:
+          err.message || "Error Occurred while retriving Order information",
+      });
+      next(err);
+    });
+};
+
+// retrieve and return all Order
+const getClosedOrderByVendorId = async (req, res, next) => {
+  const id = req.params.id;
+  getClosedOrdersByVendorId(id)
+    .then((Order) => {
+      res.status(200).json({
+        data: Order ?? [],
+        success: Order == null ? false : true,
         message: null,
       });
     })
@@ -182,13 +224,11 @@ const updateOrder = async (req, res, next) => {
   })
     .then((data) => {
       if (!data) {
-        res
-          .status(404)
-          .json({
-            message: `Cannot Update order with ${
-              (cityId, serviceId)
-            }. Maybe service or city not found!`,
-          });
+        res.status(404).json({
+          message: `Cannot Update order with ${
+            (cityId, serviceId)
+          }. Maybe service or city not found!`,
+        });
       } else {
         res.status(200).json({ message: " Successfully updated Order" });
       }
@@ -250,11 +290,9 @@ const assignVendorToOrder = async (req, res, next) => {
   })
     .then((data) => {
       if (!data) {
-        res
-          .status(404)
-          .json({
-            message: `Cannot Update Vendor with ${vendorId}. Maybe Vendor not found!`,
-          });
+        res.status(404).json({
+          message: `Cannot Update Vendor with ${vendorId}. Maybe Vendor not found!`,
+        });
       } else {
         res
           .status(200)
@@ -279,11 +317,9 @@ const updateOrderStatus = async (req, res, next) => {
   })
     .then((data) => {
       if (!data) {
-        res
-          .status(404)
-          .json({
-            message: `Cannot Update Order Status with ${orderId}. Maybe order not found!`,
-          });
+        res.status(404).json({
+          message: `Cannot Update Order Status with ${orderId}. Maybe order not found!`,
+        });
       } else {
         res.status(200).json({ message: " Successfully Changed Order Status" });
       }
@@ -304,4 +340,6 @@ module.exports = {
   updateOrderStatus,
   getOrderByUserId,
   getCompletedOrderByUserId,
+  getOrdersByVendorId,
+  getClosedOrderByVendorId,
 };

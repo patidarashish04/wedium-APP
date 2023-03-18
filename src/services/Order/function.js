@@ -59,6 +59,26 @@ const getOrdersByUserId = async (id) => {
 };
 
 // delete category +
+const getOrderByVendorId = async (id) => {
+	try {
+		const dbResponse = await dbServices.Order.getOrderByVendorId(id);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
+
+// delete category +
+const getClosedOrdersByVendorId = async (id) => {
+	try {
+		const dbResponse = await dbServices.Order.getClosedOrderByVendorId(id);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
+
+// delete category +
 const getCompletedOrdersByUserId = async (id) => {
 	try {
 		const dbResponse = await dbServices.Order.getCompletedOrdersByUserId(id);
@@ -75,4 +95,6 @@ module.exports = {
 	deleteOrderById,
 	getOrdersByUserId,
 	getCompletedOrdersByUserId,
+	getOrderByVendorId,
+	getClosedOrdersByVendorId,
 }; 
