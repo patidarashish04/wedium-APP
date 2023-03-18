@@ -1869,6 +1869,7 @@ module.exports = (app) => {
 	app.get('/api/v1/getCompletedOrdersByUserId/:id', services.Order.getCompletedOrderByUserId);
 	app.get('/api/v1/getCustomerPhoneNumber', services.Customer.getCustomerPhoneNumber);
 	app.post('/api/v1/loginVendor', services.Vendor.loginVendor);
+	app.post('/api/v1/order/Complete', services.Order.completeBooking);
 
 
 };

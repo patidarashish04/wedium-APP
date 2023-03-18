@@ -8,6 +8,7 @@ const {
   getCompletedOrdersByUserId,
   getOrderByVendorId,
   getClosedOrdersByVendorId,
+  completeOrder,
 } = require("../Order/function");
 const { getCityByid } = require("../City/function");
 const { getServicesByid } = require("../Services/function");
@@ -260,6 +261,64 @@ const deleteOrder = async (req, res, next) => {
       });
     });
 };
+const completeBooking = async (req, res, next) => {
+  const id = req.body.orderId;
+  const otp = req.body.otp;
+  console.log("ORDER ID", id);
+  await completeOrder(id)
+    .then(async (order) => {
+      if (order) {
+        if (order.orderStatus === "COMPLETED") {
+          res.status(201).json({
+            message: "Already Completed",
+          });
+        } else {
+          if (order.otp === otp) {
+            // res.status(200).json({
+            //   message: "Success",
+            //   data: order,
+            // });
+            await updateOrderById(id, {
+              orderStatus: 'COMPLETED',
+              actionDate: Date.now(),
+            })
+              .then((data) => {
+                if (!data) {
+                  res.status(404).json({
+                    message: `Cannot Update Order Status with ${id}. Maybe order not found!`,
+                  });
+                } else {
+                  res
+                    .status(200)
+                    .json({ message: " Successfully Changed Order Status" });
+                }
+              })
+              .catch((err) => {
+                res
+                  .status(500)
+                  .json({ message: "Error Update Order Status", err });
+              });
+          } else {
+            res.status(400).json({
+              message: "Incorrect OTP",
+            });
+          }
+        }
+      } else {
+        res.status(404).json({
+          message: "Not found",
+          data: null,
+        });
+      }
+    })
+    .catch((err) => {
+      // console.log("Error" + err);
+      res.status(500).json({
+        message: "Error" + err,
+        err,
+      });
+    });
+};
 
 // assign vendor to order
 const assignVendorToOrder = async (req, res, next) => {
@@ -342,4 +401,5 @@ module.exports = {
   getCompletedOrderByUserId,
   getOrdersByVendorId,
   getClosedOrderByVendorId,
+  completeBooking,
 };

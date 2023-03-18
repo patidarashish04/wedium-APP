@@ -8,23 +8,26 @@ const getOrdersByUserId = async (id) =>
     userId: id,
     orderStatus: { $in: ["OPEN", "PROCESSING", "PENDING"] },
   });
-const getOrderByVendorId = async (_id) =>
-  {
-    console.log('QWERTYUI', _id);
-    return await Order.find({
-      "vendorData._id": mongoose.Types.ObjectId(_id),
-      orderStatus: { $in: ["OPEN", "PROCESSING", "PENDING"] },
-    });
-  };
+const getOrderByVendorId = async (_id) => {
+  console.log("QWERTYUI", _id);
+  return await Order.find({
+    "vendorData._id": mongoose.Types.ObjectId(_id),
+    orderStatus: { $in: ["OPEN", "PROCESSING", "PENDING"] },
+  });
+};
+const completeOrder = async (id) => {
+  return await Order.findOne({
+    _id: mongoose.Types.ObjectId(id),
+  });
+};
 
-const getClosedOrderByVendorId = async (_id) =>
-  {
-    console.log('QWERTYUI', _id);
-    return await Order.find({
-      "vendorData._id": mongoose.Types.ObjectId(_id),
-      orderStatus: { $in: ["CANCELED", "COMPLETED"] },
-    });
-  };
+const getClosedOrderByVendorId = async (_id) => {
+  console.log("QWERTYUI", _id);
+  return await Order.find({
+    "vendorData._id": mongoose.Types.ObjectId(_id),
+    orderStatus: { $in: ["CANCELED", "COMPLETED"] },
+  });
+};
 const getCompletedOrdersByUserId = async (id) =>
   await Order.find({
     userId: id,
@@ -44,4 +47,5 @@ module.exports = {
   getCompletedOrdersByUserId,
   getOrderByVendorId,
   getClosedOrderByVendorId,
+  completeOrder,
 };
