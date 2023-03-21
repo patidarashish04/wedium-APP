@@ -60,7 +60,9 @@ getFormattedPhone = (phone) => {
     }
   }
 
-  return _ph.split("").reverse().join("");
+  console.log('CUISTOMER NUMBER',`+91${_ph.split("").reverse().join("")}`);
+
+  return `+91${_ph.split("").reverse().join("")}`;
 };
 
 // retrieve and return all Customer
