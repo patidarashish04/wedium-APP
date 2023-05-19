@@ -82,7 +82,7 @@ const getserviceBySubCategory = async (req, res, next) => {
             if (SubCategory.length === 0) {
                 res.status(404).json({ message: "Not found SubCategory with id " + id });
             } else {
-                res.status(200).json(SubCategory);
+                res.status(200).json({message: "Success",data:SubCategory});
             }
         } catch (err) {
             res.status(500).json({ message: "Error retrieving SubCategory with id " + id });
