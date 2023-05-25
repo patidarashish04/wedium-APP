@@ -48,8 +48,7 @@ const orderSchema = new mongoose.Schema({
         default: 'OPEN'
     },
     orderDate: {
-        type: Date,
-        default: Date.now
+        type: String,
     },
     statusDate: {
         type: Date
