@@ -1,5 +1,5 @@
 {
-  "name": "wedium",
+  "name": "wedium-app",
   "version": "1.0.0",
   "description": "wedium",
   "main": "server.js",
@@ -10,6 +10,7 @@
   "author": "Ashish",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-sns": "^3.335.0",
     "aws-sdk": "^2.1286.0",
     "axios": "^1.2.1",
     "bcrypt": "^5.1.0",
@@ -30,12 +31,14 @@
     "form-data": "^4.0.0",
     "form-data-body": "^0.1.0",
     "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
     "mongoose": "^6.8.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^3.3.0",
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
+    "serverless": "^3.31.0",
     "swagger-jsdoc": "^6.0.0",
     "swagger-ui-express": "^4.6.0"
   },

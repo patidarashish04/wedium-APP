@@ -1,4 +1,10 @@
+# package directories
 node_modules
+jspm_packages
+
 package-lock.json
 .env.local
 TOKEN_SECRET
+# Serverless directories
+.serverless
+

@@ -9,6 +9,7 @@ const Banner = require('./Banner');
 const Customer = require('./Customer');
 const Store = require('./Store');
 const City = require('./City');
+const SNSMessage = require('./SNSMessage')
 
 module.exports = {
 	categories,
@@ -21,5 +22,6 @@ module.exports = {
 	Banner,
 	Customer,
 	Store,
-	City
+	City,
+	SNSMessage,
 };

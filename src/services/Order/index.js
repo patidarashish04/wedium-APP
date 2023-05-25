@@ -8,6 +8,7 @@ const {
 const { getCityByid } = require('../City/function');
 const { getServicesByid } = require('../Services/function');
 const { getVendorByid } = require('../Vendor/function');
+const moment = require('moment');
 
 // GET Order
 const createNewOrder = async (req, res, next) => {
@@ -35,6 +36,9 @@ const createNewOrder = async (req, res, next) => {
     } else {
       res.status(404).json({ message: 'service id not Found ' });
     }
+    const orderCreatedDate = Date.now();
+    const Date = moment(orderCreatedDate).format('DD-MM-YYYY');
+    body.orderDate = Date;
     const Order = await createOrders(body);
     res.status(200).json({ data: Order, message: "success" });
   } catch (error) {

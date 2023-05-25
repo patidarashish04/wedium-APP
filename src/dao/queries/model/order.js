@@ -1,14 +1,6 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    // vendorId: {
-    //     type: String,
-    //     allowNull: true,
-    // },
-    // serviceId: {
-    //     type: String,
-    //     required: [true, 'Please add a serviceId.'],
-    // },
     userId: {
         type: String,
         allowNull: true,
@@ -35,10 +27,6 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a Time Slot'],
     },
-    // cityId: {
-    //     type: String,
-    //     required: [true, 'Please add a cityId.'],
-    // },
     address: {
         type: String,
     },
@@ -48,8 +36,8 @@ const orderSchema = new mongoose.Schema({
         default: 'OPEN'
     },
     orderDate: {
-        type: Date,
-        default: Date.now
+        type: String,
+        // default: Date.now
     },
     statusDate: {
         type: Date
