@@ -80,7 +80,7 @@ const updateCity = async (req, res, next) => {
       res.status(500).json({ message: "Error Update City information" });
     });
 };
-
+// delete City
 const deleteCity = async (req, res, next) => {
   const id = req.params.id;
   await deleteCityByid(id)

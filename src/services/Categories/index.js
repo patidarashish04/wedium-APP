@@ -40,55 +40,6 @@ const getCategory = async (req, res, next) => {
             next(err);
         });
 };
-//*********************Pagination code for all data*******************************
-//     limitPage = parseInt(req.query.limit, 10) || 10;
-//     const pageChange = parseInt(req.query.page, 10) || 1;
-//     Product.paginate({}, { limit: limitPage, page: pageChange }).populate('category')
-//       .then((result) => {
-//         return res.status(200).json({
-//           message: "GET request to all getAllProducts",
-//           dataCount: result.length,
-//           result: result,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json({
-//           error: err,
-//         });
-//       });
-//   },
-
-// exports.displayProduct = async (req, res, next) => {
-//     //enable pagination
-//     const pageSize = 3;
-//     const page = Number(req.query.pageNumber) || 1;
-//     const count = await Product.find({}).estimatedDocumentCount();
-//     //all categories ids
-//     let ids = [];
-//     const categ = await Category.find({}, { _id: 1 });
-//     categ.forEach(cat => {
-//         ids.push(cat._id);
-//     })
-//     //filter
-//     let cat = req.query.cat;
-//     let query = cat !== '' ? cat : ids;
-//     try {
-//         const products = await Product.find({ category: query }).populate('category', 'name')
-//             .skip(pageSize * (page - 1))
-//             .limit(pageSize)
-//         res.status(200).json({
-//             success: true,
-//             products,
-//             page,
-//             pages: Math.ceil(count / pageSize),
-//             count
-//         })
-//     } catch (error) {
-//         console.log(error);
-//         next(error);
-//     }
-// }
 
 // retrive and return a single Category
 const FindOneCategory = async (req, res, next) => {

@@ -1,6 +1,6 @@
 const dbServices = require('../../dao/queries/index');
 
-// create category +
+// create SubCategory +
 const createSubCategory = async (SubCategory) => {
 	try {
 		const dbResponse = await dbServices.SubCategory.createSubCategory(SubCategory);
@@ -9,7 +9,7 @@ const createSubCategory = async (SubCategory) => {
 		throw new Error(err);
 	}
 };
-// get category by id +
+// get SubCategory by id +
 const getSubCategoryByid = async (id) => {
 	try {
 		const dbResponse = await dbServices.SubCategory.getSubCategoryByid(id);
@@ -28,7 +28,7 @@ const getSubCategoryByCategoryId = async (id) => {
 		throw new Error(err);
 	}
 };
-// get category by name +
+// get SubCategory by name +
 const getSubCategoryByName = async (name) => {
 	try {
 		const dbResponse = await dbServices.SubCategory.getSubCategoryByName(name);
@@ -37,7 +37,7 @@ const getSubCategoryByName = async (name) => {
 		throw new Error(err);
 	}
 };
-// get All category +
+// get All SubCategory +
 const getAllSubCategory = async () => {
 	try {
 		const dbResponse = await dbServices.SubCategory.getAllSubCategory();
@@ -46,7 +46,7 @@ const getAllSubCategory = async () => {
 		throw new Error(err);
 	}
 };
-// create category +
+// create SubCategory +
 const updateSubCategoryById = async (id, data) => {
 	try {
 		const dbResponse = await dbServices.SubCategory.updateSubCategoryById(id, data);
@@ -56,7 +56,7 @@ const updateSubCategoryById = async (id, data) => {
 	}
 };
 
-// delete category +
+// delete SubCategory +
 const deleteSubCategoryById = async (id) => {
 	try {
 		const dbResponse = await dbServices.SubCategory.deleteSubCategory(id);

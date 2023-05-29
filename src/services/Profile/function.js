@@ -1,5 +1,5 @@
 const dbServices = require('../../dao/queries/index');
-// create category +
+// create Profile +
 const createProfile = async (profile) => {
     try {
         const dbResponse = await dbServices.Profile.createProfile(profile);
@@ -8,7 +8,7 @@ const createProfile = async (profile) => {
         throw new Error(err);
 	}
 };
-// get category by id +
+// get Profile by id +
 const getProfileByid = async (id) => {
     try {
         const dbResponse = await dbServices.Profile.getProfileByid(id);
@@ -17,7 +17,7 @@ const getProfileByid = async (id) => {
         throw new Error(err);
 	}
 };
-// get All category +
+// get All Profile +
 const getAllProfile = async () => {
     try {
         const dbResponse = await dbServices.Profile.getAllProfile();
@@ -26,7 +26,7 @@ const getAllProfile = async () => {
 		throw new Error(err);
 	}
 };
-// create category +
+// update Profile +
 const updateProfileByid = async (id, data) => {
     try {
         const dbResponse = await dbServices.Profile.updateProfileByid(id, data);
@@ -36,7 +36,7 @@ const updateProfileByid = async (id, data) => {
 	}
 };
 
-// delete category +
+// delete Profile +
 const deleteProfileByid = async (id) => {
     try {
         const dbResponse = await dbServices.Profile.deleteProfileByid(id);

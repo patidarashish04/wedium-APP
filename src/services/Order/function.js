@@ -1,6 +1,6 @@
 const dbServices = require("../../dao/queries/index");
 
-// create category +
+// create Orders +
 const createOrders = async (orderBody) => {
   try {
     const dbResponse = await dbServices.Order.createOrders(orderBody);
@@ -10,7 +10,7 @@ const createOrders = async (orderBody) => {
     throw Error(err);
   }
 };
-// get category by id +
+// get Orders by id +
 const getOrderByid = async (id) => {
   try {
     const dbResponse = await dbServices.Order.getOrderByid(id);
@@ -19,7 +19,7 @@ const getOrderByid = async (id) => {
     throw new Error(err);
   }
 };
-// get All category +
+// get All Orders +
 const getAllOrder = async () => {
   try {
     const dbResponse = await dbServices.Order.getAllOrder();
@@ -28,7 +28,7 @@ const getAllOrder = async () => {
     throw new Error(err);
   }
 };
-// create category +
+// update Orders +
 const updateOrderById = async (id, data) => {
   try {
     const dbResponse = await dbServices.Order.updateOrderById(id, data);
@@ -38,7 +38,7 @@ const updateOrderById = async (id, data) => {
   }
 };
 
-// delete category +
+// delete Orders by id +
 const deleteOrderById = async (id) => {
   try {
     const dbResponse = await dbServices.Order.deleteOrderById(id);
@@ -48,7 +48,7 @@ const deleteOrderById = async (id) => {
   }
 };
 
-// delete category +
+// get completeOrder +
 const completeOrder = async (id) => {
   try {
     const dbResponse = await dbServices.Order.completeOrder(id);
@@ -58,7 +58,7 @@ const completeOrder = async (id) => {
   }
 };
 
-// delete category +
+// get getOrdersByUserId +
 const getOrdersByUserId = async (id) => {
   try {
     const dbResponse = await dbServices.Order.getOrdersByUserId(id);
@@ -68,7 +68,7 @@ const getOrdersByUserId = async (id) => {
   }
 };
 
-// delete category +
+// get getOrderByVendorId +
 const getOrderByVendorId = async (id) => {
   try {
     const dbResponse = await dbServices.Order.getOrderByVendorId(id);
@@ -78,7 +78,7 @@ const getOrderByVendorId = async (id) => {
   }
 };
 
-// delete category +
+// get getClosedOrdersByVendorId +
 const getClosedOrdersByVendorId = async (id) => {
   try {
     const dbResponse = await dbServices.Order.getClosedOrderByVendorId(id);
@@ -88,7 +88,7 @@ const getClosedOrdersByVendorId = async (id) => {
   }
 };
 
-// delete category +
+// CompletedOrdersByUserId  +
 const getCompletedOrdersByUserId = async (id) => {
   try {
     const dbResponse = await dbServices.Order.getCompletedOrdersByUserId(id);

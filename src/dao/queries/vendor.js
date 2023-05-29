@@ -8,8 +8,6 @@ const getAllVendor = () => Vendor.find();
 const updateVendorById = (id, data) => Vendor.findByIdAndUpdate(id, data);
 const deleteVendorbyid = (id) => Vendor.findByIdAndDelete(id);
 const loginVendors = (email, password) => {
-//   console.log("logguiiiin ", email);
-//   console.log("logguiiiin ", password);
   return Vendor.findOne({ $and: [{ email: email }, { password: password }] });
 };
 

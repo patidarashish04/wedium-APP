@@ -16,7 +16,7 @@ const { getVendorByid } = require("../Vendor/function");
 const { Order } = require("..");
 const moment = require('moment');
 
-// GET Order
+// create Order
 const createNewOrder = async (req, res, next) => {
   try {
     const body = req.body;

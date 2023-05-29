@@ -138,7 +138,7 @@ const updateCustomer = async (req, res, next) => {
       res.status(500).json({ message: "Error Update Customer information" });
     });
 };
-
+// delete Customer
 const deleteCustomer = async (req, res, next) => {
   const id = req.params.id;
   await deleteCustomerByid(id)

@@ -18,6 +18,15 @@ const getUserByPhone = async (phone) => {
 		throw new Error(err);
 	}
 };
+// get otp by phone +
+const getOTPByPhone = async (phone) => {
+	try {
+		const dbResponse = await dbServices.User.getOTPByPhone(phone);
+		return dbResponse;
+	} catch (err) {
+		throw new Error(err);
+	}
+};
 
 // get User  +
 const getUserdata = async (data) => {
@@ -62,5 +71,6 @@ module.exports = {
 	getUserdata,
 	getAllUser,
 	updateUserById,
-	deleteUserById
+	deleteUserById,
+	getOTPByPhone
 };

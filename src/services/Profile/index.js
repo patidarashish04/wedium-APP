@@ -30,25 +30,6 @@ const getProfile = async (req, res, next) => {
                 next(err);
             })
 }
-//*********************Pagination code for all data*******************************
-//     limitPage = parseInt(req.query.limit, 10) || 10;
-//     const pageChange = parseInt(req.query.page, 10) || 1;
-//     Product.paginate({}, { limit: limitPage, page: pageChange }).populate('profile')
-//       .then((result) => {
-//         return res.status(200).json({
-//           message: "GET request to all getAllProducts",
-//           dataCount: result.length,
-//           result: result,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json({
-//           error: err,
-//         });
-//       });
-//   },
-
 
 // retrive and return a single profile
 const FindOneProfile = async (req, res, next) => {
@@ -90,6 +71,7 @@ const updateProfile = async (req, res, next) => {
         })
 }
 
+// delete profile
 const deleteProfile = async (req, res, next) => {
     const id = req.params.id;
     await deleteProfileByid(id)

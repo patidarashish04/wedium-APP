@@ -1,4 +1,3 @@
-// const Services = require('../../dao/queries/model/services');
 const { getSubCategoryByid } = require('../SubCategories/functions');
 const { createServices, getServicesByid, getserviceBySubCategoryid, BestSeller, getAllServices, updateServicesById, deleteServicesById, getServicesByName } = require('../Services/function');
 

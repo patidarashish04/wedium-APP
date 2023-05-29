@@ -1872,4 +1872,8 @@ module.exports = (app) => {
 	app.post('/api/v1/order/Complete', services.Order.completeBooking);
 
 
+	//sns service
+	app.post('/api/v1/users/verifyOTP', services.User.verifyOTP);
+
+
 };

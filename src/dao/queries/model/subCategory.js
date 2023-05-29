@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-    // categoryId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'category',
-    //     required: [true, 'SubCategory must be belong to parent category'],
-    // },
     categoryData: {
         type: Object,
     },
