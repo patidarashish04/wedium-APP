@@ -9,12 +9,13 @@ const {
   getOrderByVendorId,
   getClosedOrdersByVendorId,
   completeOrder,
+  getOrderByPhoneNumber,
 } = require("../Order/function");
 const { getCityByid } = require("../City/function");
 const { getServicesByid } = require("../Services/function");
 const { getVendorByid } = require("../Vendor/function");
 const { Order } = require("..");
-const moment = require('moment');
+const moment = require("moment");
 
 // create Order
 const createNewOrder = async (req, res, next) => {
@@ -63,10 +64,10 @@ const createNewOrder = async (req, res, next) => {
         return res.status(500).json({ message: "service data not found." });
       }
       body.vendorData = vendor;
-    } 
-    const orderCreatedDate = Date.now();
-    const newDate = moment(orderCreatedDate).format('DD-MM-YYYY');
-    body.orderDate = newDate;
+    }
+    // const orderCreatedDate = Date.now();
+    // const newDate = moment(orderCreatedDate).format('DD-MM-YYYY');
+    // body.orderDate = newDate;
     const Order = await createOrders(body);
     res.status(200).json({ data: Order, message: "success" });
   } catch (error) {
@@ -96,6 +97,25 @@ const getOrderList = async (req, res, next) => {
 const getOrderByUserId = async (req, res, next) => {
   const id = req.params.id;
   getOrdersByUserId(id)
+    .then((Order) => {
+      res.status(200).json({
+        data: Order,
+        success: true,
+        message: null,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message:
+          err.message || "Error Occurred while retriving Order information",
+      });
+      next(err);
+    });
+};
+// retrieve and return all Order by only phone number
+const getOrderByUserPhoneNumber = async (req, res, next) => {
+  const phoneNumber = req.params.id;
+  getOrderByPhoneNumber(phoneNumber)
     .then((Order) => {
       res.status(200).json({
         data: Order,
@@ -236,6 +256,7 @@ const updateOrder = async (req, res, next) => {
     address: body.address,
     phone: body.phone,
     orderStatus: body.orderStatus,
+    orderDate: body.orderDate,
   })
     .then((data) => {
       if (!data) {
@@ -416,4 +437,5 @@ module.exports = {
   getOrdersByVendorId,
   getClosedOrderByVendorId,
   completeBooking,
+  getOrderByUserPhoneNumber,
 };

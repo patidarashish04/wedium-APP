@@ -1862,18 +1862,36 @@ module.exports = (app) => {
 *       404:
 *         description: The City was not found
 */
+
+
+
+    app.get('/api/v1/getOrderList', services.Order.getOrderList);
 	app.get('/api/v1/FindOneCity/:id', services.City.FindOneCity);
 	app.get('/api/v1/getOrdersByUserId/:id', services.Order.getOrderByUserId);
+	app.get('/api/v1/getOrderByUserPhoneNumber/:id', services.Order.getOrderByUserPhoneNumber);
 	app.get('/api/v1/getOrdersByVendorId/:id', services.Order.getOrdersByVendorId);
 	app.get('/api/v1/getClosedOrderByVendorId/:id', services.Order.getClosedOrderByVendorId);
 	app.get('/api/v1/getCompletedOrdersByUserId/:id', services.Order.getCompletedOrderByUserId);
 	app.get('/api/v1/getCustomerPhoneNumber', services.Customer.getCustomerPhoneNumber);
 	app.post('/api/v1/loginVendor', services.Vendor.loginVendor);
 	app.post('/api/v1/order/Complete', services.Order.completeBooking);
-
+	app.patch('/api/v1/updateCity/:id', services.City.updateCity);
+	app.delete('/api/v1/deleteCity/:id', services.City.deleteCity);
 
 	//sns service
 	app.post('/api/v1/users/verifyOTP', services.User.verifyOTP);
+
+	app.get('/api/v1/getPromoCodeList', services.PromoCode.getPromoCodeList);
+	app.post('/api/v1/createPromoCode', services.PromoCode.createPromoCode);
+	// update
+
+	
+	app.get('/api/v1/getDocumentList', services.Docs.getDocumentList);
+
+    app.post('/api/v1/create_order', services.Payment.createPaymentOrderHandler);
+	app.post('/api/v1/check_order_status', services.Payment.checkOrderStatusHandler);
+
+
 
 
 };

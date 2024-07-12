@@ -37,6 +37,7 @@ const orderSchema = new mongoose.Schema({
     },
     orderDate: {
         type: String,
+        required: [true, 'Please add Booking Date'],
     },
     statusDate: {
         type: Date

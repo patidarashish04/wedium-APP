@@ -36,7 +36,8 @@ const getCustomersPhoneNumber = async (phone) => {
     const dbResponse = await dbServices.Customer.getCustomerPhoneNumber(phone);
     return dbResponse;
   } catch (err) {
-    throw new Error(err);
+    console.log(`ERROR IN PHONE NUMBER ${err}`);
+    return null;
   }
 };
 // get All Customer +

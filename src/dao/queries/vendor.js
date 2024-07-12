@@ -7,8 +7,11 @@ const getVendorByid = (id) => Vendor.findById(id);
 const getAllVendor = () => Vendor.find();
 const updateVendorById = (id, data) => Vendor.findByIdAndUpdate(id, data);
 const deleteVendorbyid = (id) => Vendor.findByIdAndDelete(id);
-const loginVendors = (email, password) => {
-  return Vendor.findOne({ $and: [{ email: email }, { password: password }] });
+// const loginVendors = (email, password) => {
+//   return Vendor.findOne({ $and: [{ email: email }, { password: password }] });
+// };
+const loginVendors = (email) => {
+  return Vendor.findOne({ email: email });
 };
 
 module.exports = {

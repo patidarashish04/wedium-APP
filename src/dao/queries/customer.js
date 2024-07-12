@@ -8,12 +8,16 @@ const getCustomerByid = (id) => Customer.findById(id);
 const getAllCustomer = () => Customer.find();
 const updateCustomerByid = (id, data) => Customer.findByIdAndUpdate(id, data);
 const deleteCustomerByid = (id) => Customer.findByIdAndDelete(id);
-const getCustomerPhoneNumber = (phone) =>
-  Order.findOne({
-    phone: { $regex: phone },
+const getCustomerPhoneNumber = async (phone) => {
+  const order = await Order.findOne({
+    phone: phone,
     orderStatus: { $in: ["OPEN", "PENDING", "PROCESSING"] },
     vendorData: { $exists: true },
-  });
+  }).exec();
+
+  console.log("Vendor Phone Number:", order.vendorData.phone);
+  return order;
+};
 
 module.exports = {
   createCustomer,

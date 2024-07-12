@@ -52,17 +52,23 @@ const getCustomer = async (req, res, next) => {
 };
 
 getFormattedPhone = (phone) => {
-  let _ph = "";
+  // Check if phone is defined and has a length property
+  if (phone && phone.length) {
+    let _ph = "";
 
-  for (var i = phone.length; i > 0; i--) {
-    if (_ph.split("").length != 10) {
-      _ph += phone[i - 1];
+    for (var i = phone.length; i > 0; i--) {
+      if (_ph.split("").length != 10) {
+        _ph += phone[i - 1];
+      }
     }
+
+    console.log("CUSTOMER NUMBER", `+91${_ph.split("").reverse().join("")}`);
+
+    return `+91${_ph.split("").reverse().join("")}`;
+  } else {
+    console.error("Invalid phone number: ", phone);
+    return "Invalid phone number";
   }
-
-  
-
-  return _ph.split("").reverse().join("");
 };
 
 // retrieve and return all Customer
@@ -75,12 +81,14 @@ const getCustomerPhoneNumber = async (req, res, next) => {
   getCustomersPhoneNumber(getFormattedPhone(vendorPhone)).then(
     async (order) => {
       try {
+        const phone = getFormattedPhone(order.vendorData.phone);
         if (order != null) {
-          const number = `+91${getFormattedPhone(order.vendorData.phone)}`;
-          console.log('CUISTOMER NUMBER',number);
-          res
-            .status(200)
-            .json(number);
+          res.status(200).send({
+            destination: {
+              numbers: [phone],
+            },
+            record: true,
+          });
         } else {
           res.status(404).json({ message: "order not found" });
         }

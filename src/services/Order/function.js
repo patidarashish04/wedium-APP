@@ -25,13 +25,16 @@ const getAllOrder = async () => {
     const dbResponse = await dbServices.Order.getAllOrder();
     return dbResponse;
   } catch (err) {
-    throw new Error(err);
+    throw new Error(err.message);
   }
 };
+
 // update Orders +
 const updateOrderById = async (id, data) => {
   try {
     const dbResponse = await dbServices.Order.updateOrderById(id, data);
+    console.log("REQ : ", data);
+    // console.log("RES : ", dbResponse);
     return dbResponse;
   } catch (err) {
     throw new Error(err);
@@ -62,6 +65,16 @@ const completeOrder = async (id) => {
 const getOrdersByUserId = async (id) => {
   try {
     const dbResponse = await dbServices.Order.getOrdersByUserId(id);
+    return dbResponse;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+// get getOrdersByPhoneNumber
+const getOrderByPhoneNumber = async (phoneNumber) => {
+  try {
+    const dbResponse = await dbServices.Order.getOrderByPhoneNumber(phoneNumber);
     return dbResponse;
   } catch (err) {
     throw new Error(err);
@@ -108,4 +121,5 @@ module.exports = {
   getOrderByVendorId,
   getClosedOrdersByVendorId,
   completeOrder,
+  getOrderByPhoneNumber,
 };

@@ -95,7 +95,18 @@ const updateVendor = async (req, res, next) => {
   if (!id.match(/^[0-9a-fA-F]{24}$/)) {
     return res.status(500).json({ message: "Invalid Category id." });
   }
-  await updateVendorById(id, data)
+  // Encrypt user password
+  encryptedPassword = await bcrypt.hash(data.password, 5);
+  const vendor = {
+    name: data.name,
+    email: data.email.toLowerCase(), // sanitize: convert email to lowercase
+    password: encryptedPassword,
+    phone: data.phone,
+    profileImage: data.profileImage,
+    aadharcardupload: data.aadharcardupload,
+    pancardupload: data.pancardupload,
+  };
+  await updateVendorById(id, vendor)
     .then((data) => {
       if (!data) {
         res.status(404).json({
@@ -138,29 +149,51 @@ const deleteVendor = async (req, res, next) => {
 };
 
 // delete vendor
+// const loginVendor = async (req, res, next) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
+
+//   await loginVendors(email, password).then((vendor) => {
+//     try {
+//       console.log("logguiiiin  guhgui", vendor);
+//       if (vendor) {
+//         res.status(200).json({
+//           message: "Vendor Found",
+//           data: vendor,
+//         });
+//       } else {
+//         res.status(404).json({
+//           message: "Vendor Not Found",
+//         });
+//       }
+//     } catch (error) {
+//       res.status(error).json({
+//         message: "Error" + error,
+//       });
+//     }
+//   });
+// };
 const loginVendor = async (req, res, next) => {
   const email = req.body.email;
-  const password = req.body.password;
 
-  await loginVendors(email, password).then((vendor) => {
-    try {
-      console.log("logguiiiin  guhgui", vendor);
-      if (vendor) {
-        res.status(200).json({
-          message: "Vendor Found",
-          data: vendor,
-        });
-      } else {
-        res.status(404).json({
-          message: "Vendor Not Found",
-        });
-      }
-    } catch (error) {
-      res.status(error).json({
-        message: "Error" + error,
+  try {
+    const vendor = await loginVendors(email);
+
+    if (vendor && (await bcrypt.compare(req.body.password, vendor.password))) {
+      res.status(200).json({
+        message: "Vendor Found",
+        data: vendor,
+      });
+    } else {
+      res.status(404).json({
+        message: "Vendor Not Found",
       });
     }
-  });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error: " + error,
+    });
+  }
 };
 
 module.exports = {

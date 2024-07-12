@@ -85,7 +85,7 @@ const uploadToS3 = (file) => {
 // upload vendor image to S3
 const loginVendors = async (email, password) => {
   try {
-    const dbResponse = await dbServices.Vendor.loginVendors(email, password);
+    const dbResponse = await dbServices.Vendor.loginVendors(email);
     return dbResponse;
   } catch (err) {
     throw new Error(err);

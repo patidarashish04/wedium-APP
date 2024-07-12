@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const imageSchema = new mongoose.Schema({
+    image: {
+        type: String,
+        required: true,
+    },
+    order: {
+        type: Number,
+        default: 0,
+    },
+});
+
 const categorySchema = new mongoose.Schema({
     subCatgoryData: {
         type: Object,
@@ -10,11 +21,7 @@ const categorySchema = new mongoose.Schema({
         required: [true, 'Please add a service_name'],
         unique:true,
     },
-    image: {
-        type: [String], default: [],
-        required: [true, 'Please add a image'],
-        default: null,
-    },
+    image: [imageSchema], // Updated to store an array of image objects
     absoluteServicePath: {
         type: String,
         default: null,

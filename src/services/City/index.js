@@ -58,7 +58,8 @@ const FindOneCity = async (req, res, next) => {
 };
 
 // update City
-const updateCity = async (req, res, next) => {
+const updateCity = async (req, res) => {
+  console.log("INFO : ", "poiuytrew");
   const data = req.body;
   if (!data) {
     return res.status(400).json({ message: "Data to update can not be empty" });
